@@ -68,7 +68,7 @@
                          with font-awesome or any other icon font library -->
                     <li class="nav-header">Accesos</li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ url('/streamer') }}" class="nav-link">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
                                 Inicio
@@ -113,7 +113,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{url('/streamer/config')}}" class="nav-link">
                             <i class="nav-icon fas fa-cog"></i>
                             <p>
                                 Configuración
