@@ -27,6 +27,8 @@ Route::get('/streamer', function () {
     return view('/streamer/index');
 });
 
+use App\Http\Controllers\MessageController;
+Route::get('/message', [MessageController::class, 'index']);
 /* ---- user ---- */
 Route::get('/user', function () {
     return view('/user/index');
