@@ -15,25 +15,46 @@ use App\Http\Controllers\ConfiguracionController;
 |
 */
 
+
+/* ---- AUTH ROUTES ---- */
+
+Route::view('home','home')->middleware('auth');
+
+/* ---- / AUTH ROUTES ---- */
+
+/* ---- PUBLIC ROUTES ---- */
+
 Route::get('/', function () {
     return view('welcome');
 });
 
+/* ---- / PUBLIC ROUTES ---- */
+
 /* ---- SUPER USER ---- */
+
 Route::get('/admin', function () {
     return view('/admin/index');
 });
 
+/* ---- / SUPER USER ---- */
+
+
 /* ---- STREAMER ---- */
+
 Route::get('/streamer', function () {
     return view('/streamer/index');
 });
 
+// modulo de configuracion para streamer
+Route::get('/streamer/config', [ConfiguracionController::class, 'index']);
+
+/* ---- /STREAMER ---- */
+
 Route::get('/message', [MessageController::class, 'index']);
-/* ---- user ---- */
+
+
+/* ---- USER ---- */
 Route::get('/user', function () {
     return view('/user/index');
 });
 
-// modulo de configuracion para streamer 
-Route::get('/streamer/config', [ConfiguracionController::class, 'index']);
