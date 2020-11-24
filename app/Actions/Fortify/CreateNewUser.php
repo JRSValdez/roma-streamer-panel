@@ -29,12 +29,40 @@ class CreateNewUser implements CreatesNewUsers
                 'max:255',
                 Rule::unique(User::class),
             ],
+            'type' => [
+                'string',
+                'nullable'
+            ],
+            'streamer_user' => [
+                'string',
+                'nullable',
+                'max:20',
+                'min:3'
+            ],
+            'sn_1' => [
+                'string',
+                'nullable',
+                'max:260'
+            ],
+            'sn_2' => [
+                'string',
+                'nullable',
+                'max:260'
+            ],
             'password' => $this->passwordRules(),
         ])->validate();
+
+        $streamerAttributes = [
+            'user' => $input['streamer_user'],
+            'facebook_url' => $input['sn_1'],
+            'youtube_url' => $input['sn_2'],
+        ];
 
         return User::create([
             'name' => $input['name'],
             'email' => $input['email'],
+            'type' => isset($input['type']) ? ( $input['type'] === 'on' ? 0 : 1 ) : 1, /*0 = user, 1 = streamer*/
+            'streamer_attributes' => json_encode($streamerAttributes),
             'password' => Hash::make($input['password']),
         ]);
     }
