@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>@yield('title')</title>
+    <link rel="stylesheet" href="{{ asset('css/datatables.css') }}">
     @include('layouts.styles')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -86,7 +87,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ url('/streamer/codigos') }}" class="nav-link">
                             <i class="nav-icon fas fa-barcode"></i>
                             <p>
                                 Códigos
@@ -185,8 +186,25 @@
     <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-
+<script src="{{ asset('js/datatables.js') }}"></script>
 @include('layouts.js')
-
+<script type="text/javascript">
+            $(document).ready(function(){
+                // alert('table')
+                var table = $('#codigo_lista').DataTable({
+                    processing: true,
+                    serverSide: true,
+                    ajax: "{{ route('streamer.codigos') }}",
+                    columns: [
+                        {data: 'codigo', name: 'codigo'},
+                        {data: 'premio', name: 'premio'},
+                        {data: 'max_gans', name: 'max_gans'},
+                        {data: 'estado', name: 'estado'},
+                        {data: 'fecha_creacion', name: 'fecha_creacion'}
+                    ]
+                });
+                
+              });
+        </script>
 </body>
 </html>

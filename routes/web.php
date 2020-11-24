@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\ConfiguracionController;
+use App\Http\Controllers\CodigoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -47,6 +48,9 @@ Route::get('/streamer', function () {
 
 // modulo de configuracion para streamer
 Route::get('/streamer/config', [ConfiguracionController::class, 'index']);
+
+// modulo de codigos para streamer 
+Route::get('/streamer/codigos', [CodigoController::class, 'index'])->name('streamer.codigos');
 
 /* ---- /STREAMER ---- */
 
