@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\RouletteController;
 use App\Http\Controllers\ConfiguracionController;
 
 /*
@@ -51,6 +52,7 @@ Route::get('/streamer/config', [ConfiguracionController::class, 'index']);
 /* ---- /STREAMER ---- */
 
 Route::get('/message', [MessageController::class, 'index']);
+Route::get('/roulette', [RouletteController::class, 'index']);
 
 
 /* ---- USER ---- */
