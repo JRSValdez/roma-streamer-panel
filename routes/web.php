@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\RouletteController;
 use App\Http\Controllers\ConfiguracionController;
+use Illuminate\Support\Facades\Auth;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,44 +20,63 @@ use App\Http\Controllers\ConfiguracionController;
 
 /* ---- AUTH ROUTES ---- */
 
-Route::view('home','home')->middleware('auth');
+Route::middleware('auth')->group(function () {
+
+    Route::get('/', function () {
+        $user = Auth::user();
+        $view = '';
+        switch ($user->type == 1){
+            case 1:
+                $view = '/streamer';
+                break;
+            case 2:
+                $view = '/admin';
+                break;
+            default:
+                $view = '/user';
+                break;
+        }
+
+        return redirect($view);
+    });
+
+    /* ---- SUPER USER ---- */
+
+    Route::get('/admin', function () {
+        return view('/admin/index');
+    });
+
+    /* ---- / SUPER USER ---- */
+
+    /* ---- STREAMER ---- */
+
+    Route::get('/streamer', function () {
+        return view('/streamer/index');
+    });
+
+// modulo de configuracion para streamer
+    Route::get('/streamer/config', [ConfiguracionController::class, 'index']);
+
+    Route::get('/message', [MessageController::class, 'index']);
+    Route::get('/roulette', [RouletteController::class, 'index']);
+
+    /* ---- /STREAMER ---- */
+
+    /* ---- USER ---- */
+
+    Route::get('/user', function () {
+        return view('/user/index');
+    });
+
+    /* ---- / USER ---- */
+
+});
 
 /* ---- / AUTH ROUTES ---- */
 
 /* ---- PUBLIC ROUTES ---- */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 /* ---- / PUBLIC ROUTES ---- */
 
-/* ---- SUPER USER ---- */
-
-Route::get('/admin', function () {
-    return view('/admin/index');
-});
-
-/* ---- / SUPER USER ---- */
-
-
-/* ---- STREAMER ---- */
-
-Route::get('/streamer', function () {
-    return view('/streamer/index');
-});
-
-// modulo de configuracion para streamer
-Route::get('/streamer/config', [ConfiguracionController::class, 'index']);
-
-/* ---- /STREAMER ---- */
-
-Route::get('/message', [MessageController::class, 'index']);
-Route::get('/roulette', [RouletteController::class, 'index']);
-
-
-/* ---- USER ---- */
-Route::get('/user', function () {
-    return view('/user/index');
-});
 
