@@ -25,7 +25,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         $user = Auth::user();
         $view = '';
-        switch ($user->type == 1){
+        switch ($user->type){
             case 1:
                 $view = '/streamer';
                 break;
@@ -54,11 +54,11 @@ Route::middleware('auth')->group(function () {
         return view('/streamer/index');
     });
 
-// modulo de configuracion para streamer
+    // modulo de configuracion para streamer
     Route::get('/streamer/config', [ConfiguracionController::class, 'index']);
 
-    Route::get('/message', [MessageController::class, 'index']);
-    Route::get('/roulette', [RouletteController::class, 'index']);
+    Route::get('/streamer/message', [MessageController::class, 'index']);
+    Route::get('/streamer/roulette', [RouletteController::class, 'index']);
 
     /* ---- /STREAMER ---- */
 
