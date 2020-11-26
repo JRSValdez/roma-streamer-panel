@@ -46,6 +46,25 @@ Route::middleware('auth')->group(function () {
         return view('/admin/index');
     });
 
+    Route::get('/admin/usuarios_registrados', function () {
+        return view('/admin/Usuarios_Registrados');
+    });
+    
+    Route::get('/admin/crear_usuarios', function () {
+        return view('/admin/Crear_Usuarios');
+    });
+    Route::get('/admin/redes_sociales', function () {
+        return view('/admin/Redes_Sociales');
+    });
+    Route::get('/admin/configuraciones', function () {
+        return view('/admin/Configuraciones');
+    });
+    Route::get('/admin/configuracion_encuesta', function () {
+        return view('/admin/Configuracion_Encuestas');
+    });
+    Route::get('/admin/configuracion_ruleta', function () {
+        return view('/admin/Configuracion_Ruleta');
+    });
     /* ---- / SUPER USER ---- */
 
     /* ---- STREAMER ---- */
@@ -72,9 +91,12 @@ Route::middleware('auth')->group(function () {
 
 });
 
+
 /* ---- / AUTH ROUTES ---- */
 
 /* ---- PUBLIC ROUTES ---- */
 
 
 /* ---- / PUBLIC ROUTES ---- */
+
+
