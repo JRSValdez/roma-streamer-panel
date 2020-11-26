@@ -57,8 +57,8 @@ Route::middleware('auth')->group(function () {
 // modulo de configuracion para streamer
     Route::get('/streamer/config', [ConfiguracionController::class, 'index']);
 
-    Route::get('/message', [MessageController::class, 'index']);
-    Route::get('/roulette', [RouletteController::class, 'index']);
+    Route::get('/streamer/mensaje', [MessageController::class, 'index']);
+    Route::get('/streamer/ruleta', [RouletteController::class, 'index']);
 
     /* ---- /STREAMER ---- */
 
