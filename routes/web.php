@@ -78,5 +78,3 @@ Route::middleware('auth')->group(function () {
 
 
 /* ---- / PUBLIC ROUTES ---- */
-
-
