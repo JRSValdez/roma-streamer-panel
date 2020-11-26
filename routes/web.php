@@ -49,7 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/usuarios_registrados', function () {
         return view('/admin/Usuarios_Registrados');
     });
-    
+
     Route::get('/admin/crear_usuarios', function () {
         return view('/admin/Crear_Usuarios');
     });
@@ -78,6 +78,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/streamer/message', [MessageController::class, 'index']);
     Route::get('/streamer/roulette', [RouletteController::class, 'index']);
+
+    Route::get('/streamer/spin_roulette', function (){
+        return view('streamer.spin_roulette');
+    });
 
     /* ---- /STREAMER ---- */
 
