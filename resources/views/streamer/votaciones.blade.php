@@ -2,24 +2,30 @@
 
 @section('title', 'Streamer')
 
+@section('panel_actual')
+    <i class="fas fa-rocket mr-2 ml-2"></i>Panel de votaciones
+@endsection
+        
+@section('page_actual', 'Votaciones')
+
 @section('content')
-    <div>
+    @include('streamer.modales.modal_votaciones')
+    <div class="container-fluid">
         <section class="content">
-            <div class="row">
-                <div class="col-lg-8">
                     <div class="input-group input-group-sm">
                         <div class="row"  style="width: 100%">
-                            <div class="col-md-11" style="width: 100%">
+                            <div class="col-md-8" style="width: 100%">
                                 <p id="link-message" class="links-copy">Links</p>
                             </div>
-                            <div class="col-md-1" style="align-content: end; align-items: end">
+                            <div class="col-md-4 text-right">
                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-info btn-flat" onclick="">Copiar</button>
+                                    <button type="button" class="btn bg-gradient-info" onclick="">Copiar link</button>
+                                    <button class="btn bg-gradient-primary ml-2" data-toggle="modal" data-target="#createVotationModal"><i class="fas fa-hand-sparkles mr-2 ml-2"></i> Crear Votación</button>
                                 </span>
                             </div>
                         </div>
                     </div>
-                    <div class="card">
+                    <div class="card mt-3">
                         <div class="card-header">
                             <h3 class="card-title">Últimos loots</h3>
                             <div class="card-tools">
@@ -52,54 +58,6 @@
                         </div>
 
                     </div>
-                </div>
-                <div class="col-lg-4">
-                    <div>
-                        <button class="btn btn-primary btn-lg btn-block" data-toggle="modal" data-target="#createVotationModal">Crear Votación</button>
-                    </div>
-                    <br>
-                </div>
-            </div>
-            <!-- Modal -->
-            <div class="modal fade modal" id="createVotationModal" tabindex="-1" role="dialog" aria-labelledby="createVotationModalLabel" aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-body modal-content">
-                        <div class="note-modal-header">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">×</span>
-                            </button>
-                            <h5 class="modal-title" id="createVotationModalTitle">Crea tu encuesta</h5>
-                        </div>
-                        <div class="modal-body">
-                            <form id="create-votation-form" method="post">
-                                <div class="form-group">
-                                    <div id="error-content" class="bg-danger"></div>
-                                </div>
-                                <div class="form-group">
-                                    <input type="hidden" id="id_streamer" name="id_streamer" value="1127">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="question">¿Que quieres preguntar?</label>
-                                    <input type="text" id="question" name="question" value="" class="form-control" placeholder="Haz tu pregunta">
-                                </div>
-
-                                <div class="form-group">
-                                    <label for="max_reclaims">Opciones</label>
-                                    <input type="text" name="options[0]" value="" class="form-control" placeholder="Si">
-                                </div>
-                                <div class="form-group">
-                                    <input type="text" name="options[1]" value="" class="form-control" placeholder="No">
-                                </div>
-                            </form>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                            <button id="create-votation-submit" type="button" class="btn btn-primary">Crear</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </section>
     </div>
 @endsection
