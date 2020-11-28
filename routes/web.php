@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Auth;
 
 /* ---- AUTH ROUTES ---- */
 
-Route::middleware('auth')->group(function () {
+// Route::middleware('auth')->group(function () {
 
     Route::get('/', function () {
         $user = Auth::user();
@@ -101,7 +101,7 @@ Route::middleware('auth')->group(function () {
 
     /* ---- / USER ---- */
 
-});
+// });
 
 
 /* ---- / AUTH ROUTES ---- */

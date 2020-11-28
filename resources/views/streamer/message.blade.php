@@ -2,6 +2,12 @@
 
 @section('title', 'Streamer')
 
+@section('panel_actual')
+    <i class="fas fa-envelope mr-2 ml-2"></i>Panel de mensajes
+@endsection
+        
+@section('page_actual', 'Mensajes')
+
 @section('content')
     <div>
         <section class="content">
