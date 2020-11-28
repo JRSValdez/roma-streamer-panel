@@ -23,7 +23,7 @@
                 <div class="mt-3 text-right">
                 	<button class="btn bg-gradient-primary" data-toggle="modal" data-target="#crear_codigos"><i class="fas fa-hand-sparkles mr-2 ml-2"></i> Generar código</button>
                 </div>
-                <div class="card card-success mt-3">
+                <div class="card card-success mt-3 card-outline">
                         <div class="card-header">
                                 <h3 class="card-title"><i class="fas fa-list mr-1"></i> Lista de codigos generados</h3>
                         </div>
