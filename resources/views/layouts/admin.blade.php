@@ -16,27 +16,22 @@
             <li class="nav-item">
                 <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
             </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="index3.html" class="nav-link">Home</a>
-            </li>
-            <li class="nav-item d-none d-sm-inline-block">
-                <a href="#" class="nav-link">Contact</a>
-            </li>
         </ul>
 
-        <!-- SEARCH FORM -->
-        <form class="form-inline ml-3">
-            <div class="input-group input-group-sm">
-                <input class="form-control form-control-navbar" type="search" placeholder="Search" aria-label="Search">
-                <div class="input-group-append">
-                    <button class="btn btn-navbar" type="submit">
-                        <i class="fas fa-search"></i>
-                    </button>
-                </div>
-            </div>
-        </form>
+        <!-- right navbar links -->
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('logout') }}" role="button"
+                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    {{ __('Logout') }}
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
 
-
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                    @csrf
+                </form>
+            </li>
+        </ul>
     </nav>
     <!-- /.navbar -->
 
@@ -46,7 +41,7 @@
         <a href="index3.html" class="brand-link">
             <img src="../dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                  style="opacity: .8">
-            <span class="brand-text font-weight-light">AdminLTE 3</span>
+            <span class="brand-text font-weight-light">Administración</span>
         </a>
 
         <!-- Sidebar -->
@@ -66,37 +61,43 @@
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
+                 <li class="nav-header">Acciones</li>
 
                     <li class="nav-item">
-                        <a href="pages/widgets.html" class="nav-link">
-                            <i class="nav-icon fas fa-th"></i>
+                        <a href="{{url('/admin/crear_usuarios')}}" class="nav-link">
+                            <i class="nav-icon fa fa-user-plus"></i>
                             <p>
-                                Widgets
-                                <span class="right badge badge-danger">New</span>
+                            Crear usuarios
                             </p>
                         </a>
                     </li>
-
-                    <li class="nav-header">EXAMPLES</li>
-
                     <li class="nav-item">
-                        <a href="pages/calendar.html" class="nav-link">
-                            <i class="nav-icon far fa-calendar-alt"></i>
+                        <a href="{{url('/admin/usuarios_registrados')}}" class="nav-link">
+                            <i class="nav-icon fa fa-users"></i>
                             <p>
-                                Calendar
-                                <span class="badge badge-info right">2</span>
+                              Lista de Usuarios
                             </p>
                         </a>
                     </li>
-
-
-                    <li class="nav-header">MISCELLANEOUS</li>
                     <li class="nav-item">
-                        <a href="https://adminlte.io/docs/3.0" class="nav-link">
-                            <i class="nav-icon fas fa-file"></i>
-                            <p>Documentation</p>
+                        <a href="{{url('/admin/redes_sociales')}}" class="nav-link">
+                            <i class="nav-icon fa fa-globe"></i>
+                            <p>
+                              Redes Sociales
+                            </p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{url('/admin/configuraciones')}}" class="nav-link">
+                            <i class="nav-icon fa fa-cog"></i>
+                            <p>
+                              Configuraciones
+                            </p>
+                        </a>
+                    </li>
+    
+
+                
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
@@ -108,21 +109,7 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-        <div class="content-header">
-            <div class="container-fluid">
-                <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1 class="m-0 text-dark">Dashboard</h1>
-                    </div><!-- /.col -->
-                    <div class="col-sm-6">
-                        <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Dashboard v1</li>
-                        </ol>
-                    </div><!-- /.col -->
-                </div><!-- /.row -->
-            </div><!-- /.container-fluid -->
-        </div>
+      
         <!-- /.content-header -->
 
         <!-- Main content -->
@@ -134,23 +121,5 @@
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->
-    <footer class="main-footer">
-        <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
-        All rights reserved.
-        <div class="float-right d-none d-sm-inline-block">
-            <b>Version</b> 3.0.5
-        </div>
-    </footer>
 
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
-
-@include('layouts.js')
-
-</body>
-</html>
+    @include('layouts.footer')

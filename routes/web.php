@@ -26,7 +26,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/', function () {
         $user = Auth::user();
         $view = '';
-        switch ($user->type == 1){
+        switch ($user->type){
             case 1:
                 $view = '/streamer';
                 break;
@@ -47,6 +47,25 @@ Route::middleware('auth')->group(function () {
         return view('/admin/index');
     });
 
+    Route::get('/admin/usuarios_registrados', function () {
+        return view('/admin/Usuarios_Registrados');
+    });
+
+    Route::get('/admin/crear_usuarios', function () {
+        return view('/admin/Crear_Usuarios');
+    });
+    Route::get('/admin/redes_sociales', function () {
+        return view('/admin/Redes_Sociales');
+    });
+    Route::get('/admin/configuraciones', function () {
+        return view('/admin/Configuraciones');
+    });
+    Route::get('/admin/configuracion_encuesta', function () {
+        return view('/admin/Configuracion_Encuestas');
+    });
+    Route::get('/admin/configuracion_ruleta', function () {
+        return view('/admin/Configuracion_Ruleta');
+    });
     /* ---- / SUPER USER ---- */
 
     /* ---- STREAMER ---- */
@@ -55,11 +74,15 @@ Route::middleware('auth')->group(function () {
         return view('/streamer/index');
     });
 
-// modulo de configuracion para streamer
+    // modulo de configuracion para streamer
     Route::get('/streamer/config', [ConfiguracionController::class, 'index']);
 
-    Route::get('/message', [MessageController::class, 'index']);
-    Route::get('/roulette', [RouletteController::class, 'index']);
+    Route::get('/streamer/message', [MessageController::class, 'index']);
+    Route::get('/streamer/roulette', [RouletteController::class, 'index']);
+
+    Route::get('/streamer/spin_roulette', function (){
+        return view('streamer.spin_roulette');
+    });
 
     /* ---- /STREAMER ---- */
 
@@ -72,6 +95,7 @@ Route::middleware('auth')->group(function () {
     /* ---- / USER ---- */
 
 });
+
 
 /* ---- / AUTH ROUTES ---- */
 
