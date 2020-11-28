@@ -11,40 +11,40 @@
 @section('content')
         @include('streamer.modales.modal_codigos')
 	<div class="container-fluid">
-        <div class="alert-info p-2 pl-3 row rounded">
-        	<div class="col-lg-1 text-center"><h1><i class="nav-icon fas fa-exclamation-circle"></i></h1></div>
-        	<div class="col-lg-10" id="h">
-                        <p>
-                                Hey Streamer!<br>
-                                Codigos es una funcionalidad que ofrecemos para que tu puedas crear tus propios codigos con premios y tus viewers puedan intercambiarlos de una manera facil, hemos visto que esta es una muy buena forma de retener a tu audiencia. Nota importante: estos regalos son por parte del streamer NO SON PARTE DEL EQUIPO DE CRAZY STREAM.
-                        </p>       
-                </div>
-        </div>
-        <div class="mt-3 text-right">
-        	<button class="btn bg-gradient-primary" data-toggle="modal" data-target="#crear_codigos"><i class="fas fa-hand-sparkles mr-2 ml-2"></i> Generar código</button>
-        </div>
-        <div class="card card-success mt-3">
-                <div class="card-header">
-                        <h3 class="card-title"><i class="fas fa-list mr-1"></i> Lista de codigos generados</h3>
-                </div>
-                <div class="card-body">
-                        <div class="mt-3 table-responsive">
-                        	<table id="codigo_lista" class="table table-bordered table-striped table-hover">
-                        		<thead>
-                        			<tr>
-                        				<th>código</th>
-                        				<th>Premio</th>
-                                                        <th>Maximo ganadores</th>
-                                                        <th>Estado</th>
-                                                        <th>Fecha de creacion</th>
-                        				<th>Acciones</th>
-                        			</tr>
-                        		</thead>
-                        		
-                        	</table>
+                <div class="alert-info p-2 pl-3 row rounded">
+                	<div class="col-lg-1 text-center"><h1><i class="nav-icon fas fa-exclamation-circle"></i></h1></div>
+                	<div class="col-lg-10" id="h">
+                                <p>
+                                        Hey Streamer!<br>
+                                        Texto personalizado.
+                                </p>       
                         </div>
                 </div>
-        </div>
+                <div class="mt-3 text-right">
+                	<button class="btn bg-gradient-primary" data-toggle="modal" data-target="#crear_codigos"><i class="fas fa-hand-sparkles mr-2 ml-2"></i> Generar código</button>
+                </div>
+                <div class="card card-success mt-3">
+                        <div class="card-header">
+                                <h3 class="card-title"><i class="fas fa-list mr-1"></i> Lista de codigos generados</h3>
+                        </div>
+                        <div class="card-body">
+                                <div class="mt-3 table-responsive">
+                                	<table id="codigo_lista" class="table table-bordered table-striped table-hover">
+                                		<thead>
+                                			<tr>
+                                				<th>código</th>
+                                				<th>Premio</th>
+                                                                <th>Maximo ganadores</th>
+                                                                <th>Estado</th>
+                                                                <th>Fecha de creacion</th>
+                                				<th>Acciones</th>
+                                			</tr>
+                                		</thead>
+                                		
+                                	</table>
+                                </div>
+                        </div>
+                </div>
 	</div>
 @endsection
 
