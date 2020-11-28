@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\RouletteController;
+use App\Http\Controllers\VotacionesController;
 use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\CodigoController;
 use Illuminate\Support\Facades\Auth;
@@ -79,6 +80,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/streamer/message', [MessageController::class, 'index']);
     Route::get('/streamer/roulette', [RouletteController::class, 'index']);
+    Route::get('/streamer/votaciones', [VotacionesController::class, 'index']);
 
     Route::get('/streamer/spin_roulette', function (){
         return view('streamer.spin_roulette');
@@ -99,7 +101,7 @@ Route::middleware('auth')->group(function () {
 
 /* ---- / AUTH ROUTES ---- */
 
-// modulo de codigos para streamer 
+// modulo de codigos para streamer
 Route::get('/streamer/codigos', [CodigoController::class, 'index'])->name('streamer.codigos');
 
 /* ---- /STREAMER ---- */
