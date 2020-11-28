@@ -4,8 +4,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>@yield('title')</title>
-    <link rel="stylesheet" href="{{ asset('css/datatables.css') }}">
+    <!-- <link rel="stylesheet" href="{{ asset('css/datatables.css') }}"> -->
+    <script src="https:////cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js" defer></script>
+    @stack('scripts')
     @include('layouts.styles')
+    <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet"></script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -186,25 +189,24 @@
     <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-<script src="{{ asset('js/datatables.js') }}"></script>
+<!-- <script src="{{ asset('js/datatables.js') }}"></script> -->
 @include('layouts.js')
+
 <script type="text/javascript">
-            $(document).ready(function(){
-                // alert('table')
-                var table = $('#codigo_lista').DataTable({
-                    processing: true,
-                    serverSide: true,
-                    ajax: "{{ route('streamer.codigos') }}",
-                    columns: [
-                        {data: 'codigo', name: 'codigo'},
-                        {data: 'premio', name: 'premio'},
-                        {data: 'max_gans', name: 'max_gans'},
-                        {data: 'estado', name: 'estado'},
-                        {data: 'fecha_creacion', name: 'fecha_creacion'}
-                    ]
-                });
-                
-              });
-        </script>
+    $(document).ready(function () {
+        $('h').html('hola');
+        // var tabla = $('#codigo_lista').DataTable()({
+        //         "processing": true,
+        //         "serverSide": true,
+        //         "ajax": "{{ url('streamer.codigos') }}",
+        //         columns: [
+        //             { data: 'id'},
+        //             { data: 'name'},
+        //             { data: 'email'}
+        //         ],
+        // });
+        alert('tabla')
+    } );
+</script>
 </body>
 </html>

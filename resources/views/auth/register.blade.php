@@ -39,8 +39,8 @@
 
                         @error('name')
                         <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                            <strong>{{ $message }}</strong>
+                        </span>
                         @enderror
                     </div>
 
@@ -63,8 +63,8 @@
 
                         @error('email')
                         <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                            <strong>{{ $message }}</strong>
+                        </span>
                         @enderror
                     </div>
 
@@ -84,6 +84,11 @@
                             </div>
                         </div>
 
+                        @error('password')
+                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                        @enderror
                     </div>
 
                     <div class="input-group mb-3">
@@ -101,12 +106,6 @@
                                 <span class="fas fa-user-secret"></span>
                             </div>
                         </div>
-
-                        @error('password')
-                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                        @enderror
                     </div>
 
                     <div class="row">
@@ -116,7 +115,7 @@
                                 Tipo de usuario
                                 <input
                                     type="checkbox"
-                                    name="user_type"
+                                    name="type"
                                     class="user_switch"
                                     checked
                                     data-bootstrap-switch
@@ -133,14 +132,12 @@
                     <div id="streamer-form" style="display: none">
                         <div class="input-group mb-3">
                             <input
-                                id="name"
+                                id="streamer_user"
                                 type="text"
-                                class="form-control @error('name') is-invalid @enderror"
-                                placeholder="Nombre de usuario"
-                                name="name"
-                                value="{{ old('name') }}"
-                                required
-                                autocomplete="name"
+                                class="form-control @error('streamer_user') is-invalid @enderror"
+                                placeholder="Usuario de streamer"
+                                name="streamer_user"
+                                autocomplete="streamer_user"
                                 autofocus
                             >
                             <div class="input-group-append">
@@ -149,53 +146,56 @@
                                 </div>
                             </div>
 
-                            @error('name')
+                            @error('streamer_user')
                             <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                                <strong>{{ $message }}</strong>
+                            </span>
                             @enderror
                         </div>
 
                         <div class="input-group mb-3">
                             <input
-                                id="email"
-                                type="email"
-                                class="form-control @error('email') is-invalid @enderror"
-                                placeholder="Email"
-                                name="email"
-                                value="{{ old('email') }}"
-                                required
-                                autocomplete="email"
+                                id="sn_1"
+                                type="text"
+                                class="form-control @error('sn_1') is-invalid @enderror"
+                                placeholder="Facebook url"
+                                name="sn_1"
+                                value="{{ old('sn_1') }}"
+                                autocomplete="sn_1"
                             >
                             <div class="input-group-append">
                                 <div class="input-group-text">
-                                    <span class="fas fa-envelope"></span>
+                                    <span class="fas fa-facebook"></span>
                                 </div>
                             </div>
 
-                            @error('email')
+                            @error('sn_1')
                             <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
+                                <strong>{{ $message }}</strong>
+                            </span>
                             @enderror
                         </div>
 
                         <div class="input-group mb-3">
                             <input
-                                id="password"
-                                type="password"
+                                id="sn_2"
+                                type="text"
                                 class="form-control"
-                                placeholder="Contraseña"
-                                name="password"
-                                required
-                                autocomplete="new-password"
+                                placeholder="Youtube Url"
+                                name="sn_2"
+                                autocomplete="sn_2"
                             >
                             <div class="input-group-append">
                                 <div class="input-group-text">
-                                    <span class="fas fa-user-secret"></span>
+                                    <span class="fas fa-youtube-play"></span>
                                 </div>
                             </div>
 
+                            @error('sn_1')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                            @enderror
                         </div>
                     </div>
 

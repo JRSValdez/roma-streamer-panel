@@ -15,20 +15,24 @@
                     </div>
                     <div class="card">
                         <div class="card-body">
-                            <h5>Últimos loots</h5>
+                            <h5>Ruletas</h5>
                             <table class="table dataTable" width="100%">
                                 <tbody class="">
                                 <tr class="">
-                                    <th>Usuario</th>
-                                    <th>Fecha</th>
+                                    <th>Recompensa</th>
+                                    <th>Participantes</th>
                                     <th>Estado</th>
-                                    <th>Mensaje</th>
+                                    <th>Aciones</th>
                                 </tr>
                                 <tr>
                                     <td></td>
                                     <td></td>
                                     <td></td>
-                                    <td></td>
+                                    <td>
+                                        <i class="fa ion-checkmark-round" title="Activar"></i>
+                                        <i class="fa ion-close-round" title="Desactivar"></i>
+                                        <i class="fa ion-trash-a" title="Elimiar"></i>
+                                        <a target="_blank" title="Ir a la ruleta"><i class="fa ion-trophy"></i></a></td>
                                 </tr>
                                 </tbody>
                             </table>

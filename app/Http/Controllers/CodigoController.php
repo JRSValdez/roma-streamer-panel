@@ -4,19 +4,21 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
+use App\Models\User;
 
 class CodigoController extends Controller
 {
     public function index(Request $request){
-    	$data = array();
-    	$data[] = array(
-                'codigo' => 'asdfgh',
-                'premio' => '100 diamantes',
-                'max_gans' => '4',
-                'estado' => 'activo',
-                'fecha_creacion' => '10-10-2020'
-            );
-    	// json_encode($data);
-    	return view('streamer.codigos');
+    	if ($request->ajax()) {
+            $data = User::query();
+            // return $data;
+            // return DataTables::of($data)->toJson();
+
+            // return datatables()->eloquent($data)->toJson();
+            // return datatables()->collection($data)->toJson();
+            // return response()->json($data);
+        }
+        return view('streamer.codigos');
+    	// return view('streamer.codigos', ['users'=>$data]);
     }
 }
