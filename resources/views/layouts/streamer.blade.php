@@ -4,7 +4,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>@yield('title')</title>
+    <!-- <link rel="stylesheet" href="{{ asset('css/datatables.css') }}"> -->
+    <script src="https:////cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js" defer></script>
+    @stack('scripts')
     @include('layouts.styles')
+    <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet"></script>
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -72,7 +76,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ url('/streamer/message') }}" class="nav-link">
                             <i class="nav-icon fas fa-envelope"></i>
                             <p>
                                 Mensajes
@@ -81,7 +85,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ url('/streamer/codigos') }}" class="nav-link">
                             <i class="nav-icon fas fa-barcode"></i>
                             <p>
                                 Códigos
@@ -90,7 +94,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ url('/streamer/roulette') }}" class="nav-link">
                             <i class="nav-icon fab fa-superpowers"></i>
                             <p>
                                 Ruleta
@@ -99,7 +103,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ url('/streamer/votaciones') }}" class="nav-link">
                             <i class="nav-icon fas fa-rocket"></i>
                             <p>
                                 Votaciones
@@ -165,4 +169,43 @@
     </div>
     <!-- /.content-wrapper -->
 
+<<<<<<< HEAD
+    <footer class="main-footer">
+        <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
+        All rights reserved.
+        <div class="float-right d-none d-sm-inline-block">
+            <b>Version</b> 3.0.5
+        </div>
+    </footer>
+
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+<!-- <script src="{{ asset('js/datatables.js') }}"></script> -->
+@include('layouts.js')
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('h').html('hola');
+        // var tabla = $('#codigo_lista').DataTable()({
+        //         "processing": true,
+        //         "serverSide": true,
+        //         "ajax": "{{ url('streamer.codigos') }}",
+        //         columns: [
+        //             { data: 'id'},
+        //             { data: 'name'},
+        //             { data: 'email'}
+        //         ],
+        // });
+        alert('tabla')
+    } );
+</script>
+</body>
+</html>
+=======
     @include('layouts.footer')
+>>>>>>> ae8f2e75de42130824dafbc4fcaf82644a9de5cf
