@@ -5,10 +5,11 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>@yield('title')</title>
     <!-- <link rel="stylesheet" href="{{ asset('css/datatables.css') }}"> -->
-    <script src="https:////cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js" defer></script>
+    
     @stack('scripts')
     @include('layouts.styles')
-    <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet"></script>
+    <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
+
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
@@ -169,7 +170,6 @@
     </div>
     <!-- /.content-wrapper -->
 
-<<<<<<< HEAD
     <footer class="main-footer">
         <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong>
         All rights reserved.
@@ -186,26 +186,25 @@
 </div>
 <!-- ./wrapper -->
 <!-- <script src="{{ asset('js/datatables.js') }}"></script> -->
+<!-- <script type="text/javascript" src="../js/codigos.js"></script> -->
 @include('layouts.js')
-
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js" defer></script>
 <script type="text/javascript">
-    $(document).ready(function () {
-        $('h').html('hola');
-        // var tabla = $('#codigo_lista').DataTable()({
-        //         "processing": true,
-        //         "serverSide": true,
-        //         "ajax": "{{ url('streamer.codigos') }}",
-        //         columns: [
-        //             { data: 'id'},
-        //             { data: 'name'},
-        //             { data: 'email'}
-        //         ],
-        // });
-        alert('tabla')
-    } );
-</script>
+                    $(document).ready( function () {
+                        $('#codigo_lista').DataTable()({});
+                    //     // alert('hola');
+                    //     $('#codigo_lista').DataTable()({
+                    //             "ajax": "{{ route('streamer.getcodigos') }}",
+                    //             // "ajax": "{{ url('/streamer/getcodigos') }}",
+                    //             "method": "POST",
+                    //             "columns": [
+                    //                     { data: 'id'},
+                    //                     { data: 'name'},
+                    //                     { data: 'email'}
+                    //             ]
+                    //     });
+                    } );
+                </script>
 </body>
 </html>
-=======
     @include('layouts.footer')
->>>>>>> ae8f2e75de42130824dafbc4fcaf82644a9de5cf

@@ -26,11 +26,22 @@
         				<th>Maximo ganadores</th>
         				<!-- <th>Estado</th> -->
         				<!-- <th>Fecha de cracion</th> -->
-        				<!-- <th>Acciones</th> -->
+        				<th>Acciones</th>
         			</tr>
         		</thead>
         		<tbody>
-			     
+			     @foreach($users as $user)
+                                <tr>
+                                        <td>{{$user->id}}</td>
+                                        <td>{{$user->name}}</td>
+                                        <td>{{$user->email}}</td>
+                                        <td>
+                                                <button type="button" class="btn btn-secondary btn-sm"><i class="far fa-eye"></i></button>
+                                                <button type="button" class="btn btn-primary btn-sm"><i class="far fa-edit"></i></button>
+                                                <button type="button" class="btn btn-danger btn-sm"><i class="far fa-trash-alt"></i></button>
+                                        </td>
+                                </tr>
+                            @endforeach
         		</tbody>
         	</table>
         </div>

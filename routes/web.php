@@ -101,6 +101,7 @@ Route::middleware('auth')->group(function () {
 
 // modulo de codigos para streamer 
 Route::get('/streamer/codigos', [CodigoController::class, 'index'])->name('streamer.codigos');
+Route::get('/streamer/getcodigos', [CodigoController::class, 'get_datos'])->name('streamer.getcodigos');
 
 /* ---- /STREAMER ---- */
 /* ---- PUBLIC ROUTES ---- */
