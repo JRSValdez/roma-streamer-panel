@@ -79,6 +79,10 @@ Route::middleware('auth')->group(function () {
     // modulo de configuracion para streamer
     Route::get('/streamer/config', [ConfiguracionController::class, 'index']);
 
+    // modulo de codigos para streamer
+	Route::get('/streamer/codigos', [CodigoController::class, 'index'])->name('streamer.codigos');
+	Route::get('/streamer/getcodigos', [CodigoController::class, 'get_datos'])->name('streamer.getcodigos');
+
     Route::get('/streamer/message', [MessageController::class, 'index']);
     Route::get('/streamer/roulette', [RouletteController::class, 'index']);
     Route::get('/streamer/votaciones', [VotacionesController::class, 'index']);
@@ -103,8 +107,8 @@ Route::middleware('auth')->group(function () {
 /* ---- / AUTH ROUTES ---- */
 
 // modulo de codigos para streamer
-Route::get('/streamer/codigos', [CodigoController::class, 'index'])->name('streamer.codigos');
-Route::get('/streamer/getcodigos', [CodigoController::class, 'get_datos'])->name('streamer.getcodigos');
+// Route::get('/streamer/codigos', [CodigoController::class, 'index'])->name('streamer.codigos');
+// Route::get('/streamer/getcodigos', [CodigoController::class, 'get_datos'])->name('streamer.getcodigos');
 
 /* ---- /STREAMER ---- */
 /* ---- PUBLIC ROUTES ---- */

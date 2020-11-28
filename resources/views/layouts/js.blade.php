@@ -34,5 +34,6 @@
 <script src="{{ asset('../dist/js/pages/dashboard.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{ asset('../dist/js/demo.js') }}"></script>
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js" defer></script>
 
 @yield('js')
