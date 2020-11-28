@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\RouletteController;
+use App\Http\Controllers\VotacionesController;
 use App\Http\Controllers\ConfiguracionController;
 use App\Http\Controllers\CodigoController;
 use Illuminate\Support\Facades\Auth;
@@ -46,7 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin', function () {
         return view('/admin/index');
     });
-
+    
     Route::get('/admin/usuarios_registrados', function () {
         return view('/admin/Usuarios_Registrados');
     });
@@ -66,6 +67,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/configuracion_ruleta', function () {
         return view('/admin/Configuracion_Ruleta');
     });
+
     /* ---- / SUPER USER ---- */
 
     /* ---- STREAMER ---- */
@@ -79,6 +81,7 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/streamer/message', [MessageController::class, 'index']);
     Route::get('/streamer/roulette', [RouletteController::class, 'index']);
+    Route::get('/streamer/votaciones', [VotacionesController::class, 'index']);
 
     Route::get('/streamer/spin_roulette', function (){
         return view('streamer.spin_roulette');
@@ -99,7 +102,7 @@ Route::middleware('auth')->group(function () {
 
 /* ---- / AUTH ROUTES ---- */
 
-// modulo de codigos para streamer 
+// modulo de codigos para streamer
 Route::get('/streamer/codigos', [CodigoController::class, 'index'])->name('streamer.codigos');
 Route::get('/streamer/getcodigos', [CodigoController::class, 'get_datos'])->name('streamer.getcodigos');
 

@@ -8,17 +8,33 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="input-group input-group-sm">
-                        <p id="link-message" class="link-muted">http://crazystream.co/loots/widgets?id_streamer=1127&amp;token=6fyvjpsapCOhQLbH1pSf1GC3eyVV9q4GGQFDxJQtGIEviGtvFVrj01jj54Qo</p>
-                        <span class="btn-group">
-                            <button type="button" class="btn btn-info btn-info">Copiar</button>
-                        </span>
+                        <div class="row"  style="width: 100%">
+                            <div class="col-md-11" style="width: 100%">
+                                <p id="link-message" class="links-copy">Links</p>
+                            </div>
+                            <div class="col-md-1" style="align-content: end; align-items: end">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-info btn-flat" onclick="">Copiar</button>
+                                </span>
+                            </div>
+                        </div>
                     </div>
                     <div class="card">
-                        <div class="card-body">
-                            <h5>Últimos loots</h5>
-                            <table class="table dataTable" width="100%">
-                                <tbody class="">
-                                <tr class="">
+                        <div class="card-header">
+                            <h3 class="card-title">Últimos loots</h3>
+                            <div class="card-tools">
+                                <div class="input-group input-group-sm hidden-xs" style="width: 150px;">
+                                    <input style="height: inherit;" type="text" name="table_search" class="form-control pull-right" placeholder="Search">
+                                    <div class="input-group-btn">
+                                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-body table-responsive no-padding">
+                            <table class="table table-hover" width="100%">
+                                <tbody class="card-columns">
+                                <tr>
                                     <th>Usuario</th>
                                     <th>Fecha</th>
                                     <th>Estado</th>
