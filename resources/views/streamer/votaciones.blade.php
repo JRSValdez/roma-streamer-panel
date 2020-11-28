@@ -43,8 +43,8 @@
                                     </tr>
                                     <tr>
                                         <td></td>
-                                        <td>YYYY-MM-DD HH:MM:SS</td>
-                                        <td><span class="label label-warning">Pendiente</span></td>
+                                        <td></td>
+                                        <td>{{--<span class="label label-warning">Pendiente</span>--}}</td>
                                         <td></td>
                                 </tr>
                                 </tbody>

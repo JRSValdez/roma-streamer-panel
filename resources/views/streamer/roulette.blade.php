@@ -31,12 +31,12 @@
                                     <tr>
                                         <td></td>
                                         <td></td>
-                                        <td><span class="label label-info">Activado</span></td>
+                                        <td>{{--<span class="label label-info">Activado</span>--}}</td>
                                         <td class="codes-actions">
-                                            <i onclick="" class="fa ion-checkmark-round" title="Activar"></i>
+                                            {{--<i onclick="" class="fa ion-checkmark-round" title="Activar"></i>
                                             <i onclick="" class="fa ion-close-round" title="Desactivar"></i>
                                             <i onclick="" class="fa ion-trash-a" title="Eliminar"></i>
-                                            <a href="" target="_blank" title="Ir a la ruleta"><i class="fa ion-trophy"></i></a>
+                                            <a href="" target="_blank" title="Ir a la ruleta"><i class="fa ion-trophy"></i></a>--}}
                                         </td>
                                     </tr>
                                 </tbody>

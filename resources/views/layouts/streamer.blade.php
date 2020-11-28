@@ -76,7 +76,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ url('/streamer/message') }}" class="nav-link">
                             <i class="nav-icon fas fa-envelope"></i>
                             <p>
                                 Mensajes
@@ -94,7 +94,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ url('/streamer/roulette') }}" class="nav-link">
                             <i class="nav-icon fab fa-superpowers"></i>
                             <p>
                                 Ruleta
@@ -103,7 +103,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ url('/streamer/votaciones') }}" class="nav-link">
                             <i class="nav-icon fas fa-rocket"></i>
                             <p>
                                 Votaciones
