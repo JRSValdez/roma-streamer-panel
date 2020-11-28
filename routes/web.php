@@ -47,7 +47,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin', function () {
         return view('/admin/index');
     });
-
+    
     Route::get('/admin/usuarios_registrados', function () {
         return view('/admin/Usuarios_Registrados');
     });
@@ -67,6 +67,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/configuracion_ruleta', function () {
         return view('/admin/Configuracion_Ruleta');
     });
+
     /* ---- / SUPER USER ---- */
 
     /* ---- STREAMER ---- */
