@@ -5,7 +5,7 @@
 @section('panel_actual')
     <i class="fas fa-rocket mr-2 ml-2"></i>Panel de votaciones
 @endsection
-        
+
 @section('page_actual', 'Votaciones')
 
 @section('content')
@@ -15,7 +15,7 @@
                     <div class="input-group input-group-sm">
                         <div class="row"  style="width: 100%">
                             <div class="col-md-8" style="width: 100%">
-                                <p id="link-message" class="links-copy">Links</p>
+                                <p id="link-message" class="links-copy">Links OBS</p>
                             </div>
                             <div class="col-md-4 text-right">
                                 <span class="input-group-btn">
@@ -27,7 +27,7 @@
                     </div>
                     <div class="card mt-3">
                         <div class="card-header">
-                            <h3 class="card-title">Últimos loots</h3>
+                            <h3 class="card-title">Votaciones</h3>
                             <div class="card-tools">
                                 <div class="input-group input-group-sm hidden-xs" style="width: 150px;">
                                     <input style="height: inherit;" type="text" name="table_search" class="form-control pull-right" placeholder="Search">
@@ -42,10 +42,10 @@
                             <table class="table table-hover">
                                 <tbody>
                                     <tr>
-                                        <th>Usuario</th>
-                                        <th>Fecha</th>
+                                        <th>Pregunta</th>
+                                        <th>Participantes</th>
                                         <th>Estado</th>
-                                        <th>Mensaje</th>
+                                        <th>Acciones</th>
                                     </tr>
                                     <tr>
                                         <td></td>
