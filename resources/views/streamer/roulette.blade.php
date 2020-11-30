@@ -18,14 +18,6 @@
             <div class="card mt-3">
                 <div class="card-header">
                     <h3 class="card-title">Ruletas</h3>
-{{--                    <div class="card-tools">--}}
-{{--                        <div class="input-group input-group-sm hidden-xs" style="width: 150px;">--}}
-{{--                            <input style="height: inherit;" type="text" name="table_search" class="form-control pull-right" placeholder="Search">--}}
-{{--                            <div class="input-group-btn">--}}
-{{--                                <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
                 </div>
                 <div class="card-body table-responsive no-padding">
                     <table id="tabla_ruleta" class="table table-bordered table-striped table-hover">
