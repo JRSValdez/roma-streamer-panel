@@ -5,7 +5,7 @@
 @section('panel_actual')
     <i class="fas fa-envelope mr-2 ml-2"></i>Panel de mensajes
 @endsection
-        
+
 @section('page_actual', 'Mensajes')
 
 @section('content')
@@ -18,41 +18,27 @@
                             <div class="col-md-11" style="width: 100%">
                                 <p id="link-message" class="links-copy">Links</p>
                             </div>
-                            <div class="col-md-1" style="align-content: end; align-items: end">
+                            <div class="col-md-1 text-right">
                                 <span class="input-group-btn">
-                                    <button type="button" class="btn btn-info btn-flat" onclick="">Copiar</button>
+                                    <button type="button" class="btn bg-gradient-info" onclick="">Copiar</button>
                                 </span>
                             </div>
                         </div>
                     </div>
-                    <div class="card">
+                    <div class="card mt-3">
                         <div class="card-header">
                             <h3 class="card-title">Últimos loots</h3>
-                            <div class="card-tools">
-                                <div class="input-group input-group-sm hidden-xs" style="width: 150px;">
-                                    <input style="height: inherit;" type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-                                    <div class="input-group-btn">
-                                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="card-body table-responsive no-padding">
-                            <table class="table table-hover" width="100%">
-                                <tbody class="card-columns">
-                                <tr>
-                                    <th>Usuario</th>
-                                    <th>Fecha</th>
-                                    <th>Estado</th>
-                                    <th>Mensaje</th>
-                                </tr>
-                                <tr>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                    <td></td>
-                                </tr>
-                                </tbody>
+                            <table id="tabla_mensaje" class="table table-bordered table-striped table-hover" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>Usuario</th>
+                                        <th>Fecha</th>
+                                        <th>Estado</th>
+                                        <th>Mensaje</th>
+                                    </tr>
+                                </Thead>
                             </table>
                         </div>
                     </div>
@@ -109,5 +95,24 @@
             </div>
         </section>
     </div>
+@endsection
+@section('scripts')
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#tabla_mensaje').DataTable({
+                {{--processing: true,--}}
+                {{--serverSide:true--}}
+                {{--ajax: "{!! route('streamer.getcodigos') !!}",--}}
+                {{--columns: [--}}
+                {{--    { data: 'id', name: 'id' },--}}
+                {{--    { data: 'name', name: 'name' },--}}
+                {{--    { data: 'email', name: 'email' },--}}
+                {{--    { data: 'email', name: 'email' },--}}
+                {{--    { data: 'email', name: 'email' },--}}
+                {{--    { data: 'email', name: 'email' },--}}
+                {{--]--}}
+            });
+        });
+    </script>
 @endsection
 
