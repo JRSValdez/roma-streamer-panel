@@ -113,6 +113,8 @@
       <path value="$PROJECT_DIR$/vendor/paragonie/constant_time_encoding" />
       <path value="$PROJECT_DIR$/vendor/dasprid/enum" />
       <path value="$PROJECT_DIR$/vendor/laravelcollective/html" />
+      <path value="$PROJECT_DIR$/vendor/laravel/ui" />
+      <path value="$PROJECT_DIR$/vendor/yajra/laravel-datatables-oracle" />
     </include_path>
   </component>
   <component name="PhpUnit">
