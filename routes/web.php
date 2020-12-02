@@ -49,9 +49,7 @@ use Illuminate\Support\Facades\Auth;
         return view('/admin/index');
     });
 
-    Route::get('/admin/usuarios_registrados', function () {
-        return view('/admin/Usuarios_Registrados');
-    });
+    Route::get('/admin/usuarios', [AdminConfigurationController::class,'showUsers']);
 
     Route::get('/admin/crear_usuarios', function () {
         return view('/admin/Crear_Usuarios');

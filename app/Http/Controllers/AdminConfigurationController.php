@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AdminConfiguration;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AdminConfigurationController extends Controller
@@ -11,6 +12,11 @@ class AdminConfigurationController extends Controller
         $configurations = AdminConfiguration::all()->first();
 
         return view('admin.Configuraciones',['configs' => $configurations->getConfigurations()]);
+    }
+
+    public function showUsers(){
+        $users = User::paginate(2);
+        return view('admin.usuarios',['users' => $users]);
     }
 
     public function editRoulette(Request $request){
@@ -72,4 +78,5 @@ class AdminConfigurationController extends Controller
         $configs->save();
         return redirect()->route('configs');
     }
+
 }
