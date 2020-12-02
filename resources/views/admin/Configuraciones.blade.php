@@ -13,15 +13,15 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form role="form" action="{{url('/admin/configuraciones/roulette')}}" method="POST">
+                <form name="roulette" role="form" action="{{url('/admin/configuraciones/roulette')}}" method="POST">
                     @csrf
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="maxParticipants">Máximo participantes:</label>
+                            <label for="max_roulette">Máximo participantes:</label>
                             <input
                                 type="number"
                                 class="form-control @error('max_roulette') is-invalid @enderror"
-                                id="maxParticipants"
+                                id="max_roulette"
                                 placeholder="####"
                                 name="max_roulette"
                                 value="{{ old('max_roulette') ? old('max_roulette') : $configs->roulette['max']  }}"
@@ -33,11 +33,11 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="maxRoulettes">Máximo de ruletas diarias:</label>
+                            <label for="max_per_roulette">Máximo de ruletas diarias:</label>
                             <input
                                 type="number"
                                 class="form-control @error('max_per_roulette') is-invalid @enderror"
-                                id="maxRoulettes"
+                                id="max_per_roulette"
                                 placeholder="##"
                                 name="max_per_roulette"
                                 value="{{ old('max_per_roulette') ? old('max_per_roulette') :$configs->roulette['max_per_day']}}"
@@ -65,17 +65,40 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form role="form" action="" method="">
+                <form name="codes" role="form" action="{{url('/admin/configuraciones/codes')}}" method="POST">
+                    @csrf
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="maxParticipants">Máximo participantes:</label>
-                            <input type="number" class="form-control" id="maxParticipants" placeholder="####"
-                                   name="maxParticipants" value="{{$configs->codes['max']}}">
+                            <label for="max_codes">Máximo participantes:</label>
+                            <input
+                                type="number"
+                                class="form-control @error('max_codes') is-invalid @enderror"
+                                id="maxCodes"
+                                placeholder="####"
+                                name="max_codes"
+                                value="{{ old('max_codes') ? old('max_codes') : $configs->codes['max'] }}"
+                            >
+                            @error('max_codes')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="form-group">
-                            <label for="maxRoulettes">Máximo de códigos diarios:</label>
-                            <input type="number" class="form-control" id="maxRoulettes" placeholder="##"
-                                   name="maxRoulettes" value="{{$configs->codes['max_per_day']}}">
+                            <label for="max_per_codes">Máximo de códigos diarios:</label>
+                            <input
+                                type="number"
+                                class="form-control @error('max_per_codes') is-invalid @enderror"
+                                id="max_per_codes"
+                                placeholder="##"
+                                name="max_per_codes"
+                                value="{{ old('max_per_codes') ? old('max_per_codes') : $configs->codes['max_per_day'] }}"
+                            >
+                            @error('max_per_codes')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -94,17 +117,40 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form role="form" action="" method="">
+                <form name="polls" role="form" action="{{url('/admin/configuraciones/polls')}}" method="POST">
+                    @csrf
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="maxParticipants">Máximo participantes:</label>
-                            <input type="number" class="form-control" id="maxParticipants" placeholder="####"
-                                   name="maxParticipants" value="{{$configs->polls['max']}}">
+                            <label for="max_polls">Máximo participantes:</label>
+                            <input
+                                type="number"
+                                class="form-control @error('max_polls') is-invalid @enderror"
+                                id="max_polls"
+                                placeholder="####"
+                                name="max_polls"
+                                value="{{ old('max_polls') ? old('max_polls') : $configs->polls['max'] }}"
+                            >
+                            @error('max_polls')
+                            <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="form-group">
-                            <label for="maxRoulettes">Máximo de votaciones diarias:</label>
-                            <input type="number" class="form-control" id="maxRoulettes" placeholder="##"
-                                   name="maxRoulettes" value="{{$configs->polls['max_per_day']}}">
+                            <label for="max_per_polls">Máximo de encuentas diarias:</label>
+                            <input
+                                type="number"
+                                class="form-control @error('max_per_polls') is-invalid @enderror"
+                                id="max_per_polls"
+                                placeholder="##"
+                                name="max_per_polls"
+                                value="{{ old('max_per_polls') ? old('max_per_polls') : $configs->polls['max_per_day'] }}"
+                            >
+                            @error('max_per_polls')
+                            <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
                     <!-- /.card-body -->
@@ -123,17 +169,40 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form role="form" action="" method="">
+                <form name="polls" role="form" action="{{url('/admin/configuraciones/messages')}}" method="POST">
+                    @csrf
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="maxParticipants">Máximo mensajes por streamer:</label>
-                            <input type="number" class="form-control" id="maxParticipants" placeholder="####"
-                                   name="maxParticipants" value="{{$configs->messages['max_per_streamer']}}">
+                            <label for="max_messages">Máximo bandeja de entrada:</label>
+                            <input
+                                type="number"
+                                class="form-control @error('max_messages') is-invalid @enderror"
+                                id="max_messages"
+                                placeholder="####"
+                                name="max_messages"
+                                value="{{ old('max_messages') ? old('max_messages') : $configs->messages['max'] }}"
+                            >
+                            @error('max_messages')
+                            <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                         <div class="form-group">
-                            <label for="maxParticipants">Máximo mensajes por usuario:</label>
-                            <input type="number" class="form-control" id="maxParticipants" placeholder="####"
-                                   name="maxParticipants" value="{{$configs->messages['max_per_user']}}">
+                            <label for="max_per_msg">Máximo de mensajes diarios:</label>
+                            <input
+                                type="number"
+                                class="form-control @error('max_per_msg') is-invalid @enderror"
+                                id="max_per_msg"
+                                placeholder="##"
+                                name="max_per_msg"
+                                value="{{ old('max_per_msg') ? old('max_per_msg') : $configs->messages['max_per_day'] }}"
+                            >
+                            @error('max_per_msg')
+                            <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
                     </div>
                     <!-- /.card-body -->

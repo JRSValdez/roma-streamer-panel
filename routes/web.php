@@ -63,6 +63,9 @@ use Illuminate\Support\Facades\Auth;
     Route::get('/admin/configuraciones', [AdminConfigurationController::class,'index'])->name('configs');
 
     Route::post('/admin/configuraciones/roulette', [AdminConfigurationController::class,'editRoulette']);
+    Route::post('/admin/configuraciones/codes', [AdminConfigurationController::class,'editCodes']);
+    Route::post('/admin/configuraciones/polls', [AdminConfigurationController::class,'editPolls']);
+    Route::post('/admin/configuraciones/messages', [AdminConfigurationController::class,'editMessages']);
 
     /* ---- / SUPER USER ---- */
 
