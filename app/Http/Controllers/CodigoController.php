@@ -12,7 +12,9 @@ class CodigoController extends Controller
         return view('streamer.codigos');
     }
 
-    public function get_datos(){
-        return DataTables::of(User::query())->toJson();
+    public function get_datos(Request $request){
+    	if ($request->ajax()) {
+        	return DataTables::of(User::query())->toJson();
+    	}
     }
 }
