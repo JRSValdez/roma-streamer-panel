@@ -49,9 +49,7 @@ use Illuminate\Support\Facades\Auth;
         return view('/admin/index');
     });
 
-    Route::get('/admin/usuarios_registrados', function () {
-        return view('/admin/Usuarios_Registrados');
-    });
+    Route::get('/admin/usuarios', [AdminConfigurationController::class,'showUsers']);
 
     Route::get('/admin/crear_usuarios', function () {
         return view('/admin/Crear_Usuarios');
@@ -63,6 +61,9 @@ use Illuminate\Support\Facades\Auth;
     Route::get('/admin/configuraciones', [AdminConfigurationController::class,'index'])->name('configs');
 
     Route::post('/admin/configuraciones/roulette', [AdminConfigurationController::class,'editRoulette']);
+    Route::post('/admin/configuraciones/codes', [AdminConfigurationController::class,'editCodes']);
+    Route::post('/admin/configuraciones/polls', [AdminConfigurationController::class,'editPolls']);
+    Route::post('/admin/configuraciones/messages', [AdminConfigurationController::class,'editMessages']);
 
     /* ---- / SUPER USER ---- */
 

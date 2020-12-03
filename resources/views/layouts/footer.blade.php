@@ -17,7 +17,5 @@
 
 @include('layouts.js')
 
-
-
 </body>
 </html>
