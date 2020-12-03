@@ -39,21 +39,15 @@
                         </div>
 
                         <div class="card-body table-responsive no-padding">
-                            <table class="table table-hover">
-                                <tbody>
+                            <table id="tabla_votacion" class="table table-bordered table-striped table-hover">
+                                <thead>
                                     <tr>
                                         <th>Pregunta</th>
                                         <th>Participantes</th>
                                         <th>Estado</th>
                                         <th>Acciones</th>
                                     </tr>
-                                    <tr>
-                                        <td></td>
-                                        <td></td>
-                                        <td>{{--<span class="label label-warning">Pendiente</span>--}}</td>
-                                        <td></td>
-                                </tr>
-                                </tbody>
+                                </thead>
                             </table>
                         </div>
 
@@ -61,5 +55,22 @@
         </section>
     </div>
 @endsection
-
-
+@section('scripts')
+        <script type="text/javascript">
+                $(document).ready(function(){
+                        $('#tabla_votacion').DataTable({
+                            {{--processing: true,--}}
+                            {{--serverSide:true--}}
+                            {{--ajax: "{!! route('streamer.getcodigos') !!}",--}}
+                            {{--columns: [--}}
+                            {{--    { data: 'id', name: 'id' },--}}
+                            {{--    { data: 'name', name: 'name' },--}}
+                            {{--    { data: 'email', name: 'email' },--}}
+                            {{--    { data: 'email', name: 'email' },--}}
+                            {{--    { data: 'email', name: 'email' },--}}
+                            {{--    { data: 'email', name: 'email' },--}}
+                            {{--]--}}
+                        });
+                });
+        </script>
+@endsection

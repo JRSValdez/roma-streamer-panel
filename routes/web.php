@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminConfigurationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\RouletteController;
@@ -22,7 +23,7 @@ use Illuminate\Support\Facades\Auth;
 
 /* ---- AUTH ROUTES ---- */
 
-Route::middleware('auth')->group(function () {
+// Route::middleware('auth')->group(function () {
 
     Route::get('/', function () {
         $user = Auth::user();
@@ -47,7 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin', function () {
         return view('/admin/index');
     });
-    
+
     Route::get('/admin/usuarios_registrados', function () {
         return view('/admin/Usuarios_Registrados');
     });
@@ -58,15 +59,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/redes_sociales', function () {
         return view('/admin/Redes_Sociales');
     });
-    Route::get('/admin/configuraciones', function () {
-        return view('/admin/Configuraciones');
-    });
-    Route::get('/admin/configuracion_encuesta', function () {
-        return view('/admin/Configuracion_Encuestas');
-    });
-    Route::get('/admin/configuracion_ruleta', function () {
-        return view('/admin/Configuracion_Ruleta');
-    });
+
+    Route::get('/admin/configuraciones', [AdminConfigurationController::class,'index'])->name('configs');
+
+    Route::post('/admin/configuraciones/roulette', [AdminConfigurationController::class,'editRoulette']);
 
     /* ---- / SUPER USER ---- */
 
@@ -101,7 +97,7 @@ Route::middleware('auth')->group(function () {
 
     /* ---- / USER ---- */
 
-});
+// });
 
 
 /* ---- / AUTH ROUTES ---- */

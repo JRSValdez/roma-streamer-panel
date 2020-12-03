@@ -14,7 +14,8 @@ class CodigoController extends Controller
 
     public function get_datos(Request $request){
     	if ($request->ajax()) {
-        	return DataTables::of(User::query())->toJson();
+    		$users = User::query();
+        	return DataTables::of($users)->toJson();
     	}
     }
 }
