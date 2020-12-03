@@ -1,17 +1,17 @@
 @extends('layouts.login')
 
-<style>
-    .bootstrap-switch-normal {
-        width: 120px !important;
-    }
-</style>
-
 @section('content')
 
     <div class="login-box">
         <div class="login-logo">
             <a href="../../index2.html"><b>Admin</b>LTE</a>
         </div>
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+            {{old('type')}}
+        </ul>
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
@@ -72,7 +72,7 @@
                         <input
                             id="password"
                             type="password"
-                            class="form-control"
+                            class="form-control  @error('password') is-invalid @enderror"
                             placeholder="Contraseña"
                             name="password"
                             required
@@ -85,9 +85,9 @@
                         </div>
 
                         @error('password')
-                        <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
                     </div>
 
@@ -112,17 +112,18 @@
                         <div class="col-6 mx-auto">
 
                             <label class="text-center">
-                                Tipo de usuario
+                                ¿Eres streamer?
                                 <input
                                     type="checkbox"
                                     name="type"
+                                    id="check_type"
                                     class="user_switch"
                                     checked
                                     data-bootstrap-switch
                                     data-off-color="danger"
                                     data-on-color="success"
-                                    data-on-text="USUARIO"
-                                    data-off-text="STREAMER"
+                                    data-on-text="NO"
+                                    data-off-text="SI"
                                     data-size="normal"
                                 >
                             </label>
@@ -139,6 +140,7 @@
                                 name="streamer_user"
                                 autocomplete="streamer_user"
                                 autofocus
+                                value = "{{ old('streamer_user') }}"
                             >
                             <div class="input-group-append">
                                 <div class="input-group-text">
@@ -212,6 +214,28 @@
         </div>
     </div>
 
+@endsection
+
+@section('js')
+    <script>
+        $(document).ready(function() {
+            $("input[data-bootstrap-switch]").each(function(){
+                $(this).bootstrapSwitch('state', $(this).prop('checked'));
+            });
+
+            $('.user_switch').on('switchChange.bootstrapSwitch', function (event, state) {
+                let container = $('#streamer-form');
+                if(container.css('display') === 'none'){
+                    container.css('display','block');
+                } else {
+                    container.css('display','none');
+                }
+            });
+            @error('streamer_user')
+                $('#check_type').bootstrapSwitch('state', false)
+            @enderror
+        });
+    </script>
 @endsection
 
 

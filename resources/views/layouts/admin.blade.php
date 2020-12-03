@@ -72,7 +72,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{url('/admin/usuarios_registrados')}}" class="nav-link">
+                        <a href="{{url('/admin/usuarios')}}" class="nav-link">
                             <i class="nav-icon fa fa-users"></i>
                             <p>
                               Lista de Usuarios
@@ -95,9 +95,9 @@
                             </p>
                         </a>
                     </li>
-    
 
-                
+
+
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
@@ -109,7 +109,7 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-      
+
         <!-- /.content-header -->
 
         <!-- Main content -->

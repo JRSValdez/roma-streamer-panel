@@ -35,23 +35,7 @@
 <!-- AdminLTE App -->
 <script src="../../dist/js/adminlte.min.js"></script>
 
-<script>
-    $(document).ready(function() {
-        $("input[data-bootstrap-switch]").each(function(){
-            $(this).bootstrapSwitch('state', $(this).prop('checked'));
-        });
-
-        $('.user_switch').on('switchChange.bootstrapSwitch', function (event, state) {
-            let container = $('#streamer-form');
-            if(container.css('display') === 'none'){
-                container.css('display','block');
-            } else {
-                container.css('display','none');
-            }
-        });
-
-    });
-</script>
+@yield('js')
 
 </body>
 </html>
