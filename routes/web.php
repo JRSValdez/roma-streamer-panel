@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminConfigurationController;
+use App\Http\Controllers\SocialNetworkController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\RouletteController;
@@ -54,9 +55,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/crear_usuarios', function () {
         return view('/admin/Crear_Usuarios');
     });
-    Route::get('/admin/redes_sociales', function () {
-        return view('/admin/Redes_Sociales');
-    });
+    Route::get('/admin/social_networks', [SocialNetworkController::class,'index'])->name('social_networks');
+    Route::post('/admin/social_networks/add', [SocialNetworkController::class,'add']);
 
     Route::get('/admin/configuraciones', [AdminConfigurationController::class,'index'])->name('configs');
 

@@ -52,7 +52,7 @@
                     <img src="../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">Alexander Pierce</a>
+                    <a href="#" class="d-block"> {{ Auth::user()->name }} </a>
                 </div>
             </div>
 
@@ -72,7 +72,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{url('/admin/usuarios_registrados')}}" class="nav-link">
+                        <a href="{{url('/admin/usuarios')}}" class="nav-link">
                             <i class="nav-icon fa fa-users"></i>
                             <p>
                               Lista de Usuarios
@@ -80,7 +80,7 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{url('/admin/redes_sociales')}}" class="nav-link">
+                        <a href="{{url('/admin/social_networks')}}" class="nav-link">
                             <i class="nav-icon fa fa-globe"></i>
                             <p>
                               Redes Sociales
@@ -95,9 +95,9 @@
                             </p>
                         </a>
                     </li>
-    
 
-                
+
+
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
@@ -109,7 +109,7 @@
     <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
         <!-- Content Header (Page header) -->
-      
+
         <!-- /.content-header -->
 
         <!-- Main content -->
