@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminConfigurationController;
+use App\Http\Controllers\SocialNetworkController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\RouletteController;
@@ -54,9 +55,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/admin/crear_usuarios', function () {
         return view('/admin/Crear_Usuarios');
     });
-    Route::get('/admin/redes_sociales', function () {
-        return view('/admin/Redes_Sociales');
-    });
+    Route::get('/admin/social_networks', [SocialNetworkController::class,'index'])->name('social_networks');
+    Route::post('/admin/social_networks/add', [SocialNetworkController::class,'add']);
 
     Route::get('/admin/configuraciones', [AdminConfigurationController::class,'index'])->name('configs');
 
@@ -82,8 +82,12 @@ Route::middleware('auth')->group(function () {
 	Route::post('/streamer/nuevocodigo', [CodigoController::class, 'crear'])->name('streamer.nuevocodigo');
 
     Route::get('/streamer/message', [MessageController::class, 'index']);
-    Route::get('/streamer/roulette', [RouletteController::class, 'index']);
-    Route::get('/streamer/votaciones', [VotacionesController::class, 'index']);
+    Route::get('/streamer/roulette', [RouletteController::class, 'index'])->name('streamer.roulette');
+    Route::get('/streamer/roulette/getroulette', [RouletteController::class, 'get_roulettes'])->name('streamer.getroulette');
+    Route::post('/streamer/roulette/create_roulette', [RouletteController::class, 'createRoulette'])->name('streamer.roulette.createroulette');
+    Route::get('/streamer/votaciones', [VotacionesController::class, 'index'])->name('streamer.votaciones');
+    Route::get('/streamer/getvotaciones', [VotacionesController::class, 'get_votaciones'])->name('streamer.getvotaciones');
+    Route::post('/streamer/votaciones/create_poll', [VotacionesController::class, 'createPoll'])->name('streamer.votaciones.createpoll');
 
     Route::get('/streamer/spin_roulette', function (){
         return view('streamer.spin_roulette');

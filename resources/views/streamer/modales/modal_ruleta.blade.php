@@ -1,4 +1,4 @@
-{!! Form::open(['url' => 'ruta']) !!}
+{!! Form::open(['route' => 'streamer.roulette.createroulette']) !!}
 {{ Form::token() }}
     <div class="modal fade" id="createSpinWheelModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -20,7 +20,7 @@
                             <div class="alert alert-danger text-center" id="noadd-emp" style="display:none">
                                 <span><i class="fas fa-times m-1"></i>Debe completar todos los campos</span>
                             </div>
-                            <form id="form-generar"> 
+                            <form id="form-generar">
                                 <div class="form-group">
                                     <label for="reward">¿Cúal es la recompensa?</label>
                                     <input id="reward" name="reward" required type="text" class="form-control" placeholder="¿Qué quieres regalar?">
@@ -30,9 +30,9 @@
                                     <button type="button" data-dismiss="modal" class="btn btn-outline-secondary float-right m-1"><i class="fas fa-window-close mr-1"></i> Cerrar</button>
                                 </div>
                             </form>
-                        </div>                        
-                    </div>   
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-{!! Form::close() !!} 
+{!! Form::close() !!}
