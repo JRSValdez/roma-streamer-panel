@@ -29,7 +29,7 @@
             </div>
             <div class="card-body">
                     <div class="mt-3 table-responsive">
-                    	<table id="codigo_lista" class="table table-bordered table-striped table-hover">
+                    	<table id="codigo_lista" class="table table-bordered table-striped table-hover text-nowrap">
                     		<thead>
                     			<tr>
                     				<th>código</th>

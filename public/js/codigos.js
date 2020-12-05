@@ -104,6 +104,7 @@ $(document).ready(function () {
       }
     });
     $('#codigo_lista').DataTable({
+      destroy: true,
       processing: true,
       serverSide: true,
       "ajax": {
@@ -136,39 +137,45 @@ $(document).ready(function () {
         data: 'fecha_creacion',
         name: 'fecha_creacion'
       }, {
-        "defaultContent": "\n            <button class=\"btn btn-success btn-sm activar\" type=\"button\" data-toggle=\"modal\" data-target=\"#crear_membresia\" title=\"Activar\"><i class=\"fas fa-check\"></i></button>\n            <button class=\"btn btn-warning btn-sm borrar\" title=\"Desactivar\"><i class=\"fas fa-times\"></i></button>\n            <button class=\"btn btn-danger btn-sm borrar\" title=\"Eliminar\"><i class=\"fas fa-trash-alt\"></i></button>\n            <button class=\"btn btn-info btn-sm borrar\" title=\"Ver Ganadores\"><i class=\"fas fa-trophy\"></i></button>\n         "
+        "defaultContent": "\n            <button class=\"btn btn-success btn-sm activar\" type=\"button\" data-toggle=\"modal\" data-target=\"#crear_membresia\" title=\"Activar\"><i class=\"fas fa-check\"></i></button>\n            <button class=\"btn btn-warning btn-sm desactivar\" title=\"Desactivar\"><i class=\"fas fa-times\"></i></button>\n            <button class=\"btn btn-danger btn-sm borrar\" title=\"Eliminar\"><i class=\"fas fa-trash-alt\"></i></button>\n            <button class=\"btn btn-info btn-sm ganadores\" title=\"Ver Ganadores\"><i class=\"fas fa-trophy\"></i></button>\n         "
       }],
       "language": espanol
     });
   }
 
-  $('#form-generar-codigo1').submit(function (e) {
+  $('#form-generar-codigo').submit(function (e) {
     var regalo = $('#regalo').val();
     var ganador = $('#ganador').val();
-    var max_reclamo = $('#max_reclamo').val(); // if (regalo > 0) {
+    var max_reclamo = $('#max_reclamo').val();
 
-    $.post('/streamer/nuevocodigo', {
-      regalo: regalo,
-      ganador: ganador,
-      max_reclamo: max_reclamo
-    }, function (response) {
-      alert(response); // if (response == 'add') {
-      //   $('#add').hide('slow');
-      //   $('#add').show(2000);
-      //   $('#add').hide(2000);
-      //   $('#form-generar-codigo').trigger('reset');
-      // }else{
-      //   $('#noadd').hide('slow');
-      //   $('#noadd').show(2000);
-      //   $('#noadd').hide(2000);
-      // }
-    }); // }else{
-    //   $('#noadd-cod').hide('slow');
-    //   $('#noadd-cod').show(2000);
-    //   $('#noadd-cod').hide(2000);
-    // }      
+    if (max_reclamo > 0) {
+      $.post('/streamer/nuevocodigo', {
+        regalo: regalo,
+        ganador: ganador,
+        max_reclamo: max_reclamo
+      }, function (response) {
+        if (response == 'add') {
+          $('#add').hide('slow');
+          $('#add').show(2000);
+          $('#add').hide(2000);
+          $('#form-generar-codigo').trigger('reset');
+          tabla_codigos();
+        } else {
+          $('#noadd').hide('slow');
+          $('#noadd').show(2000);
+          $('#noadd').hide(2000);
+        }
+      });
+    } else {
+      $('#noadd-cod').hide('slow');
+      $('#noadd-cod').show(2000);
+      $('#noadd-cod').hide(2000);
+    }
 
     e.preventDefault();
+  });
+  $('#codigo_lista tbody').on('click', '.activar', function () {
+    alert('activado');
   });
 });
 var espanol = {

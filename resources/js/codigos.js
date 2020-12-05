@@ -4,12 +4,13 @@ $(document).ready(function(){
   function tabla_codigos(){
     let estado;
     $.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
+      headers: {
+          'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+      }
     });
     
     $('#codigo_lista').DataTable({
+      destroy: true,
       processing: true,
       serverSide:true,  
       "ajax": {
@@ -34,40 +35,44 @@ $(document).ready(function(){
          { data: 'fecha_creacion', name: 'fecha_creacion' },
          { "defaultContent": `
             <button class="btn btn-success btn-sm activar" type="button" data-toggle="modal" data-target="#crear_membresia" title="Activar"><i class="fas fa-check"></i></button>
-            <button class="btn btn-warning btn-sm borrar" title="Desactivar"><i class="fas fa-times"></i></button>
+            <button class="btn btn-warning btn-sm desactivar" title="Desactivar"><i class="fas fa-times"></i></button>
             <button class="btn btn-danger btn-sm borrar" title="Eliminar"><i class="fas fa-trash-alt"></i></button>
-            <button class="btn btn-info btn-sm borrar" title="Ver Ganadores"><i class="fas fa-trophy"></i></button>
+            <button class="btn btn-info btn-sm ganadores" title="Ver Ganadores"><i class="fas fa-trophy"></i></button>
          `}
       ],
       "language": espanol
     });
   }
 
-  $('#form-generar-codigo1').submit(e => {
+  $('#form-generar-codigo').submit(e => {
       let regalo = $('#regalo').val();
       let ganador = $('#ganador').val();
       let max_reclamo = $('#max_reclamo').val();
-      // if (regalo > 0) {
+      if (max_reclamo > 0) {
         $.post('/streamer/nuevocodigo', {regalo, ganador, max_reclamo}, function(response){
-          alert(response)
-          // if (response == 'add') {
-          //   $('#add').hide('slow');
-          //   $('#add').show(2000);
-          //   $('#add').hide(2000);
-          //   $('#form-generar-codigo').trigger('reset');
-          // }else{
-          //   $('#noadd').hide('slow');
-          //   $('#noadd').show(2000);
-          //   $('#noadd').hide(2000);
-          // }
+          if (response == 'add') {
+            $('#add').hide('slow');
+            $('#add').show(2000);
+            $('#add').hide(2000);
+            $('#form-generar-codigo').trigger('reset');
+            tabla_codigos();
+          }else{
+            $('#noadd').hide('slow');
+            $('#noadd').show(2000);
+            $('#noadd').hide(2000);
+          }
         });
-      // }else{
-      //   $('#noadd-cod').hide('slow');
-      //   $('#noadd-cod').show(2000);
-      //   $('#noadd-cod').hide(2000);
-      // }      
+      }else{
+        $('#noadd-cod').hide('slow');
+        $('#noadd-cod').show(2000);
+        $('#noadd-cod').hide(2000);
+      }      
       e.preventDefault();
-    });
+  });
+
+  $('#codigo_lista tbody').on('click', '.activar', function() {
+    alert('activado');
+  });
   
 });
 

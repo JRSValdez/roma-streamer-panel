@@ -1,5 +1,5 @@
-{!! Form::open(['url' => 'streamer/nuevocodigo']) !!}
-{{ Form::token() }}
+<!-- {!! Form::open(['route' => 'streamer.nuevocodigo']) !!}
+{{ Form::token() }} -->
 <div class="modal fade" id="crear_codigos" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -25,14 +25,17 @@
                                     <label for="regalo">Seleccionar regalo</label>
                                     <select name="regalo" id="regalo" class="form-control select2" style="width: 100%">
                                         <option selected disabled>-- Seleccionar regalo --</option>
-                                        <option value="1">15 Diamantes</option>
+                                        @foreach($premios as $premio)
+                                            <option value="{{ $premio->premio}}">{{ $premio->premio}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="ganador">¿Como elegir ganador?</label>
                                     <select name="ganador" id="ganador" class="form-control select2" style="width: 100%">
                                         <option selected disabled>-- Seleccionar ganador --</option>
-                                        <option value="2">Azar</option>
+                                        <option value="1">Azar</option>
+                                        <option value="2">Primero en reclamar</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
@@ -49,4 +52,4 @@
                 </div>
             </div>
         </div>
-{!! Form::close() !!} 
+<!-- {!! Form::close() !!}  -->
