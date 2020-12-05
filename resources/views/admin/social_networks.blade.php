@@ -16,6 +16,7 @@
                             placeholder="Nombre"
                             name="name"
                             value="{{old('name')}}"
+                            required
                         >
                         @error('name')
                         <span class="invalid-feedback" role="alert">
@@ -30,6 +31,7 @@
                             placeholder="URL"
                             name="url"
                             value="{{old('url')}}"
+                            required
                         >
                         @error('url')
                         <span class="invalid-feedback" role="alert">
@@ -44,6 +46,7 @@
                             type="file"
                             name="image"
                             accept=".pdf,.jpg,.png"
+                            required
                         >
                         @error('image')
                         <span class="invalid-feedback" role="alert">
@@ -80,8 +83,9 @@
                 <td>{{$sn->url}}</td>
                 <td>
                     <img
-                        src="{{ url($sn->image) }}"
-                        class="img-fluid"
+                        src="{{ asset('/storage/user_images/'.$sn->image) }}"
+                        width="50px"
+                        height="50px"
                     />
                 </td>
                 <td>

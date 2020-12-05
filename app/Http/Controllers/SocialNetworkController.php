@@ -20,7 +20,12 @@ class SocialNetworkController extends Controller
             'image' => 'required|mimes:jpeg,bmp,png,jpg,webp',
         ]);
 
-        $imageName = $path = $request->file('image')->store('public');
+        $imageName =  time().'.'.$request->image->extension();
+
+        $request->file('image')->storeAs(
+            '/public/user_images', $imageName
+        );
+
         $validated['image'] = $imageName;
 
         SocialNetwork::create($validated);
