@@ -28,14 +28,6 @@
                     <div class="card mt-3">
                         <div class="card-header">
                             <h3 class="card-title">Votaciones</h3>
-                            <div class="card-tools">
-                                <div class="input-group input-group-sm hidden-xs" style="width: 150px;">
-                                    <input style="height: inherit;" type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-                                    <div class="input-group-btn">
-                                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
 
                         <div class="card-body table-responsive no-padding">
@@ -59,17 +51,16 @@
         <script type="text/javascript">
                 $(document).ready(function(){
                         $('#tabla_votacion').DataTable({
-                            {{--processing: true,--}}
-                            {{--serverSide:true--}}
-                            {{--ajax: "{!! route('streamer.getcodigos') !!}",--}}
-                            {{--columns: [--}}
-                            {{--    { data: 'id', name: 'id' },--}}
-                            {{--    { data: 'name', name: 'name' },--}}
-                            {{--    { data: 'email', name: 'email' },--}}
-                            {{--    { data: 'email', name: 'email' },--}}
-                            {{--    { data: 'email', name: 'email' },--}}
-                            {{--    { data: 'email', name: 'email' },--}}
-                            {{--]--}}
+                            processing: true,
+                            serverSide:true,
+                            ajax: "{!! route('streamer.getvotaciones') !!}",
+                            columns: [
+                                // { data: 'id', name: 'id' },
+                                { data: 'question', name: 'question' },
+                                { data: 'participants_number', name: 'participants_number' },
+                                { data: 'status', name: 'status' },
+                                { data:'action', name: 'action', searchable : false, orderable : false, className: 'text-center btn-lg'},
+                            ]
                         });
                 });
         </script>

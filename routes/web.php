@@ -81,8 +81,12 @@ Route::middleware('auth')->group(function () {
 	Route::get('/streamer/getcodigos', [CodigoController::class, 'get_datos'])->name('streamer.getcodigos');
 
     Route::get('/streamer/message', [MessageController::class, 'index']);
-    Route::get('/streamer/roulette', [RouletteController::class, 'index']);
-    Route::get('/streamer/votaciones', [VotacionesController::class, 'index']);
+    Route::get('/streamer/roulette', [RouletteController::class, 'index'])->name('streamer.roulette');
+    Route::get('/streamer/roulette/getroulette', [RouletteController::class, 'get_roulettes'])->name('streamer.getroulette');
+    Route::post('/streamer/roulette/create_roulette', [RouletteController::class, 'createRoulette'])->name('streamer.roulette.createroulette');
+    Route::get('/streamer/votaciones', [VotacionesController::class, 'index'])->name('streamer.votaciones');
+    Route::get('/streamer/getvotaciones', [VotacionesController::class, 'get_votaciones'])->name('streamer.getvotaciones');
+    Route::post('/streamer/votaciones/create_poll', [VotacionesController::class, 'createPoll'])->name('streamer.votaciones.createpoll');
 
     Route::get('/streamer/spin_roulette', function (){
         return view('streamer.spin_roulette');
