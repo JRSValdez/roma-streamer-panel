@@ -39,7 +39,32 @@ class CodigoController extends Controller
     		$response = 'noadd';
     	}
     	return $response;
-    	// return redirect()->route('streamer.codigos');
+    }
+
+    public function activar(Request $request){
+    	$codigo = Codigo::findOrFail($request->id_code);
+
+    	$codigo->estado = 'a';
+
+    	if ($codigo->update()) {
+    		$response = 'activado';
+    	}else{
+    		$response = 'noactivado';
+    	}
+    	return $response;
+    }
+
+    public function desactivar(Request $request){
+    	$codigo = Codigo::findOrFail($request->id_code);
+
+    	$codigo->estado = 'i';
+
+    	if ($codigo->update()) {
+    		$response = 'desactivado';
+    	}else{
+    		$response = 'nodesactivado';
+    	}
+    	return $response;
     }
 
     public function generar($longitud){

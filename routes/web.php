@@ -80,6 +80,8 @@ Route::middleware('auth')->group(function () {
 	Route::get('/streamer/codigos', [CodigoController::class, 'index'])->name('streamer.codigos');
 	Route::post('/streamer/getcodigos', [CodigoController::class, 'get_datos'])->name('streamer.getcodigos');
 	Route::post('/streamer/nuevocodigo', [CodigoController::class, 'crear'])->name('streamer.nuevocodigo');
+	Route::post('/streamer/activarcodigo', [CodigoController::class, 'activar'])->name('streamer.activarcodigo');
+	Route::post('/streamer/desactivarcodigo', [CodigoController::class, 'desactivar'])->name('streamer.desactivarcodigo');
 
     Route::get('/streamer/message', [MessageController::class, 'index']);
     Route::get('/streamer/roulette', [RouletteController::class, 'index'])->name('streamer.roulette');

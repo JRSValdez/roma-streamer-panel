@@ -9,7 +9,7 @@ $(document).ready(function(){
       }
     });
     
-    $('#codigo_lista').DataTable({
+    let datatable = $('#codigo_lista').DataTable({
       destroy: true,
       processing: true,
       serverSide:true,  
@@ -42,6 +42,49 @@ $(document).ready(function(){
       ],
       "language": espanol
     });
+
+    $('#codigo_lista tbody').on('click', '.activar', function() {
+      let datos = datatable.row($(this).parents()).data();
+      id_code = datos.id_codigo
+
+      $.post('/streamer/activarcodigo', {id_code}, (response) => {
+        alert('activado codigo con id: '+id_code);
+        if (response == 'activado') {            
+            var ref = $('#codigo_lista').DataTable();
+            ref.ajax.reload();
+        }else{
+            
+        }
+      });
+      
+    });
+
+    $('#codigo_lista tbody').on('click', '.desactivar', function() {
+      let datos = datatable.row($(this).parents()).data();
+      id_code = datos.id_codigo
+
+      $.post('/streamer/desactivarcodigo', {id_code}, (response) => {
+        alert('desactivando codigo con id: '+id_code);
+        if (response == 'desactivado') {            
+            var ref = $('#codigo_lista').DataTable();
+            ref.ajax.reload();
+        }else{
+            
+        }
+      });
+    });
+
+    $('#codigo_lista tbody').on('click', '.borrar', function() {
+      let datos = datatable.row($(this).parents()).data();
+      id_code = datos.id_codigo
+      alert('borrando codigo con id: '+id_code);
+    });
+
+    $('#codigo_lista tbody').on('click', '.ganadores', function() {
+      let datos = datatable.row($(this).parents()).data();
+      id_code = datos.id_codigo
+      alert('mostrando ganadores del codigo con id: '+id_code);
+    });
   }
 
   $('#form-generar-codigo').submit(e => {
@@ -70,9 +113,7 @@ $(document).ready(function(){
       e.preventDefault();
   });
 
-  $('#codigo_lista tbody').on('click', '.activar', function() {
-    alert('activado');
-  });
+  
   
 });
 
