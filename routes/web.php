@@ -50,11 +50,10 @@ Route::middleware('auth')->group(function () {
         return view('/admin/index');
     });
 
-    Route::get('/admin/usuarios', [AdminConfigurationController::class,'showUsers']);
+    Route::get('/admin/usuarios', [AdminConfigurationController::class,'showUsers'])->name('users');
+    Route::get('/admin/getUsers', [AdminConfigurationController::class,'getUsers'])->name('getUsers');
+    Route::get('/admin/createUser', [AdminConfigurationController::class,'getUsers'])->name('createUser');
 
-    Route::get('/admin/crear_usuarios', function () {
-        return view('/admin/Crear_Usuarios');
-    });
     Route::get('/admin/social_networks', [SocialNetworkController::class,'index'])->name('social_networks');
     Route::post('/admin/social_networks/add', [SocialNetworkController::class,'add']);
 

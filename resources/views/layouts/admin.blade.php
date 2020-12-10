@@ -64,23 +64,18 @@
                  <li class="nav-header">Acciones</li>
 
                     <li class="nav-item">
-                        <a href="{{url('/admin/crear_usuarios')}}" class="nav-link">
-                            <i class="nav-icon fa fa-user-plus"></i>
-                            <p>
-                            Crear usuarios
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{url('/admin/usuarios')}}" class="nav-link">
+                        <a href="{{url('/admin/usuarios')}}"
+                           class="nav-link {{  request()->routeIs('users') ? 'active' : '' }}">
                             <i class="nav-icon fa fa-users"></i>
                             <p>
-                              Lista de Usuarios
+                              Usuarios
                             </p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{url('/admin/social_networks')}}" class="nav-link">
+                        <a href="{{url('/admin/social_networks')}}"
+                           class="nav-link {{ request()->routeIs('social_networks') ? 'active' : '' }}"
+                        >
                             <i class="nav-icon fa fa-globe"></i>
                             <p>
                               Redes Sociales
@@ -88,7 +83,9 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{url('/admin/configuraciones')}}" class="nav-link">
+                        <a href="{{url('/admin/configuraciones')}}"
+                           class="nav-link {{ request()->routeIs('configs') ? 'active' : '' }}"
+                        >
                             <i class="nav-icon fa fa-cog"></i>
                             <p>
                               Configuraciones

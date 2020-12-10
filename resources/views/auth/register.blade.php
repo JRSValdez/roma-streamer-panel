@@ -6,12 +6,6 @@
         <div class="login-logo">
             <a href="../../index2.html"><b>Admin</b>LTE</a>
         </div>
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-            {{old('type')}}
-        </ul>
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">

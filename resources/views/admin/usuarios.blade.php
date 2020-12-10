@@ -3,44 +3,53 @@
 @section('title', 'Admin')
 
 @section('content')
-<div>
-    <h1>Listado de Usuarios</h1>
-    <div class="md-form mt-0">
-      <div class="row">
-        <div class="col-md-4">
-          <input class="form-control" type="text" placeholder="Buscar Usuario" aria-label="Search">
+    @include('admin.modales.create_user')
+    <div>
+        <div>
+            <h1 class="text-center">Listado de Usuarios</h1>
+            <button class="btn bg-gradient-primary" data-toggle="modal" data-target="#createUserModal"><i
+                    class="fas fa-hand-sparkles mr-2 ml-2"></i> Nuevo Usuario
+            </button>
         </div>
-        <div class="col-md-4">
-          <button type="button" class="btn btn-primary agregar_usuario">Nuevo Usuario</button>
-        </div>
-    </div>
+        <hr>
+        <table id="users_table" class="table table-bordered table-striped table-hover">
+            <thead>
+            <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Correo</th>
+                <th scope="col">Tipo Usuario</th>
+                <th scope="col">Fecha registro</th>
+                <th scope="col">Acciones</th>
+            </tr>
+            </thead>
+            <tbody>
 
+            </tbody>
+        </table>
     </div>
- <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Nombre</th>
-      <th scope="col">Correo</th>
-      <th scope="col">Tipo Usuario</th>
-      <th scope="col">Fecha registro</th>
-      <th scope="col">Acciones</th>
-    </tr>
-  </thead>
-  <tbody>
-      @foreach ($users as $user)
-          <tr>
-              <td> {{ $user->name }} </td>
-              <td> {{ $user->email }} </td>
-              <td> {{ $user->type == 1 ? 'Streamer' : 'Viewer' }} </td>
-              <td> {{ $user->created_at }} </td>
-              <td>
-                  <button type="button" class="btn btn-primary">Editar</button>
-                  <button type="button" class="btn btn-danger">Desactivar</button>
-              </td>
-          </tr>
-      @endforeach
-  </tbody>
-</table>
-    {{$users->links()}}
-</div>
+@endsection
+
+@section('js')
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#users_table').DataTable({
+                processing: true,
+                serverSide: true,
+                ajax: "{!! route('getUsers') !!}",
+                columns: [
+                    {data: 'name', name: 'name'},
+                    {data: 'email', name: 'email'},
+                    {data: 'type', name: 'type'},
+                    {data: 'created_at', name: 'created_at'},
+                    {
+                        data: 'action',
+                        name: 'action',
+                        searchable: false,
+                        orderable: false,
+                        className: 'text-center btn-lg'
+                    },
+                ]
+            });
+        });
+    </script>
 @endsection

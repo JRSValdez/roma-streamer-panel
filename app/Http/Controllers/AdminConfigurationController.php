@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\AdminConfiguration;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Yajra\DataTables\DataTables;
 
 class AdminConfigurationController extends Controller
 {
@@ -15,8 +16,27 @@ class AdminConfigurationController extends Controller
     }
 
     public function showUsers(){
-        $users = User::paginate(2);
-        return view('admin.usuarios',['users' => $users]);
+        return view('admin.usuarios');
+    }
+
+    public function getUsers(Request $request){
+        if ($request->ajax()) {
+            $users = User::query();
+            return DataTables::of($users)
+                ->editColumn('type', function($row) {
+                    return $row->type == 1 ? 'Streamer' : 'User';
+                })
+                ->addColumn('action', function($row){
+                $btn = '<button class="btn btn-sm btn-danger mr-2"  onclick="deactivateUser('.$row->id.')">
+                            Eliminar <i class="fa ion-trash-a" title="Eliminar"></i>
+                        </button>';
+                $btn .= '<button class="btn btn-sm btn-warning"  onclick="deactivateUser('.$row->id.')">
+                            Editar <i class="fa note-icon-pencil" title="Editar"></i>
+                        </button>';
+                return $btn;
+            })->rawColumns(['action'])->toJson();
+        }
+        return view('/admin/index');
     }
 
     public function editRoulette(Request $request){

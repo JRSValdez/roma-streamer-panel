@@ -13,7 +13,9 @@
     <div class="container-fluid">
         <section class="content">
             <div class="text-right">
-                <button class="btn bg-gradient-primary" data-toggle="modal" data-target="#createSpinWheelModal"><i class="fas fa-hand-sparkles mr-2 ml-2"></i> Crear Ruleta</button>
+                <button class="btn bg-gradient-primary" data-toggle="modal" data-target="#createSpinWheelModal"><i
+                        class="fas fa-hand-sparkles mr-2 ml-2"></i> Crear Ruleta
+                </button>
             </div>
             <div class="card mt-3">
                 <div class="card-header">
@@ -22,12 +24,12 @@
                 <div class="card-body table-responsive no-padding">
                     <table id="tabla_ruleta" class="table table-bordered table-striped table-hover">
                         <thead>
-                            <tr>
-                                <th>Recompensa</th>
-                                <th>Participantes</th>
-                                <th>Estado</th>
-                                <th>Acciones</th>
-                            </tr>
+                        <tr>
+                            <th>Recompensa</th>
+                            <th>Participantes</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
                         </thead>
                     </table>
                 </div>
@@ -37,16 +39,22 @@
 @endsection
 @section('scripts')
     <script type="text/javascript">
-        $(document).ready(function(){
+        $(document).ready(function () {
             $('#tabla_ruleta').DataTable({
                 processing: true,
-                serverSide:true,
+                serverSide: true,
                 ajax: "{!! route('streamer.getroulette') !!}",
                 columns: [
-                    { data: 'reward', name: 'reward' },
-                    { data: 'participants_number', name: 'participants_number' },
-                    { data: 'status', name: 'status' },
-                    { data:'action', name: 'action', searchable : false, orderable : false, className: 'text-center btn-lg'},
+                    {data: 'reward', name: 'reward'},
+                    {data: 'participants_number', name: 'participants_number'},
+                    {data: 'status', name: 'status'},
+                    {
+                        data: 'action',
+                        name: 'action',
+                        searchable: false,
+                        orderable: false,
+                        className: 'text-center btn-lg'
+                    },
                 ]
             });
         });

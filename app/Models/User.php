@@ -41,6 +41,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
-        'streamer_attributes' => 'object'
+        'streamer_attributes' => 'object',
+        'created_at' => 'datetime:Y-m-d h:i',
     ];
 }
