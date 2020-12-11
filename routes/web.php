@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\AdminConfigurationController;
 use App\Http\Controllers\SocialNetworkController;
+use App\Http\Controllers\StreamerController;
+use App\Http\Controllers\ViewerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\RouletteController;
@@ -33,8 +35,8 @@ Route::middleware('auth')->group(function () {
             case 1:
                 $view = '/streamer';
                 break;
-            case 2:
-                $view = '/admin';
+            case 3:
+                $view = '/admin/dashboard';
                 break;
             default:
                 $view = '/user';
@@ -46,18 +48,16 @@ Route::middleware('auth')->group(function () {
 
     /* ---- SUPER USER ---- */
 
-    Route::get('/admin', function () {
-        return view('/admin/index');
-    });
+    Route::get('/admin/dashboard', [AdminConfigurationController::class,'index'])->name('adminDashboard');
 
     Route::get('/admin/usuarios', [AdminConfigurationController::class,'showUsers'])->name('users');
     Route::get('/admin/getUsers', [AdminConfigurationController::class,'getUsers'])->name('getUsers');
-    Route::get('/admin/createUser', [AdminConfigurationController::class,'getUsers'])->name('createUser');
+    Route::post('/admin/registerAdmin', [AdminConfigurationController::class,'createAdmin'])->name('registerAdmin');
+    Route::get('/admin/configuraciones', [AdminConfigurationController::class,'showConfigs'])->name('configs');
 
     Route::get('/admin/social_networks', [SocialNetworkController::class,'index'])->name('social_networks');
     Route::post('/admin/social_networks/add', [SocialNetworkController::class,'add']);
 
-    Route::get('/admin/configuraciones', [AdminConfigurationController::class,'index'])->name('configs');
 
     Route::post('/admin/configuraciones/roulette', [AdminConfigurationController::class,'editRoulette']);
     Route::post('/admin/configuraciones/codes', [AdminConfigurationController::class,'editCodes']);
@@ -68,9 +68,7 @@ Route::middleware('auth')->group(function () {
 
     /* ---- STREAMER ---- */
 
-    Route::get('/streamer', function () {
-        return view('/streamer/index');
-    });
+    Route::get('/streamer', [StreamerController::class,'index']);
 
     // modulo de configuracion para streamer
     Route::get('/streamer/config', [ConfiguracionController::class, 'index']);
@@ -98,9 +96,7 @@ Route::middleware('auth')->group(function () {
 
     /* ---- USER ---- */
 
-    Route::get('/user', function () {
-        return view('/user/index');
-    });
+    Route::get('/user', [ViewerController::class,'index']);
 
     /* ---- / USER ---- */
 

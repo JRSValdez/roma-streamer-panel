@@ -7,6 +7,11 @@ use Illuminate\Http\Request;
 
 class SocialNetworkController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('isAdmin');
+    }
+
     public function index()
     {
         return view('admin.social_networks', ['social_networks' => SocialNetwork::all()]);

@@ -9,7 +9,11 @@ use Yajra\DataTables\DataTables;
 
 class RouletteController extends Controller
 {
-    //
+    public function __construct()
+    {
+        $this->middleware('isStreamer');
+    }
+
     public function index(){
         return view("/streamer.roulette");
     }

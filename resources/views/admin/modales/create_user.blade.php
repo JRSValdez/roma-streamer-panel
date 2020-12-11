@@ -1,5 +1,3 @@
-{!! Form::open(['route' => route('register')]) !!}
-{{ Form::token() }}
 <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -20,12 +18,14 @@
                     <div class="alert alert-danger text-center" id="noadd-emp" style="display:none">
                         <span><i class="fas fa-times m-1"></i>Debe completar todos los campos</span>
                     </div>
-                    <form id="create-votation-form">
+                    <form method="POST" action="{{ route('registerAdmin') }}">
+                        @csrf
                         <input type="hidden" id="isAdmin" name="isAdmin" value="yes">
 
                         <div class="form-group">
                             <label for="question">Usuario</label>
-                            <input type="text" id="name" name="name" value="" class="form-control" placeholder="Usuario"
+                            <input type="text" id="name" name="name" value="" class="form-control"
+                                   placeholder="Usuario"
                                    required autocomplete="false">
                         </div>
                         <div class="form-group">
@@ -41,7 +41,8 @@
                         <div class="form-group">
                             <label for="question">Confirmar contraseña:</label>
                             <input type="password" id="password_confirmation" name="password_confirmation" value=""
-                                   class="form-control" placeholder="Contraseña" required autocomplete="new-password">
+                                   class="form-control" placeholder="Contraseña" required
+                                   autocomplete="new-password">
                         </div>
                         <div class="card-footer">
                             <button type="submit" class="btn bg-gradient-primary float-right m-1"><i
@@ -58,4 +59,3 @@
         </div>
     </div>
 </div>
-{!! Form::close() !!}

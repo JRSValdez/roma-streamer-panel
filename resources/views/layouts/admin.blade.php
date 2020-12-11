@@ -64,6 +64,16 @@
                  <li class="nav-header">Acciones</li>
 
                     <li class="nav-item">
+                        <a href="{{url('/admin/dashboard')}}"
+                           class="nav-link {{  request()->routeIs('adminDashboard') ? 'active' : '' }}">
+                            <i class="nav-icon fa fa-users"></i>
+                            <p>
+                                Dashboard
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
                         <a href="{{url('/admin/usuarios')}}"
                            class="nav-link {{  request()->routeIs('users') ? 'active' : '' }}">
                             <i class="nav-icon fa fa-users"></i>

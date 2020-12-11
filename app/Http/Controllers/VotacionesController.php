@@ -9,7 +9,11 @@ use Yajra\DataTables\DataTables;
 
 class VotacionesController extends Controller
 {
-    //
+    public function __construct()
+    {
+        $this->middleware('isStreamer');
+    }
+
     public function index(){
         return view("/streamer.votaciones");
     }

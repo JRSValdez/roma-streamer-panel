@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-class ConfiguracionController extends Controller
+class StreamerController extends Controller
 {
     public function __construct()
     {
@@ -12,6 +12,6 @@ class ConfiguracionController extends Controller
     }
 
     public function index(){
-    	return view('streamer.configuracion');
+        return view('streamer.index');
     }
 }

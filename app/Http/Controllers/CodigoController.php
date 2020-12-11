@@ -10,6 +10,11 @@ use Yajra\DataTables\DataTables;
 
 class CodigoController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('isStreamer');
+    }
+
     public function index(){
     	$premios = Premio::query('id_premio', 'premio')->get();
         return view('streamer.codigos', ['premios' => $premios]);
@@ -71,7 +76,7 @@ class CodigoController extends Controller
         $key = '';
         $patron = '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ';
         $max = strlen($patron)-1;
-        for ($i=0; $i < $longitud; $i++) { 
+        for ($i=0; $i < $longitud; $i++) {
             $key .= $patron[mt_rand(0, $max)];
         }
         return $key;

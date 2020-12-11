@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Actions\Fortify\CreateNewUser;
 use App\Models\AdminConfiguration;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -9,7 +10,16 @@ use Yajra\DataTables\DataTables;
 
 class AdminConfigurationController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('isAdmin');
+    }
+
     public function index(){
+        return view('admin.index');
+    }
+
+    public function showConfigs(){
         $configurations = AdminConfiguration::all()->first();
 
         return view('admin.Configuraciones',['configs' => $configurations->getConfigurations()]);
@@ -24,7 +34,7 @@ class AdminConfigurationController extends Controller
             $users = User::query();
             return DataTables::of($users)
                 ->editColumn('type', function($row) {
-                    return $row->type == 1 ? 'Streamer' : 'User';
+                    return $row->type == 1 ? 'Streamer' : ($row->type == 3 ? 'Admin' : 'User');
                 })
                 ->addColumn('action', function($row){
                 $btn = '<button class="btn btn-sm btn-danger mr-2"  onclick="deactivateUser('.$row->id.')">
@@ -37,6 +47,14 @@ class AdminConfigurationController extends Controller
             })->rawColumns(['action'])->toJson();
         }
         return view('/admin/index');
+    }
+
+    /**
+     * @param Request $request
+     * @param App\Actions\Fortify\CreateNewUser $creator
+     */
+    public function createAdmin(Request $request, CreateNewUser $creator){
+        return $creator->create($request->all());
     }
 
     public function editRoulette(Request $request){

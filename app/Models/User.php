@@ -44,4 +44,16 @@ class User extends Authenticatable
         'streamer_attributes' => 'object',
         'created_at' => 'datetime:Y-m-d h:i',
     ];
+
+    public function isAdmin(){
+        return ($this->type == 3);
+    }
+
+    public function isStreamer(){
+        return ($this->type == 1);
+    }
+
+    public function isUser(){
+        return ($this->type == 2);
+    }
 }
