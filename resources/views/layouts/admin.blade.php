@@ -66,9 +66,19 @@
                     <li class="nav-item">
                         <a href="{{url('/admin/dashboard')}}"
                            class="nav-link {{  request()->routeIs('adminDashboard') ? 'active' : '' }}">
-                            <i class="nav-icon fa fa-users"></i>
+                            <i class="nav-icon fa fa-chart-bar"></i>
                             <p>
                                 Dashboard
+                            </p>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a href="{{url('/admin/general')}}"
+                           class="nav-link {{  request()->routeIs('adminGeneral') ? 'active' : '' }}">
+                            <i class="nav-icon fa fa-adjust"></i>
+                            <p>
+                                General
                             </p>
                         </a>
                     </li>
@@ -82,6 +92,7 @@
                             </p>
                         </a>
                     </li>
+
                     <li class="nav-item">
                         <a href="{{url('/admin/social_networks')}}"
                            class="nav-link {{ request()->routeIs('social_networks') ? 'active' : '' }}"

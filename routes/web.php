@@ -36,7 +36,7 @@ Route::middleware('auth')->group(function () {
                 $view = '/streamer';
                 break;
             case 3:
-                $view = '/dashboard';
+                $view = '/admin/dashboard';
                 break;
             default:
                 $view = '/user';
@@ -49,15 +49,16 @@ Route::middleware('auth')->group(function () {
     /* ---- SUPER USER ---- */
     Route::prefix('admin')->group(function () {
         Route::get('/dashboard', [AdminConfigurationController::class,'index'])->name('adminDashboard');
+        Route::get('/general', [AdminConfigurationController::class,'showGeneral'])->name('adminGeneral');
         Route::get('/usuarios', [AdminConfigurationController::class,'showUsers'])->name('users');
         Route::get('/getUsers', [AdminConfigurationController::class,'getUsers'])->name('getUsers');
         Route::post('/registerAdmin', [AdminConfigurationController::class,'createAdmin'])->name('registerAdmin');
         Route::get('/configuraciones', [AdminConfigurationController::class,'showConfigs'])->name('configs');
-
         Route::get('/social_networks', [SocialNetworkController::class,'index'])->name('social_networks');
+
+
+        Route::post('/general/edit', [AdminConfigurationController::class,'editGeneral'])->name('editGeneral');
         Route::post('/social_networks/add', [SocialNetworkController::class,'add']);
-
-
         Route::post('/configuraciones/roulette', [AdminConfigurationController::class,'editRoulette']);
         Route::post('/configuraciones/codes', [AdminConfigurationController::class,'editCodes']);
         Route::post('/configuraciones/polls', [AdminConfigurationController::class,'editPolls']);
