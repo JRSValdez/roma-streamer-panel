@@ -19,6 +19,12 @@ class AdminConfigurationController extends Controller
         return view('admin.index');
     }
 
+    public function showGeneral(){
+        $configurations = AdminConfiguration::all()->first();
+
+        return view('admin.general',['configs' => $configurations]);
+    }
+
     public function showConfigs(){
         $configurations = AdminConfiguration::all()->first();
 
@@ -55,6 +61,27 @@ class AdminConfigurationController extends Controller
      */
     public function createAdmin(Request $request, CreateNewUser $creator){
         return $creator->create($request->all());
+    }
+
+    public function editGeneral(Request $request){
+        $validated = $request->validate([
+            'site_name' => 'required|min:3|max:255',
+            'site_desc' => 'required|min:10|max:255',
+            'site_img' => 'required|mimes:jpeg,bmp,png,jpg,webp'
+        ]);
+        $configs = AdminConfiguration::all()->first();
+        $configs->site_name = $validated['site_name'];
+        $configs->site_desc = $validated['site_desc'];
+
+        $imageName = 'site_logo'.'.'.$request->site_img->extension();
+
+        $request->file('site_img')->storeAs(
+            '/public/', $imageName
+        );
+
+        $configs->site_img = $imageName;
+        $configs->save();
+        return redirect()->route('adminGeneral');
     }
 
     public function editRoulette(Request $request){
