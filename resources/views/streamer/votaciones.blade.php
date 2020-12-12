@@ -48,20 +48,5 @@
     </div>
 @endsection
 @section('scripts')
-        <script type="text/javascript">
-                $(document).ready(function(){
-                        $('#tabla_votacion').DataTable({
-                            processing: true,
-                            serverSide:true,
-                            ajax: "{!! route('streamer.getvotaciones') !!}",
-                            columns: [
-                                // { data: 'id', name: 'id' },
-                                { data: 'question', name: 'question' },
-                                { data: 'participants_number', name: 'participants_number' },
-                                { data: 'status', name: 'status' },
-                                { data:'action', name: 'action', searchable : false, orderable : false, className: 'text-center btn-lg'},
-                            ]
-                        });
-                });
-        </script>
+    <script src="{!! asset('js/votaciones.js') !!}"></script>
 @endsection

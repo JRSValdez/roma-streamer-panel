@@ -19,15 +19,8 @@ class VotacionesController extends Controller
     }
     public function get_votaciones(Request $request){
         if ($request->ajax()) {
-            $polls = Poll::query();
-            return DataTables::of($polls)->addColumn('action', function($row){
-
-                $btn = ' <i onclick="deleteVotation('.$row->id.')" class="fa ion-trash-a" title="Eliminar"></i>';
-                $btn .= '<i onclick="desactivateVotation('.$row->id.')" class="fa ion-close-round" title="Desactivar"></i>';
-                $btn .= '<i onclick="getResults('.$row->id.')" class="fa ion-trophy" title="Ver resultados"></i>';
-
-                return $btn;
-            })->rawColumns(['action'])->toJson();
+            $polls = Poll::query()->orderBy('id','desc');
+            return DataTables::of($polls)->toJson();
         }
     }
 
@@ -40,5 +33,31 @@ class VotacionesController extends Controller
         $poll->user_id = $user->id;
         $poll->save();
         return redirect()->route('streamer.votaciones');
+    }
+
+    public function activate(Request $request){
+        $roulette = Poll::findOrFail($request->id);
+
+        $roulette->status = 1;
+
+        if ($roulette->update()) {
+            $response = 'activado';
+        }else{
+            $response = 'noactivado';
+        }
+        return $response;
+    }
+
+    public function deactivate(Request $request){
+        $roulette = Poll::findOrFail($request->id);
+
+        $roulette->status = 0;
+
+        if ($roulette->update()) {
+            $response = 'desactivado';
+        }else{
+            $response = 'nodesactivado';
+        }
+        return $response;
     }
 }

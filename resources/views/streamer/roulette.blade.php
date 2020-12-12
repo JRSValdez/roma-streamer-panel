@@ -38,25 +38,5 @@
     </div>
 @endsection
 @section('scripts')
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#tabla_ruleta').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: "{!! route('streamer.getroulette') !!}",
-                columns: [
-                    {data: 'reward', name: 'reward'},
-                    {data: 'participants_number', name: 'participants_number'},
-                    {data: 'status', name: 'status'},
-                    {
-                        data: 'action',
-                        name: 'action',
-                        searchable: false,
-                        orderable: false,
-                        className: 'text-center btn-lg'
-                    },
-                ]
-            });
-        });
-    </script>
+    <script src="{!! asset('js/roulette.js') !!}"></script>
 @endsection
