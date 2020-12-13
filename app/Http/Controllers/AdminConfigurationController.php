@@ -67,13 +67,13 @@ class AdminConfigurationController extends Controller
         $validated = $request->validate([
             'site_name' => 'required|min:3|max:255',
             'site_desc' => 'required|min:10|max:255',
-            'site_img' => 'required|mimes:jpeg,bmp,png,jpg,webp'
+            'site_img' => 'required|mimes:png'
         ]);
         $configs = AdminConfiguration::all()->first();
         $configs->site_name = $validated['site_name'];
         $configs->site_desc = $validated['site_desc'];
 
-        $imageName = 'site_logo'.'.'.$request->site_img->extension();
+        $imageName = 'site_logo.png';
 
         $request->file('site_img')->storeAs(
             '/public/', $imageName

@@ -18,4 +18,11 @@ class AdminConfiguration extends Model
         return $configurations;
     }
 
+    public function getSiteInfo(){
+        $info = new \stdClass();
+        $info->site_name = $this->site_name;
+        $info->site_description = $this->site_desciption;
+        return $info;
+    }
+
 }

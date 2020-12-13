@@ -45,6 +45,17 @@ class User extends Authenticatable
         'created_at' => 'datetime:Y-m-d h:i',
     ];
 
+//    protected $appends = ['site_name','site_desc'];
+
+    public $site_name;
+    public $site_desc;
+
+    public function setSiteInfo(){
+        $info = AdminConfiguration::all()->first()->getSiteInfo();
+        $this->site_name = $info['site_name'];
+        $this->site_desc = $info['site_desc'];
+    }
+
     public function isAdmin(){
         return ($this->type == 3);
     }
@@ -56,4 +67,5 @@ class User extends Authenticatable
     public function isUser(){
         return ($this->type == 2);
     }
+
 }
