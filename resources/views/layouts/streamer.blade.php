@@ -54,7 +54,7 @@
                     <img src="../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
-                    <a href="#" class="d-block">Alexander Pierce</a>
+                    <a href="#" class="d-block">{{ Auth::user()->name }}</a>
                 </div>
             </div>
 
@@ -114,6 +114,15 @@
                             <i class="nav-icon fas fa-cog"></i>
                             <p>
                                 Configuración
+                                <span class="right badge badge-danger"></span>
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="{{url('/streamer/premios')}}" class="nav-link">
+                            <i class="nav-icon fas fa-gift"></i>
+                            <p>
+                                Premios
                                 <span class="right badge badge-danger"></span>
                             </p>
                         </a>

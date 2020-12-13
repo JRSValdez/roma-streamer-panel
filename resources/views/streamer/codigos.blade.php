@@ -35,6 +35,7 @@
                     				<th>código</th>
                     				<th>Premio</th>
                               <th>Maximo ganadores</th>
+                              <th>Tipo ganador</th>
                               <th>Estado</th>
                               <th>Fecha de creacion</th>
                     				<th>Acciones</th>
