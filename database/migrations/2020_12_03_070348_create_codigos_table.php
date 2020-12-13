@@ -18,8 +18,10 @@ class CreateCodigosTable extends Migration
             $table->char('codigo', 50);
             $table->string('premio', 100);
             $table->integer('maximo_ganadores');
+            $table->string('elegir_ganador');
             $table->char('estado', 1);
             $table->dateTime('fecha_creacion');
+            $table->integer('user_id');
         });
     }
 

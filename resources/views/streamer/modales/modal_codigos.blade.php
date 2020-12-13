@@ -34,8 +34,8 @@
                                     <label for="ganador">¿Como elegir ganador?</label>
                                     <select name="ganador" id="ganador" class="form-control select2" style="width: 100%">
                                         <option selected disabled>-- Seleccionar ganador --</option>
-                                        <option value="1">Azar</option>
-                                        <option value="2">Primero en reclamar</option>
+                                        <option value="Azar">Azar</option>
+                                        <option value="Primero en reclamar">Primero en reclamar</option>
                                     </select>
                                 </div>
                                 <div class="form-group">

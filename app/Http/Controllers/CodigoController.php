@@ -22,7 +22,7 @@ class CodigoController extends Controller
 
     public function get_datos(Request $request){
     	if ($request->ajax()) {
-    		$codigos = Codigo::query('id_codigo', 'codigo', 'premio.premio', 'maximo_ganadores', 'estado', 'fecha_creacion')->orderBy('id_codigo', 'desc');
+    		$codigos = Codigo::query('id_codigo', 'codigo', 'premio.premio', 'maximo_ganadores', 'elegir_ganador', 'estado', 'fecha_creacion')->where('user_id', auth()->id())->orderBy('id_codigo', 'desc');
         	return DataTables::of($codigos)->toJson();
     	}
     }
@@ -34,10 +34,11 @@ class CodigoController extends Controller
 
     	$codigo->codigo = $codigo_generado;
     	$codigo->premio = $request->regalo;
+    	$codigo->elegir_ganador = $request->ganador;
     	$codigo->maximo_ganadores = $request->max_reclamo;
     	$codigo->estado = 'i';
     	$codigo->fecha_creacion = $fecha_actual;
-    	// $codigo->user_id = auth()->id();
+    	$codigo->user_id = auth()->id();
     	if ($codigo->save()) {
     		$response = 'add';
     	}else{
@@ -70,6 +71,21 @@ class CodigoController extends Controller
     		$response = 'nodesactivado';
     	}
     	return $response;
+    }
+
+    public function borrar(Request $request){
+    	$codigo = Codigo::findOrFail($request->id_code);
+
+    	if ($codigo->delete()) {
+    		$response = 'borrado';
+    	}else{
+    		$response = 'noborrado';
+    	}
+    	return $response;
+    }
+
+    public function ganadores($id){
+    	return view('streamer.ganadorescodigos', ['id' => $id]);
     }
 
     public function generar($longitud){

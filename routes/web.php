@@ -81,6 +81,8 @@ Route::middleware('auth')->group(function () {
         Route::post('/nuevocodigo', [CodigoController::class, 'crear'])->name('streamer.nuevocodigo');
         Route::post('/activarcodigo', [CodigoController::class, 'activar'])->name('streamer.activarcodigo');
         Route::post('/desactivarcodigo', [CodigoController::class, 'desactivar'])->name('streamer.desactivarcodigo');
+        Route::post('/borrarcodigo', [CodigoController::class, 'borrar'])->name('streamer.borrarcodigo');
+        Route::get('/codigos/ganadores/{id}', [CodigoController::class, 'ganadores'])->name('streamer.ganadores');
 
         Route::get('/message', [MessageController::class, 'index']);
         Route::get('/roulette', [RouletteController::class, 'index'])->name('streamer.roulette');

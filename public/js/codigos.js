@@ -94,93 +94,189 @@
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
-  tabla_codigos();
+  var estado;
+  $.ajaxSetup({
+    headers: {
+      'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+  });
+  var datatable = $('#codigo_lista').DataTable({
+    processing: true,
+    serverSide: true,
+    "ajax": {
+      "url": "/streamer/getcodigos",
+      "method": "POST"
+    },
+    columns: [{
+      data: 'codigo',
+      name: 'codigo'
+    }, {
+      data: 'premio',
+      name: 'premio'
+    }, {
+      data: 'maximo_ganadores',
+      name: 'maximo_ganadores'
+    }, {
+      data: 'elegir_ganador',
+      name: 'elegir_ganador'
+    }, {
+      data: 'estado',
+      "render": function render(data, type, row) {
+        if (row["estado"] == 'a') {
+          estado = '<span class="badge badge-info">Activado</span>';
+        } else if (row["estado"] == 'i') {
+          estado = '<span class="badge badge-warning">Desactivado</span>';
+        } else {
+          estado = '<span class="badge badge-danger">Sin estado</span>';
+        }
 
-  function tabla_codigos() {
-    var estado;
-    $.ajaxSetup({
-      headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        return estado;
+      }
+    }, {
+      data: 'fecha_creacion',
+      name: 'fecha_creacion'
+    }, {
+      "defaultContent": "\n            <button class=\"btn btn-success btn-sm activar\" type=\"button\" data-toggle=\"modal\" data-target=\"#crear_membresia\" title=\"Activar\"><i class=\"fas fa-check\"></i></button>\n            <button class=\"btn btn-warning btn-sm desactivar\" title=\"Desactivar\"><i class=\"fas fa-times\"></i></button>\n            <button class=\"btn btn-danger btn-sm borrar\" title=\"Eliminar\"><i class=\"fas fa-trash-alt\"></i></button>\n            <button class=\"btn btn-info btn-sm ganadores\" title=\"Ver Ganadores\"><i class=\"fas fa-trophy\"></i></button>\n         "
+    }],
+    "language": espanol
+  });
+  $('#codigo_lista tbody').on('click', '.activar', function () {
+    var datos = datatable.row($(this).parents()).data();
+    id_code = datos.id_codigo;
+    $.post('/streamer/activarcodigo', {
+      id_code: id_code
+    }, function (response) {
+      if (response == 'activado') {
+        var ref = $('#codigo_lista').DataTable();
+        ref.ajax.reload();
+        var Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: function didOpen(toast) {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+          }
+        });
+        Toast.fire({
+          icon: 'success',
+          title: 'Código activado'
+        });
+      } else {
+        var _Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: function didOpen(toast) {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+          }
+        });
+
+        _Toast.fire({
+          icon: 'error',
+          title: 'Código desactivado'
+        });
       }
     });
-    var datatable = $('#codigo_lista').DataTable({
-      destroy: true,
-      processing: true,
-      serverSide: true,
-      "ajax": {
-        "url": "/streamer/getcodigos",
-        "method": "POST"
-      },
-      columns: [{
-        data: 'codigo',
-        name: 'codigo'
-      }, {
-        data: 'premio',
-        name: 'premio'
-      }, {
-        data: 'maximo_ganadores',
-        name: 'maximo_ganadores'
-      }, {
-        data: 'estado',
-        "render": function render(data, type, row) {
-          if (row["estado"] == 'a') {
-            estado = '<span class="badge badge-info">Activado</span>';
-          } else if (row["estado"] == 'i') {
-            estado = '<span class="badge badge-warning">Desactivado</span>';
-          } else {
-            estado = '<span class="badge badge-danger">Sin estado</span>';
+  });
+  $('#codigo_lista tbody').on('click', '.desactivar', function () {
+    var datos = datatable.row($(this).parents()).data();
+    id_code = datos.id_codigo;
+    $.post('/streamer/desactivarcodigo', {
+      id_code: id_code
+    }, function (response) {
+      if (response == 'desactivado') {
+        var ref = $('#codigo_lista').DataTable();
+        ref.ajax.reload();
+        var Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: function didOpen(toast) {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
           }
+        });
+        Toast.fire({
+          icon: 'warning',
+          title: 'Código desactivado'
+        });
+      } else {
+        var _Toast2 = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: function didOpen(toast) {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+          }
+        });
 
-          return estado;
-        }
-      }, {
-        data: 'fecha_creacion',
-        name: 'fecha_creacion'
-      }, {
-        "defaultContent": "\n            <button class=\"btn btn-success btn-sm activar\" type=\"button\" data-toggle=\"modal\" data-target=\"#crear_membresia\" title=\"Activar\"><i class=\"fas fa-check\"></i></button>\n            <button class=\"btn btn-warning btn-sm desactivar\" title=\"Desactivar\"><i class=\"fas fa-times\"></i></button>\n            <button class=\"btn btn-danger btn-sm borrar\" title=\"Eliminar\"><i class=\"fas fa-trash-alt\"></i></button>\n            <button class=\"btn btn-info btn-sm ganadores\" title=\"Ver Ganadores\"><i class=\"fas fa-trophy\"></i></button>\n         "
-      }],
-      "language": espanol
+        _Toast2.fire({
+          icon: 'error',
+          title: 'No se pudo desactivar el código seleccionado'
+        });
+      }
     });
-    $('#codigo_lista tbody').on('click', '.activar', function () {
-      var datos = datatable.row($(this).parents()).data();
-      id_code = datos.id_codigo;
-      $.post('/streamer/activarcodigo', {
-        id_code: id_code
-      }, function (response) {
-        alert('activado codigo con id: ' + id_code);
+  });
+  $('#codigo_lista tbody').on('click', '.borrar', function () {
+    var datos = datatable.row($(this).parents()).data();
+    id_code = datos.id_codigo;
+    $.post('/streamer/borrarcodigo', {
+      id_code: id_code
+    }, function (response) {
+      if (response == 'borrado') {
+        var ref = $('#codigo_lista').DataTable();
+        ref.ajax.reload();
+        var Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: function didOpen(toast) {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+          }
+        });
+        Toast.fire({
+          icon: 'info',
+          title: 'Código borrado'
+        });
+      } else {
+        var _Toast3 = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 2000,
+          timerProgressBar: true,
+          didOpen: function didOpen(toast) {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+          }
+        });
 
-        if (response == 'activado') {
-          var ref = $('#codigo_lista').DataTable();
-          ref.ajax.reload();
-        } else {}
-      });
+        _Toast3.fire({
+          icon: 'error',
+          title: 'No se pudo borrar el código seleccionado'
+        });
+      }
     });
-    $('#codigo_lista tbody').on('click', '.desactivar', function () {
-      var datos = datatable.row($(this).parents()).data();
-      id_code = datos.id_codigo;
-      $.post('/streamer/desactivarcodigo', {
-        id_code: id_code
-      }, function (response) {
-        alert('desactivando codigo con id: ' + id_code);
-
-        if (response == 'desactivado') {
-          var ref = $('#codigo_lista').DataTable();
-          ref.ajax.reload();
-        } else {}
-      });
-    });
-    $('#codigo_lista tbody').on('click', '.borrar', function () {
-      var datos = datatable.row($(this).parents()).data();
-      id_code = datos.id_codigo;
-      alert('borrando codigo con id: ' + id_code);
-    });
-    $('#codigo_lista tbody').on('click', '.ganadores', function () {
-      var datos = datatable.row($(this).parents()).data();
-      id_code = datos.id_codigo;
-      alert('mostrando ganadores del codigo con id: ' + id_code);
-    });
-  }
-
+  });
+  $('#codigo_lista tbody').on('click', '.ganadores', function () {
+    var datos = datatable.row($(this).parents()).data();
+    id_code = datos.id_codigo;
+    window.open('/streamer/codigos/ganadores/' + id_code, '_blank');
+  });
   $('#form-generar-codigo').submit(function (e) {
     var regalo = $('#regalo').val();
     var ganador = $('#ganador').val();
@@ -197,7 +293,8 @@ $(document).ready(function () {
           $('#add').show(2000);
           $('#add').hide(2000);
           $('#form-generar-codigo').trigger('reset');
-          tabla_codigos();
+          var ref = $('#codigo_lista').DataTable();
+          ref.ajax.reload();
         } else {
           $('#noadd').hide('slow');
           $('#noadd').show(2000);

@@ -1,7 +1,5 @@
 $(document).ready(function(){
-  tabla_codigos()
-
-  function tabla_codigos(){
+  
     let estado;
     $.ajaxSetup({
       headers: {
@@ -10,7 +8,6 @@ $(document).ready(function(){
     });
     
     let datatable = $('#codigo_lista').DataTable({
-      destroy: true,
       processing: true,
       serverSide:true,  
       "ajax": {
@@ -21,6 +18,7 @@ $(document).ready(function(){
          { data: 'codigo', name: 'codigo' },
          { data: 'premio', name: 'premio' },
          { data: 'maximo_ganadores', name: 'maximo_ganadores' },
+         { data: 'elegir_ganador', name: 'elegir_ganador' },
          {data: 'estado', "render": function ( data, type, row ){
                if (row["estado"] == 'a') {
                   estado = '<span class="badge badge-info">Activado</span>';
@@ -48,12 +46,42 @@ $(document).ready(function(){
       id_code = datos.id_codigo
 
       $.post('/streamer/activarcodigo', {id_code}, (response) => {
-        alert('activado codigo con id: '+id_code);
         if (response == 'activado') {            
             var ref = $('#codigo_lista').DataTable();
             ref.ajax.reload();
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            })
+
+            Toast.fire({
+              icon: 'success',
+              title: 'Código activado'
+            })
         }else{
-            
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            })
+
+            Toast.fire({
+              icon: 'error',
+              title: 'Código desactivado'
+            })
         }
       });
       
@@ -64,12 +92,42 @@ $(document).ready(function(){
       id_code = datos.id_codigo
 
       $.post('/streamer/desactivarcodigo', {id_code}, (response) => {
-        alert('desactivando codigo con id: '+id_code);
         if (response == 'desactivado') {            
             var ref = $('#codigo_lista').DataTable();
             ref.ajax.reload();
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            })
+
+            Toast.fire({
+              icon: 'warning',
+              title: 'Código desactivado'
+            })
         }else{
-            
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            })
+
+            Toast.fire({
+              icon: 'error',
+              title: 'No se pudo desactivar el código seleccionado'
+            })
         }
       });
     });
@@ -77,15 +135,53 @@ $(document).ready(function(){
     $('#codigo_lista tbody').on('click', '.borrar', function() {
       let datos = datatable.row($(this).parents()).data();
       id_code = datos.id_codigo
-      alert('borrando codigo con id: '+id_code);
+      
+      $.post('/streamer/borrarcodigo', {id_code}, (response) => {
+        if (response == 'borrado') {            
+            var ref = $('#codigo_lista').DataTable();
+            ref.ajax.reload();
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            })
+
+            Toast.fire({
+              icon: 'info',
+              title: 'Código borrado'
+            })
+        }else{
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            })
+
+            Toast.fire({
+              icon: 'error',
+              title: 'No se pudo borrar el código seleccionado'
+            })
+        }
+      });
     });
 
     $('#codigo_lista tbody').on('click', '.ganadores', function() {
       let datos = datatable.row($(this).parents()).data();
       id_code = datos.id_codigo
-      alert('mostrando ganadores del codigo con id: '+id_code);
+      window.open('/streamer/codigos/ganadores/'+id_code, '_blank');
     });
-  }
 
   $('#form-generar-codigo').submit(e => {
       let regalo = $('#regalo').val();
@@ -98,7 +194,8 @@ $(document).ready(function(){
             $('#add').show(2000);
             $('#add').hide(2000);
             $('#form-generar-codigo').trigger('reset');
-            tabla_codigos();
+            var ref = $('#codigo_lista').DataTable();
+            ref.ajax.reload();
           }else{
             $('#noadd').hide('slow');
             $('#noadd').show(2000);
@@ -112,9 +209,6 @@ $(document).ready(function(){
       }      
       e.preventDefault();
   });
-
-  
-  
 });
 
 let espanol = {
