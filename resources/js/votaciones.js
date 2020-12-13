@@ -10,7 +10,6 @@ $(document).ready(function(){
         });
 
         let datatable = $('#tabla_votacion').DataTable({
-            destroy: true,
             processing: true,
             serverSide:true,
             "ajax": {
