@@ -17,7 +17,7 @@ $(document).ready(function(){
                 "method": "POST",
             },
             columns: [
-                {data: 'question', name: 'reward'},
+                {data: 'question', name: 'question'},
                 {data: 'participants_number', name: 'participants_number'},
                 {data: 'status', "render": function ( data, type, row ){
                         if (row["status"] == 1) {
