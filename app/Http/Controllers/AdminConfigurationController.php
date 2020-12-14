@@ -6,6 +6,7 @@ use App\Actions\Fortify\CreateNewUser;
 use App\Models\AdminConfiguration;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use Yajra\DataTables\DataTables;
 
 class AdminConfigurationController extends Controller
@@ -37,23 +38,62 @@ class AdminConfigurationController extends Controller
 
     public function getUsers(Request $request){
         if ($request->ajax()) {
-            $users = User::query();
-            return DataTables::of($users)
-                ->editColumn('type', function($row) {
-                    return $row->type == 1 ? 'Streamer' : ($row->type == 3 ? 'Admin' : 'User');
-                })
-                ->addColumn('action', function($row){
-                $btn = '<button class="btn btn-sm btn-danger mr-2"  onclick="deactivateUser('.$row->id.')">
-                            Eliminar <i class="fa ion-trash-a" title="Eliminar"></i>
-                        </button>';
-                $btn .= '<button class="btn btn-sm btn-warning"  onclick="deactivateUser('.$row->id.')">
-                            Editar <i class="fa note-icon-pencil" title="Editar"></i>
-                        </button>';
-                return $btn;
-            })->rawColumns(['action'])->toJson();
+            $users = User::query()->withTrashed()->orderBy('id','desc');
+            return DataTables::of($users)->toJson();
         }
         return view('/admin/index');
     }
+
+    /**
+     * @param Request $request
+     * @return bool|int|mixed|null
+     */
+    public function changeUserStatus(Request $request){
+        $validated  = $request->validate([
+            'user_id' => 'required|numeric'
+        ]);
+        try {
+            $user = User::withTrashed()->findOrFail($validated['user_id']);
+
+            if($user){
+                if($user->deleted_at != null){
+                    return $user->restore();
+                }
+                return $user->delete();
+            }
+        } catch (\Exception $e) {
+            return false;
+        }
+        return false;
+    }
+
+    public function editUser(Request $request){
+        $validated  = $request->validate([
+            'user_id' => 'required|numeric',
+            'name' => ['required', 'string', 'max:30','alpha_dash',Rule::unique(User::class)->ignore($request->user_id)],
+            'email' => [
+                'required',
+                'string',
+                'email',
+                'max:255',
+                Rule::unique(User::class)->ignore($request->user_id),
+            ],
+        ]);
+        try {
+            $user = User::withTrashed()->findOrFail($validated['user_id']);
+
+            if($user){
+                $user->name = $validated['name'];
+                $user->email = $validated['email'];
+                $user->save();
+                return ['success'=>true];
+            }
+        } catch (\Exception $e) {
+            return ['success'=>false,'message'=>'500, internal server error'];
+        }
+    }
+
+
 
     /**
      * @param Request $request

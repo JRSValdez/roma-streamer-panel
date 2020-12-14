@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable;
+    use HasFactory, Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -45,15 +46,19 @@ class User extends Authenticatable
         'created_at' => 'datetime:Y-m-d h:i',
     ];
 
-//    protected $appends = ['site_name','site_desc'];
+    protected $appends = ['site_name','site_desc'];
 
     public $site_name;
     public $site_desc;
 
-    public function setSiteInfo(){
+    public function getSiteNameAttribute(){
         $info = AdminConfiguration::all()->first()->getSiteInfo();
-        $this->site_name = $info['site_name'];
-        $this->site_desc = $info['site_desc'];
+        return $info->site_name;
+    }
+
+    public function getSiteDescAttribute(){
+        $info = AdminConfiguration::all()->first()->getSiteInfo();
+        return $info->site_description;
     }
 
     public function isAdmin(){
