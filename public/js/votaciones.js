@@ -104,7 +104,6 @@ $(document).ready(function () {
       }
     });
     var datatable = $('#tabla_votacion').DataTable({
-      destroy: true,
       processing: true,
       serverSide: true,
       "ajax": {
@@ -113,7 +112,7 @@ $(document).ready(function () {
       },
       columns: [{
         data: 'question',
-        name: 'reward'
+        name: 'question'
       }, {
         data: 'participants_number',
         name: 'participants_number'

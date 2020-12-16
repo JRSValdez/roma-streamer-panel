@@ -24,7 +24,6 @@
                                 <div class="form-group">
                                     <label for="regalo">Seleccionar regalo</label>
                                     <select name="regalo" id="regalo" class="form-control select2" style="width: 100%">
-                                        <option selected disabled>-- Seleccionar regalo --</option>
                                         @foreach($premios as $premio)
                                             <option value="{{ $premio->premio}}">{{ $premio->premio}}</option>
                                         @endforeach
@@ -33,14 +32,13 @@
                                 <div class="form-group">
                                     <label for="ganador">¿Como elegir ganador?</label>
                                     <select name="ganador" id="ganador" class="form-control select2" style="width: 100%">
-                                        <option selected disabled>-- Seleccionar ganador --</option>
                                         <option value="Azar">Azar</option>
                                         <option value="Primero en reclamar">Primero en reclamar</option>
                                     </select>
                                 </div>
                                 <div class="form-group">
                                     <label for="max_reclamo">Maximo de reclamos</label>
-                                    <input id="max_reclamo" name="max_reclamo" required type="number" class="form-control" placeholder="Ingrese maximo de reclamos">
+                                    <input id="max_reclamo" name="max_reclamo" required type="number" class="form-control" placeholder="Ingrese maximo de reclamos" value="1">
                                 </div>
                                 <div class="card-footer">
                                     <button type="submit" class="btn bg-gradient-primary float-right m-1"><i class="fas fa-save mr-1"></i> Guardar</button>

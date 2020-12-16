@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Codigo;
 use App\Models\Premio;
+use App\Models\SorteoCodigo;
 use Yajra\DataTables\DataTables;
 
 class CodigoController extends Controller
@@ -85,7 +86,13 @@ class CodigoController extends Controller
     }
 
     public function ganadores($id){
-    	return view('streamer.ganadorescodigos', ['id' => $id]);
+    	$codigo = Codigo::findOrFail($id);
+    	$participantes = SorteoCodigo::query('id_free_fire', 'nombre_free_fire', 'servidor', 'fecha_canjeado')->where('codigo_id', $id)->orderBy('fecha_canjeado','ASC')->get();
+    	$total_participantes = count($participantes);
+    	return view('streamer.ganadorescodigos', ['id' => $id, 'participantes' => $participantes,
+    												'codigo' => $codigo->codigo, 'elegir_ganador' => $codigo->elegir_ganador,
+    												'total_participantes' => $total_participantes
+    											]);
     }
 
     public function generar($longitud){

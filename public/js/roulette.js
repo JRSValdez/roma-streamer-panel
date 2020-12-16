@@ -104,7 +104,6 @@ $(document).ready(function () {
       }
     });
     var datatable = $('#tabla_ruleta').DataTable({
-      destroy: true,
       processing: true,
       serverSide: true,
       "ajax": {
