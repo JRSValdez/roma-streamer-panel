@@ -49,22 +49,33 @@ Route::middleware('auth')->group(function () {
     /* ---- SUPER USER ---- */
     Route::prefix('admin')->group(function () {
         Route::get('/dashboard', [AdminConfigurationController::class,'index'])->name('adminDashboard');
+
+        /*General*/
         Route::get('/general', [AdminConfigurationController::class,'showGeneral'])->name('adminGeneral');
-        Route::get('/usuarios', [AdminConfigurationController::class,'showUsers'])->name('users');
-        Route::post('/getUsers', [AdminConfigurationController::class,'getUsers'])->name('getUsers');
-        Route::post('/registerAdmin', [AdminConfigurationController::class,'createAdmin'])->name('registerAdmin');
-        Route::get('/configuraciones', [AdminConfigurationController::class,'showConfigs'])->name('configs');
-        Route::get('/social_networks', [SocialNetworkController::class,'index'])->name('social_networks');
-
-
         Route::post('/general/edit', [AdminConfigurationController::class,'editGeneral'])->name('editGeneral');
-        Route::post('/usuarios/changeUserStatus', [AdminConfigurationController::class,'changeUserStatus'])->name('changeUserStatus');
-        Route::post('/usuarios/editUser', [AdminConfigurationController::class,'editUser'])->name('editUser');
-        Route::post('/social_networks/add', [SocialNetworkController::class,'add']);
+
+        /*configs*/
+        Route::get('/configuraciones', [AdminConfigurationController::class,'showConfigs'])->name('configs');
         Route::post('/configuraciones/roulette', [AdminConfigurationController::class,'editRoulette']);
         Route::post('/configuraciones/codes', [AdminConfigurationController::class,'editCodes']);
         Route::post('/configuraciones/polls', [AdminConfigurationController::class,'editPolls']);
         Route::post('/configuraciones/messages', [AdminConfigurationController::class,'editMessages']);
+
+        /*users*/
+        Route::get('/usuarios', [AdminConfigurationController::class,'showUsers'])->name('users');
+        Route::post('/getUsers', [AdminConfigurationController::class,'getUsers'])->name('getUsers');
+        Route::post('/registerAdmin', [AdminConfigurationController::class,'createAdmin'])->name('registerAdmin');
+        Route::post('/usuarios/changeUserStatus', [AdminConfigurationController::class,'changeUserStatus'])->name('changeUserStatus');
+        Route::post('/usuarios/editUser', [AdminConfigurationController::class,'editUser'])->name('editUser');
+
+        /*social networks*/
+        Route::get('/social_networks', [SocialNetworkController::class,'index'])->name('social_networks');
+        Route::post('/getSocialNetworks', [SocialNetworkController::class,'getSocialNetworks'])->name('getSocialNetworks');
+        Route::post('/social_networks/changeShow', [SocialNetworkController::class,'changeShow'])->name('snChangeShow');
+        Route::post('/social_networks/changeStatus', [SocialNetworkController::class,'changeStatus'])->name('snChangeStatus');
+        Route::post('/social_networks/add', [SocialNetworkController::class,'add']);
+        Route::post('/social_networks/edit', [SocialNetworkController::class,'edit'])->name('editGeneral');
+
     });
 
 

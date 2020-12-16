@@ -74,41 +74,15 @@ $(document).ready(function () {
             if (response == 1) {
                 var ref = $('#users_table').DataTable();
                 ref.ajax.reload();
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-center',
-                    showConfirmButton: false,
-                    timer: 2000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                })
-
-                Toast.fire({
-                    icon: 'success',
-                    title: 'Usuario cambiado'
-                })
+                showMessage('success', 2000, 'Exito')
             } else {
-                const Toast = Swal.mixin({
-                    toast: true,
-                    position: 'top-end',
-                    showConfirmButton: false,
-                    timer: 2000,
-                    timerProgressBar: true,
-                    didOpen: (toast) => {
-                        toast.addEventListener('mouseenter', Swal.stopTimer)
-                        toast.addEventListener('mouseleave', Swal.resumeTimer)
-                    }
-                })
-
-                Toast.fire({
-                    icon: 'error',
-                    title: 'Error al cambiar estado'
-                })
+                showMessage('error', 3000, 'Error')
             }
+        })
+        .fail(function (xhr, status, error) {
+            showMessage('error', 3000, 'Error');
         });
+
 
     });
 
@@ -120,7 +94,7 @@ $(document).ready(function () {
         let user_email = datos.email;
 
         $('#editName').val(user_name);
-        $('#user_id').val(user_id );
+        $('#user_id').val(user_id);
         $('#editEmail').val(user_email);
 
         $('#modalUserEdit').modal()
@@ -130,37 +104,36 @@ $(document).ready(function () {
     $('#btnSaveModal').on('click', function () {
         $('#txtError').empty();
         let data = {
-            user_id:$('#user_id').val(),
-            name:$('#editName').val(),
-            email:$('#editEmail').val(),
+            user_id: $('#user_id').val(),
+            name: $('#editName').val(),
+            email: $('#editEmail').val(),
         };
 
         $.post('/admin/usuarios/editUser', data, (response) => {
-            console.log(response);
             if (!response.errors) {
                 var ref = $('#users_table').DataTable();
                 ref.ajax.reload();
-                showMessage('success',2000,'Usuario editado correctamente');
+                showMessage('success', 2000, 'Usuario editado correctamente');
 
             } else {
-                showMessage('error',3000,'Error');
+                showMessage('error', 3000, 'Error');
 
             }
         })
-        .fail(function(xhr, status, error) {
-            showMessage('error',3000,'Error');
-            let errors = 'Errores: <br>';
-            for(let propertyName in xhr.responseJSON.errors) {
-                errors += ' <br> -' + xhr.responseJSON.errors[propertyName][0]
-            }
-            $('#txtError').html(errors);
-        });
+            .fail(function (xhr, status, error) {
+                showMessage('error', 3000, 'Error');
+                let errors = 'Errores: <br>';
+                for (let propertyName in xhr.responseJSON.errors) {
+                    errors += ' <br> -' + xhr.responseJSON.errors[propertyName][0]
+                }
+                $('#txtError').html(errors);
+            });
 
     });
 
 });
 
-function showMessage(type = 'success',time = 2000,message){
+function showMessage(type = 'success', time = 2000, message) {
     const Toast = Swal.mixin({
         toast: true,
         position: 'top-end',

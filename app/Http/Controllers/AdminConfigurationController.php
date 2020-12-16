@@ -93,8 +93,6 @@ class AdminConfigurationController extends Controller
         }
     }
 
-
-
     /**
      * @param Request $request
      * @param App\Actions\Fortify\CreateNewUser $creator

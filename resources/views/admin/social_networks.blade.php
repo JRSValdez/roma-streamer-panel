@@ -66,36 +66,107 @@
 
         </div>
         <br>
-    </div>
-    <table class="table">
-        <thead>
-        <tr>
-            <th scope="col">Nombre</th>
-            <th scope="col">URL</th>
-            <th scope="col">Imagen</th>
-            <th scope="col">Acciones</th>
-        </tr>
-        </thead>
-        <tbody>
-        @foreach($social_networks as $sn)
+        <table id="sn_table" class="table table-bordered table-striped table-hover" >
+            <thead>
             <tr>
-                <td>{{$sn->name}}</td>
-                <td>{{$sn->url}}</td>
-                <td>
-                    <img
-                        src="{{ asset('/storage/user_images/'.$sn->image) }}"
-                        width="50px"
-                        height="50px"
-                    />
-                </td>
-                <td>
-                    <button type="button" class="btn btn-primary">Editar</button>
-                    <button type="button" class="btn btn-danger">Eliminar</button>
-
-                </td>
+                <th scope="col">Nombre</th>
+                <th scope="col">URL</th>
+                <th scope="col">Mostrar en registro</th>
+                <th scope="col">Fecha creación</th>
+                <th scope="col">Imagen</th>
+                <th scope="col">Acciones</th>
             </tr>
-        @endforeach
-        </tbody>
-    </table>
+            </thead>
+            <tbody >
+
+            </tbody>
+        </table>
     </div>
+
+    <div class="modal fade" id="modalSNEdit">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Editar Red Social</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    @csrf
+                    <input type="hidden" id="sn_id" value="">
+
+                    <div class="form-group text-center">
+                        <img
+                            style="max-width: 200px"
+                            src=""
+                            class="img-fluid"
+                            alt="site logo"
+                            id="currentImage"
+                        />
+                    </div>
+                    <div class="input-group mb-3">
+                        <label>Nueva imagen: </label>
+                        <input
+                            type="file"
+                            name="image"
+                            id="image"
+                            accept=".jpg,.png"
+                            required
+                        >
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <input
+                            id="editName"
+                            type="text"
+                            class="form-control"
+                            placeholder="Nombre de la red social"
+                            name="name"
+                            value=""
+                            required
+                            autofocus
+                        >
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-pen"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <input
+                            id="editUrl"
+                            type="text"
+                            class="form-control"
+                            placeholder="www.example.com"
+                            name="url"
+                            value=""
+                            required
+                        >
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-globe"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="input-group mb-3">
+                        <p class="text-danger" id="txtError"></p>
+                    </div>
+
+                </div>
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" id="btnSaveModal" class="btn btn-primary">Guardar Cambios</button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+@endsection
+
+@section('js')
+    <script src="{!! asset('js/socialNetworks.js') !!}"></script>
 @endsection
