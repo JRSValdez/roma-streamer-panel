@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 
-@section('title', 'Super User')
+@section('title', Auth::user()->site_name . ' - Admin Configuraciones')
 
 @section('content')
     <!-- Small boxes (Stat box) -->
-    <h1 class="text-center">Configuracion de "App Name" </h1>
+    <h1 class="text-center">Configuración</h1>
     <div class="row">
         <div class="col-6">
             <div class="card card-primary">

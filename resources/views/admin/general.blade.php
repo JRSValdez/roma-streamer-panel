@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Admin - General')
+@section('title', Auth::user()->site_name . ' - Admin Site Configuration')
 
 @section('panel_actual')
     <i class="fas fa-cog mr-1 ml-2"></i>Panel de configuraciones
@@ -38,8 +38,7 @@
                                         class=" @error('site_img') is-invalid @enderror"
                                         type="file"
                                         name="site_img"
-                                        accept=".pdf,.jpg,.png"
-                                        required
+                                        accept=".png"
                                     >
                                     @error('site_img')
                                     <span class="invalid-feedback" role="alert">

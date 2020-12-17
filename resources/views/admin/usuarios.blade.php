@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Admin')
+@section('title', Auth::user()->site_name . ' - Admin Users')
 
 @section('content')
     @include('admin.modales.create_user')

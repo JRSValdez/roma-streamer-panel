@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Actions\Fortify\CreateNewUser;
 use App\Models\AdminConfiguration;
+use App\Models\Codigo;
+use App\Models\Poll;
+use App\Models\Roulette;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -17,7 +20,24 @@ class AdminConfigurationController extends Controller
     }
 
     public function index(){
-        return view('admin.index');
+        $usersCount = User::count();
+        $usersDeleted = User::withTrashed()->where('deleted_at','!=',null)->count();
+
+        $rouletteCount = Roulette::count();
+
+        $pollsCount = Poll::count();
+
+        $codesCount = Codigo::count();
+
+        $info = [
+            'users_count' => $usersCount,
+            'users_deleted_count' => $usersDeleted,
+            'roulette_count' => $rouletteCount,
+            'polls_count' => $pollsCount,
+            'codes_count' => $codesCount,
+        ];
+
+        return view('admin.index',$info);
     }
 
     public function showGeneral(){
@@ -103,9 +123,9 @@ class AdminConfigurationController extends Controller
 
     public function editGeneral(Request $request){
         $validated = $request->validate([
-            'site_name' => 'required|min:3|max:255',
-            'site_desc' => 'required|min:10|max:255',
-            'site_img' => 'required|mimes:png'
+            'site_name' => 'min:3|max:255',
+            'site_desc' => 'min:10|max:255',
+            'site_img' => 'mimes:png'
         ]);
         $configs = AdminConfiguration::all()->first();
         $configs->site_name = $validated['site_name'];
@@ -113,9 +133,11 @@ class AdminConfigurationController extends Controller
 
         $imageName = 'site_logo.png';
 
-        $request->file('site_img')->storeAs(
-            '/public/', $imageName
-        );
+        if(isset($validated['site_img'])){
+            $request->file('site_img')->storeAs(
+                '/public/', $imageName
+            );
+        }
 
         $configs->site_img = $imageName;
         $configs->save();

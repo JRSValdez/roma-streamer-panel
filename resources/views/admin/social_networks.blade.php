@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 
-@section('title', 'Admin')
+@section('title', Auth::user()->site_name . ' - Admin Social Network')
 
 @section('content')
     <div>

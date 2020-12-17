@@ -48,9 +48,6 @@ class User extends Authenticatable
 
     protected $appends = ['site_name','site_desc'];
 
-    public $site_name;
-    public $site_desc;
-
     public function getSiteNameAttribute(){
         $info = AdminConfiguration::all()->first()->getSiteInfo();
         return $info->site_name;

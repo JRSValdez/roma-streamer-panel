@@ -74,7 +74,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/social_networks/changeShow', [SocialNetworkController::class,'changeShow'])->name('snChangeShow');
         Route::post('/social_networks/changeStatus', [SocialNetworkController::class,'changeStatus'])->name('snChangeStatus');
         Route::post('/social_networks/add', [SocialNetworkController::class,'add']);
-        Route::post('/social_networks/edit', [SocialNetworkController::class,'edit'])->name('editGeneral');
+        Route::post('/social_networks/edit', [SocialNetworkController::class,'edit'])->name('editSN');
 
     });
 
