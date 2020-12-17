@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title> @yield('title')</title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -21,6 +21,19 @@
     <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
+    <style>
+        body{
+
+            /*background-image: url('img/loginBG.jpg') !important;*/
+            /*background-repeat: no-repeat !important;*/
+            /*background-size: cover !important;*/
+
+            background: #0F2027 !important;  /* fallback for old browsers */
+            background: -webkit-linear-gradient(to right, #2C5364, #203A43, #0F2027) !important;  /* Chrome 10-25, Safari 5.1-6 */
+            background: linear-gradient(to right, #2C5364, #203A43, #0F2027) !important; /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+    </style>
 </head>
 <body class="hold-transition login-page">
 

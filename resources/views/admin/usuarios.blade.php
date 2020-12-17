@@ -4,7 +4,7 @@
 
 @section('content')
     @include('admin.modales.create_user')
-    <div>
+    <div >
         <div>
             <h1 class="text-center">Listado de Usuarios</h1>
             <button class="btn bg-gradient-primary" data-toggle="modal" data-target="#createUserModal"><i
@@ -12,20 +12,22 @@
             </button>
         </div>
         <hr>
-        <table id="users_table" class="table table-bordered table-striped table-hover">
-            <thead>
-            <tr>
-                <th scope="col">Nombre</th>
-                <th scope="col">Correo</th>
-                <th scope="col">Tipo Usuario</th>
-                <th scope="col">Fecha registro</th>
-                <th scope="col">Acciones</th>
-            </tr>
-            </thead>
-            <tbody>
+        <div class="table-responsive-sm">
+            <table id="users_table" class="table table-bordered table-striped table-hover ">
+                <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Correo</th>
+                    <th scope="col">Tipo Usuario</th>
+                    <th scope="col">Fecha registro</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div class="modal fade" id="modalUserEdit">

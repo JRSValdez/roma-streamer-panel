@@ -1,15 +1,23 @@
 @extends('layouts.login')
 
+@section('title', $site_name .' - Register')
+
 @section('content')
 
     <div class="login-box">
         <div class="login-logo">
-            <a href="../../index2.html"><b>Admin</b>LTE</a>
+            <div>
+                <img
+                    style="max-width: 100px"
+                    src="{{ asset('/storage/site_logo.png')}}"
+                    alt="site logo"/>
+            </div>
+            <a style="color:white" href="{{url('/')}}"> {{$site_name}} </a>
         </div>
         <!-- /.login-logo -->
         <div class="card">
             <div class="card-body login-card-body">
-                <p class="login-box-msg">Sign in to start your session</p>
+                <p class="login-box-msg">Registrarse:</p>
 
                 <form method="POST" action="{{ route('register') }}">
                     @csrf

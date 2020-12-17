@@ -66,21 +66,23 @@
 
         </div>
         <br>
-        <table id="sn_table" class="table table-bordered table-striped table-hover" >
-            <thead>
-            <tr>
-                <th scope="col">Nombre</th>
-                <th scope="col">URL</th>
-                <th scope="col">Mostrar en registro</th>
-                <th scope="col">Fecha creación</th>
-                <th scope="col">Imagen</th>
-                <th scope="col">Acciones</th>
-            </tr>
-            </thead>
-            <tbody >
+        <div class="table-responsive-sm">
+            <table id="sn_table" class="table table-bordered table-striped table-hover">
+                <thead>
+                <tr>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">URL</th>
+                    <th scope="col">Mostrar en registro</th>
+                    <th scope="col">Fecha creación</th>
+                    <th scope="col">Imagen</th>
+                    <th scope="col">Acciones</th>
+                </tr>
+                </thead>
+                <tbody>
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
     </div>
 
     <div class="modal fade" id="modalSNEdit">

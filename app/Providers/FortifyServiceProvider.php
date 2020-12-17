@@ -6,6 +6,7 @@ use App\Actions\Fortify\CreateNewUser;
 use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
+use App\Models\AdminConfiguration;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
 
@@ -34,11 +35,15 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::resetUserPasswordsUsing(ResetUserPassword::class);
 
         Fortify::loginView(function () {
-            return view('auth.login');
+            $config = AdminConfiguration::all()->first()->getSiteInfo();
+
+            return view('auth.login', ['site_name' => $config->site_name]);
         });
 
         Fortify::registerView(function () {
-            return view('auth.register');
+            $config = AdminConfiguration::all()->first()->getSiteInfo();
+
+            return view('auth.register', ['site_name' => $config->site_name]);
         });
 
         Fortify::requestPasswordResetLinkView(function () {
