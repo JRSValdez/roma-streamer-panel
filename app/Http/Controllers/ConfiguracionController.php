@@ -6,6 +6,7 @@ use App\Models\SocialNetwork;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\Rule;
 
 class ConfiguracionController extends Controller
 {
@@ -27,7 +28,7 @@ class ConfiguracionController extends Controller
                                                     'streamer_networks' => $streamerSN]);
     }
 
-    public function editStreamerAttributes(Request $request){
+    public function editStreamerNetworks(Request $request){
 
         $allSocialNetworks = SocialNetwork::all();
         $user =  Auth::user();
@@ -64,6 +65,56 @@ class ConfiguracionController extends Controller
         $user->streamer_attributes = $streamerAtt;
         $user->save();
         return redirect()->route('showStreamerConfig');
+    }
+
+    public function editStreamerAttributes(Request $request){
+        $user = Auth::user();
+
+        $validated = $request->validate([
+            'name'=>['string', 'max:30','alpha_dash',Rule::unique(User::class)->ignore($user->id)],
+            'email' => [ 'string', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
+            'streamer_user' => [
+                'string',
+                'max:30',
+                'alpha_dash',
+                'unique:users,streamer_attributes->user,'.$user->id],
+            'img_src' => $request->file('img_src') ? 'mimes:jpg,png,webp,jpeg' : '',
+            'logo_image' => 'mimes:jpg,png,webp,jpeg'
+        ]);
+
+        $user->name = $validated['name'];
+        $user->email = $validated['email'];
+
+        $streamerAtt = $user->streamer_attributes;
+        $streamerAtt->user = $validated['streamer_user'];
+
+        if(isset($validated['img_src'])){
+
+            $imageName = $user->img_src != null ? $user->img_src : time() . '.' . $request->img_src->extension();
+
+            $request->file('img_src')->storeAs(
+                '/public/user_images/', $imageName
+            );
+
+            $user->img_src = $imageName;
+        }
+
+        if(isset($validated['logo_image'])){
+
+            $imageName = isset($streamerAtt->logo_image) ? $streamerAtt->logo_image : time() . '.' . $request->logo_image->extension();
+
+            $request->file('logo_image')->storeAs(
+                '/public/user_images/', $imageName
+            );
+
+            $streamerAtt->logo_image = $imageName;
+        }
+
+        $user->streamer_attributes = $streamerAtt;
+        $user->save();
+
+        return redirect()->route('showStreamerConfig');
+
     }
 
 }

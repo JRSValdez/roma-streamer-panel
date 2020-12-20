@@ -113,7 +113,7 @@
                             type="file"
                             name="image"
                             id="image"
-                            accept=".jpg,.png"
+                            accept="image/*"
                             required
                         >
                     </div>
