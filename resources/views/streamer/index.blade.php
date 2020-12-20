@@ -1,6 +1,6 @@
 @extends('layouts.streamer')
 
-@section('title', 'Streamer')
+@section('title', Auth::user()->site_name . ' - Dashboard')
 
 @section('content')
     <!-- Small boxes (Stat box) -->

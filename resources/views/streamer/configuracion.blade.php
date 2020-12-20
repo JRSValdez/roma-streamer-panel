@@ -1,6 +1,6 @@
 @extends('layouts.streamer')
 
-@section('title', 'Streamer')
+@section('title', Auth::user()->site_name . ' - Configuración')
 
 @section('panel_actual')
     <i class="fas fa-cog mr-1 ml-2"></i>Panel de configuraciones

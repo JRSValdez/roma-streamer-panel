@@ -43,7 +43,7 @@
         <a href="#" class="brand-link">
             <img  src="{{ asset('/storage/site_logo.png' )}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
                  style="opacity: .8">
-            <span class="brand-text font-weight-light"> Streamer Panel </span>
+            <span class="brand-text font-weight-light"> Streamer </span>
         </a>
 
         <!-- Sidebar -->
@@ -51,7 +51,7 @@
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img src="../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                    <img  src="{{ asset('/storage/user_images/'.Auth::user()->img_src )}}" class="img-circle elevation-2" alt="User Image">
                 </div>
                 <div class="info">
                     <a href="#" class="d-block">{{ Auth::user()->name }}</a>
@@ -65,16 +65,18 @@
                          with font-awesome or any other icon font library -->
                     <li class="nav-header">Accesos</li>
                     <li class="nav-item">
-                        <a href="{{ url('/streamer') }}" class="nav-link">
+                        <a href="{{ url('/streamer') }}"
+                           class="nav-link {{request()->routeIs('streamer.dashboard') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-tachometer-alt"></i>
                             <p>
-                                Inicio
+                                Dashboard
                                 <span class="right badge badge-danger"></span>
                             </p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('/streamer/message') }}" class="nav-link">
+                        <a href="{{ url('/streamer/message') }}"
+                           class="nav-link {{request()->routeIs('streamer.messages') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-envelope"></i>
                             <p>
                                 Mensajes
@@ -83,7 +85,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('/streamer/codigos') }}" class="nav-link">
+                        <a href="{{ url('/streamer/codigos') }}"
+                           class="nav-link {{request()->routeIs('streamer.codigos') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-barcode"></i>
                             <p>
                                 Códigos
@@ -92,25 +95,26 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('/streamer/roulette') }}" class="nav-link">
+                        <a href="{{ url('/streamer/roulette') }}"
+                           class="nav-link {{request()->routeIs('streamer.roulette') ? 'active' : '' }}">
                             <i class="nav-icon fab fa-superpowers"></i>
                             <p>
                                 Ruleta
-                                <span class="right badge badge-danger">New</span>
                             </p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{ url('/streamer/votaciones') }}" class="nav-link">
+                        <a href="{{ url('/streamer/votaciones') }}"
+                           class="nav-link {{request()->routeIs('streamer.votaciones') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-rocket"></i>
                             <p>
                                 Votaciones
-                                <span class="right badge badge-danger">New</span>
                             </p>
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="{{url('/streamer/config')}}" class="nav-link">
+                        <a href="{{url('/streamer/config')}}"
+                           class="nav-link {{request()->routeIs('showStreamerConfig') ? 'active' : '' }}">
                             <i class="nav-icon fas fa-cog"></i>
                             <p>
                                 Configuración

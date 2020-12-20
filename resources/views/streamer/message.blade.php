@@ -1,6 +1,6 @@
 @extends('layouts.streamer')
 
-@section('title', 'Streamer')
+@section('title', Auth::user()->site_name . ' - Mensajes')
 
 @section('panel_actual')
     <i class="fas fa-envelope mr-2 ml-2"></i>Panel de mensajes

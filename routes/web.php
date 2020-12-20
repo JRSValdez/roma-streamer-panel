@@ -83,7 +83,7 @@ Route::middleware('auth')->group(function () {
 
     /* ---- STREAMER ---- */
     Route::prefix('streamer')->group(function () {
-        Route::get('/', [StreamerController::class,'index']);
+        Route::get('/', [StreamerController::class,'index'])->name('streamer.dashboard');
 
         // modulo de configuracion para streamer
         Route::get('/config', [ConfiguracionController::class, 'index'])->name('showStreamerConfig');
@@ -100,7 +100,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/borrarcodigo', [CodigoController::class, 'borrar'])->name('streamer.borrarcodigo');
         Route::get('/codigos/ganadores/{id}', [CodigoController::class, 'ganadores'])->name('streamer.ganadores');
 
-        Route::get('/message', [MessageController::class, 'index']);
+        Route::get('/message', [MessageController::class, 'index'])->name('streamer.messages');
         Route::get('/roulette', [RouletteController::class, 'index'])->name('streamer.roulette');
         Route::post('/roulette/getroulette', [RouletteController::class, 'get_roulettes'])->name('streamer.getroulette');
         Route::post('/roulette/create_roulette', [RouletteController::class, 'createRoulette'])->name('streamer.roulette.createroulette');
