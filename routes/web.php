@@ -91,6 +91,7 @@ Route::middleware('auth')->group(function () {
         // modulo de codigos para streamer
         Route::get('/codigos', [CodigoController::class, 'index'])->name('streamer.codigos');
         Route::post('/getcodigos', [CodigoController::class, 'get_datos'])->name('streamer.getcodigos');
+        Route::post('/getmensajes', [MessageController::class, 'get_datosM'])->name('streamer.getmensajes');
         Route::post('/nuevocodigo', [CodigoController::class, 'crear'])->name('streamer.nuevocodigo');
         Route::post('/activarcodigo', [CodigoController::class, 'activar'])->name('streamer.activarcodigo');
         Route::post('/desactivarcodigo', [CodigoController::class, 'desactivar'])->name('streamer.desactivarcodigo');

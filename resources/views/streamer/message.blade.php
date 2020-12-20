@@ -97,22 +97,6 @@
     </div>
 @endsection
 @section('scripts')
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('#tabla_mensaje').DataTable({
-                {{--processing: true,--}}
-                {{--serverSide:true--}}
-                {{--ajax: "{!! route('streamer.getcodigos') !!}",--}}
-                {{--columns: [--}}
-                {{--    { data: 'id', name: 'id' },--}}
-                {{--    { data: 'name', name: 'name' },--}}
-                {{--    { data: 'email', name: 'email' },--}}
-                {{--    { data: 'email', name: 'email' },--}}
-                {{--    { data: 'email', name: 'email' },--}}
-                {{--    { data: 'email', name: 'email' },--}}
-                {{--]--}}
-            });
-        });
-    </script>
+<script src="{!! asset('js/mensaje.js') !!}"></script>
 @endsection
 
