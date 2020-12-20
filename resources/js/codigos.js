@@ -16,7 +16,7 @@ $(document).ready(function(){
             },
       columns: [
          { data: 'codigo', name: 'codigo' },
-         { data: 'premio', name: 'premio' },
+         { data: 'premiop', name: 'premiop' },
          { data: 'maximo_ganadores', name: 'maximo_ganadores' },
          { data: 'elegir_ganador', name: 'elegir_ganador' },
          {data: 'estado', "render": function ( data, type, row ){

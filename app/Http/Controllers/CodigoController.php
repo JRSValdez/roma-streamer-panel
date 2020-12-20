@@ -23,7 +23,7 @@ class CodigoController extends Controller
 
     public function get_datos(Request $request){
     	if ($request->ajax()) {
-    		$codigos = Codigo::query('id_codigo', 'codigo', 'premio.premio', 'maximo_ganadores', 'elegir_ganador', 'estado', 'fecha_creacion')->where('user_id', auth()->id())->orderBy('id_codigo', 'desc');
+    		$codigos = Codigo::query()->join('premio', 'codigos.premio', '=', 'premio.id_premio')->select('codigos.*', 'premio.premio as premiop')->where('user_id', auth()->id())->orderBy('id_codigo', 'desc');
         	return DataTables::of($codigos)->toJson();
     	}
     }

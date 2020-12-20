@@ -15,8 +15,8 @@ class CreateSorteoCodigoTable extends Migration
     {
         Schema::create('sorteo_codigo', function (Blueprint $table) {
             $table->bigIncrements('id_sorteo_codigo');
-            $table->integer('user_id');
-            $table->integer('codigo_id');
+            $table->unsignedBigInteger('user_id');
+            $table->unsignedBigInteger('codigo_id');
             $table->string('codigo');
             $table->string('id_free_fire');
             $table->string('nombre_free_fire');

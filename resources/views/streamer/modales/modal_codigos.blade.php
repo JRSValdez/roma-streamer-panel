@@ -25,7 +25,7 @@
                                     <label for="regalo">Seleccionar regalo</label>
                                     <select name="regalo" id="regalo" class="form-control select2" style="width: 100%">
                                         @foreach($premios as $premio)
-                                            <option value="{{ $premio->premio}}">{{ $premio->premio}}</option>
+                                            <option value="{{ $premio->id_premio}}">{{ $premio->premio}}</option>
                                         @endforeach
                                     </select>
                                 </div>
