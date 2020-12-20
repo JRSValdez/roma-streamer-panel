@@ -108,8 +108,8 @@ $(document).ready(function () {
       "method": "POST"
     },
     columns: [{
-      data: 'user_id_envia',
-      name: 'user_id_envia'
+      data: 'name',
+      name: 'name'
     }, {
       data: 'fecha',
       name: 'fecha'

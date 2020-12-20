@@ -14,11 +14,11 @@ $(document).ready(function () {
             "method": "POST",
         },
         columns: [
-            {data: 'name', name: 'Nombre'},
-            {data: 'email', name: 'Email'},
+            {data: 'name', name: 'name'},
+            {data: 'email', name: 'email'},
             {
                 data: 'type',
-                name: 'Tipo',
+                name: 'type',
                 render: function render(data, type, row) {
                     switch (row["type"]) {
                         case '1':
@@ -36,7 +36,7 @@ $(document).ready(function () {
                     return $estado;
                 }
             },
-            {data: 'created_at', name: 'Fecha Creacion'},
+            {data: 'created_at', name: 'created_at'},
             {
                 data: 'action',
                 name: 'action',

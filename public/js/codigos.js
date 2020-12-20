@@ -111,8 +111,8 @@ $(document).ready(function () {
       data: 'codigo',
       name: 'codigo'
     }, {
-      data: 'premio',
-      name: 'premio'
+      data: 'premiop',
+      name: 'premiop'
     }, {
       data: 'maximo_ganadores',
       name: 'maximo_ganadores'
