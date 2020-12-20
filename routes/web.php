@@ -109,6 +109,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/getvotaciones', [VotacionesController::class, 'get_votaciones'])->name('streamer.getvotaciones');
         Route::post('/votaciones/activatevotacion', [VotacionesController::class, 'activate'])->name('streamer.activatevotacion');
         Route::post('/votaciones/deactivatevotacion', [VotacionesController::class, 'deactivate'])->name('streamer.deactivatevotacion');
+        Route::post('/votaciones/deletevotacion', [VotacionesController::class, 'delete'])->name('streamer.deletevotacion');
         Route::post('/votaciones/create_poll', [VotacionesController::class, 'createPoll'])->name('streamer.votaciones.createpoll');
 
         Route::get('/spin_roulette', function (){

@@ -7,6 +7,7 @@ use App\Actions\Fortify\ResetUserPassword;
 use App\Actions\Fortify\UpdateUserPassword;
 use App\Actions\Fortify\UpdateUserProfileInformation;
 use App\Models\AdminConfiguration;
+use App\Models\SocialNetwork;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Fortify\Fortify;
 
@@ -42,8 +43,11 @@ class FortifyServiceProvider extends ServiceProvider
 
         Fortify::registerView(function () {
             $config = AdminConfiguration::all()->first()->getSiteInfo();
-
-            return view('auth.register', ['site_name' => $config->site_name]);
+            $social_networks = SocialNetwork::where('show_in_register','1')->get();
+            return view('auth.register', [
+                                                'site_name' => $config->site_name,
+                                                'social_networks' => $social_networks
+                                                ]);
         });
 
         Fortify::requestPasswordResetLinkView(function () {

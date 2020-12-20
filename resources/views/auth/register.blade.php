@@ -40,9 +40,9 @@
                         </div>
 
                         @error('name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
                         @enderror
                     </div>
 
@@ -157,50 +157,26 @@
                             @enderror
                         </div>
 
-                        <div class="input-group mb-3">
-                            <input
-                                id="sn_1"
-                                type="text"
-                                class="form-control @error('sn_1') is-invalid @enderror"
-                                placeholder="Facebook url"
-                                name="sn_1"
-                                value="{{ old('sn_1') }}"
-                                autocomplete="sn_1"
-                            >
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-facebook"></span>
+                        @foreach($social_networks as $sn)
+                            <div class="input-group mb-3">
+                                <input
+                                    type="text"
+                                    class="form-control"
+                                    placeholder="{{$sn['name']}} url"
+                                    name="{{$sn['id']}}"
+                                    value="{{old($sn['id'])}}"
+                                >
+                                <div class="input-group-append">
+                                    <div class="input-group-text">
+                                        <img
+                                            style="max-width: 20px"
+                                            src='/storage/user_images/{{$sn['image']}}'
+                                        >
+                                    </div>
                                 </div>
                             </div>
+                        @endforeach
 
-                            @error('sn_1')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
-
-                        <div class="input-group mb-3">
-                            <input
-                                id="sn_2"
-                                type="text"
-                                class="form-control"
-                                placeholder="Youtube Url"
-                                name="sn_2"
-                                autocomplete="sn_2"
-                            >
-                            <div class="input-group-append">
-                                <div class="input-group-text">
-                                    <span class="fas fa-youtube-play"></span>
-                                </div>
-                            </div>
-
-                            @error('sn_1')
-                            <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                            @enderror
-                        </div>
                     </div>
 
                     <div class="row">

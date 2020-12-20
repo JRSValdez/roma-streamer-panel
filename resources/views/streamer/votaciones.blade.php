@@ -10,6 +10,7 @@
 
 @section('content')
     @include('streamer.modales.modal_votaciones')
+    @include('streamer.modales.modal_poll_answer_detail')
     <div class="container-fluid">
         <section class="content">
                     <div class="input-group input-group-sm">
