@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
             case 1:
                 $view = '/streamer';
                 break;
-            case 3:
+            case 2:
                 $view = '/admin/dashboard';
                 break;
             default:

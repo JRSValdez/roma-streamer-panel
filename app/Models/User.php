@@ -59,7 +59,7 @@ class User extends Authenticatable
     }
 
     public function isAdmin(){
-        return ($this->type == 3);
+        return ($this->type == 2);
     }
 
     public function isStreamer(){
@@ -67,7 +67,7 @@ class User extends Authenticatable
     }
 
     public function isUser(){
-        return ($this->type == 2);
+        return ($this->type == 0);
     }
 
 }

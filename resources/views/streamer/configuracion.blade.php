@@ -134,7 +134,7 @@
                                                 style="max-height: 100px"
                                                 src="{{ asset('/storage/user_images/'.Auth::user()->img_src) }}"
                                                 class="img-fluid"
-                                                alt="site logo"/>
+                                                alt="streamer image"/>
                                         @endif
                                         <label for="profile_image"><i class="fas fa-tag mr-1"></i> Imagen de perfil</label>
                                         <input
@@ -156,7 +156,7 @@
                                                 style="max-height: 100px"
                                                 src="{{ asset('/storage/user_images/'.Auth::user()->streamer_attributes->logo_image) }}"
                                                 class="img-fluid"
-                                                alt="site logo"/>
+                                                alt="streamer logo"/>
                                         @endif
                                         <label for="logo_image"><i class="fas fa-tag mr-1"></i> Logo del canal</label>
                                         <input
