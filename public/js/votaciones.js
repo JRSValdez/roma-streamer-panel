@@ -143,8 +143,6 @@ $(document).ready(function () {
         if (response == 'activado') {
           var ref = $('#tabla_votacion').DataTable();
           ref.ajax.reload();
-          var ref = $('#codigo_lista').DataTable();
-          ref.ajax.reload();
           var Toast = Swal.mixin({
             toast: true,
             position: 'bottom-end',
@@ -278,8 +276,6 @@ $(document).ready(function () {
     }, function (response) {
       if (response == 'desactivado') {
         var ref = $('#tabla_votacion').DataTable();
-        ref.ajax.reload();
-        var ref = $('#codigo_lista').DataTable();
         ref.ajax.reload();
         var Toast = Swal.mixin({
           toast: true,
