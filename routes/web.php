@@ -86,7 +86,8 @@ Route::middleware('auth')->group(function () {
         Route::get('/', [StreamerController::class,'index']);
 
         // modulo de configuracion para streamer
-        Route::get('/config', [ConfiguracionController::class, 'index']);
+        Route::get('/config', [ConfiguracionController::class, 'index'])->name('showStreamerConfig');
+        Route::post('/config/urls', [ConfiguracionController::class, 'editStreamerAttributes'])->name('editStreamerUrls');
 
         // modulo de codigos para streamer
         Route::get('/codigos', [CodigoController::class, 'index'])->name('streamer.codigos');

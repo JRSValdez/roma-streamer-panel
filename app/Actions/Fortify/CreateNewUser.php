@@ -47,7 +47,7 @@ class CreateNewUser implements CreatesNewUsers
 
         $streamerAttributes = new \stdClass();
 
-        if(!isset($input['typUe']) && !isset($input['isAdmin'])){
+        if(!isset($input['type']) && !isset($input['isAdmin'])){
             $streamerAttributes->user = $input['streamer_user'];
             $socialNetworks = $social_networks = SocialNetwork::where('show_in_register','1')->get();
             foreach ($socialNetworks as $sn){
