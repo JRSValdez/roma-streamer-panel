@@ -121,7 +121,7 @@ $(document).ready(function () {
         "render": function render(data, type, row) {
           if (row["status"] == 1) {
             estado = '<span class="badge badge-info">Activado</span>';
-          } else if (row["status"] == 0) {
+          } else if (row["status"] == 2) {
             estado = '<span class="badge badge-warning">Desactivado</span>';
           } else {
             estado = '<span class="badge badge-danger">Sin estado</span>';
@@ -130,7 +130,7 @@ $(document).ready(function () {
           return estado;
         }
       }, {
-        "defaultContent": "\n                                    <button class=\"btn btn-success btn-sm activar\" type=\"button\" data-toggle=\"modal\" title=\"Activar\"><i class=\"fas fa-check\"></i></button>\n                                    <button class=\"btn btn-warning btn-sm desactivar\" title=\"Desactivar\"><i class=\"fas fa-times\"></i></button>\n                                    <button class=\"btn btn-danger btn-sm borrar\" title=\"Eliminar\"><i class=\"fas fa-trash-alt\"></i></button>\n                                    <button class=\"btn btn-info btn-sm resultados\" title=\"Ver Resultados\"><i class=\"fas fa-trophy\"></i></button>\n                "
+        "defaultContent": "\n                                    <button class=\"btn btn-success btn-sm activar\" type=\"button\" data-toggle=\"modal\" title=\"Activar\"><i class=\"fas fa-check\"></i></button>\n                                    <button class=\"btn btn-warning btn-sm desactivar\" title=\"Desactivar\"><i class=\"fas fa-times\"></i></button>\n                                    <button class=\"btn btn-danger btn-sm borrar\" title=\"Eliminar\"><i class=\"fas fa-trash-alt\"></i></button>\n                                    <button class=\"btn btn-info btn-sm resultados\" title=\"Ver Resultados\" data-toggle=\"modal\" data-target=\"#pollAnswersDetailModal\"><i class=\"fas fa-trophy\"></i></button>\n                "
       }],
       "language": espanol
     });
@@ -140,12 +140,44 @@ $(document).ready(function () {
       $.post('/streamer/votaciones/activatevotacion', {
         id: id
       }, function (response) {
-        alert('activado codigo con id: ' + id);
-
         if (response == 'activado') {
           var ref = $('#tabla_votacion').DataTable();
           ref.ajax.reload();
-        } else {}
+          var ref = $('#codigo_lista').DataTable();
+          ref.ajax.reload();
+          var Toast = Swal.mixin({
+            toast: true,
+            position: 'bottom-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: function didOpen(toast) {
+              toast.addEventListener('mouseenter', Swal.stopTimer);
+              toast.addEventListener('mouseleave', Swal.resumeTimer);
+            }
+          });
+          Toast.fire({
+            icon: 'success',
+            title: 'Encuesta activada'
+          });
+        } else {
+          var _Toast = Swal.mixin({
+            toast: true,
+            position: 'bottom-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: function didOpen(toast) {
+              toast.addEventListener('mouseenter', Swal.stopTimer);
+              toast.addEventListener('mouseleave', Swal.resumeTimer);
+            }
+          });
+
+          _Toast.fire({
+            icon: 'error',
+            title: 'No se pudo activar la encuesta seleccionada'
+          });
+        }
       });
     });
     $('#tabla_votacion tbody').on('click', '.desactivar', function () {
@@ -154,20 +186,136 @@ $(document).ready(function () {
       $.post('/streamer/votaciones/deactivatevotacion', {
         id: id
       }, function (response) {
-        alert('desactivando codigo con id: ' + id);
-
         if (response == 'desactivado') {
           var ref = $('#tabla_votacion').DataTable();
           ref.ajax.reload();
-        } else {}
+          var Toast = Swal.mixin({
+            toast: true,
+            position: 'bottom-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: function didOpen(toast) {
+              toast.addEventListener('mouseenter', Swal.stopTimer);
+              toast.addEventListener('mouseleave', Swal.resumeTimer);
+            }
+          });
+          Toast.fire({
+            icon: 'warning',
+            title: 'Encuesta desactivada'
+          });
+        } else {
+          var _Toast2 = Swal.mixin({
+            toast: true,
+            position: 'bottom-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: function didOpen(toast) {
+              toast.addEventListener('mouseenter', Swal.stopTimer);
+              toast.addEventListener('mouseleave', Swal.resumeTimer);
+            }
+          });
+
+          _Toast2.fire({
+            icon: 'error',
+            title: 'No se pudo desactivar la encuesta seleccionada'
+          });
+        }
       });
     });
     $('#tabla_votacion tbody').on('click', '.borrar', function () {
       var datos = datatable.row($(this).parents()).data();
       var id = datos.id;
-      alert('borrando codigo con id: ' + id);
+      $.post('/streamer/votaciones/deletevotacion', {
+        id: id
+      }, function (response) {
+        if (response == 'deleted') {
+          var ref = $('#tabla_votacion').DataTable();
+          ref.ajax.reload();
+          var Toast = Swal.mixin({
+            toast: true,
+            position: 'bottom-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: function didOpen(toast) {
+              toast.addEventListener('mouseenter', Swal.stopTimer);
+              toast.addEventListener('mouseleave', Swal.resumeTimer);
+            }
+          });
+          Toast.fire({
+            icon: 'info',
+            title: 'Encuesta borrada'
+          });
+        } else {
+          var _Toast3 = Swal.mixin({
+            toast: true,
+            position: 'bottom-end',
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            didOpen: function didOpen(toast) {
+              toast.addEventListener('mouseenter', Swal.stopTimer);
+              toast.addEventListener('mouseleave', Swal.resumeTimer);
+            }
+          });
+
+          _Toast3.fire({
+            icon: 'error',
+            title: 'No se pudo borrar la encuesta seleccionada'
+          });
+        }
+      });
     });
   }
+
+  $('#tabla_votacion tbody').on('click', '.desactivar', function () {
+    var datos = datatable.row($(this).parents()).data();
+    var id = datos.id;
+    $.post('/streamer/votaciones/deactivatevotacion', {
+      id: id
+    }, function (response) {
+      if (response == 'desactivado') {
+        var ref = $('#tabla_votacion').DataTable();
+        ref.ajax.reload();
+        var ref = $('#codigo_lista').DataTable();
+        ref.ajax.reload();
+        var Toast = Swal.mixin({
+          toast: true,
+          position: 'bottom-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: function didOpen(toast) {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+          }
+        });
+        Toast.fire({
+          icon: 'warning',
+          title: 'Encuesta desactivada'
+        });
+      } else {
+        var _Toast4 = Swal.mixin({
+          toast: true,
+          position: 'bottom-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: function didOpen(toast) {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+          }
+        });
+
+        _Toast4.fire({
+          icon: 'error',
+          title: 'No se pudo desactivar la encuesta seleccionada'
+        });
+      }
+    });
+  });
   /*$('#form-generar').submit(e => {
       let reward = $('#reward').val();
       if (reward.length > 0) {
@@ -191,7 +339,6 @@ $(document).ready(function () {
       }
       e.preventDefault();
   });*/
-
 });
 var espanol = {
   "sProcessing": "Procesando...",
@@ -231,7 +378,7 @@ var espanol = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\roma\roma-streamer-panel\resources\js\votaciones.js */"./resources/js/votaciones.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\roma-streamer-panel\resources\js\votaciones.js */"./resources/js/votaciones.js");
 
 
 /***/ })
