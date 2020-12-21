@@ -15,6 +15,7 @@ mix.js('resources/js/app.js', 'public/js')
 	.js('resources/js/codigos.js', 'public/js')
 	.js('resources/js/roulette.js', 'public/js')
 	.js('resources/js/votaciones.js', 'public/js')
+	.js('resources/js/mensaje.js', 'public/js')
     .postCss('resources/css/app.css', 'public/css', [
         //
     ]);

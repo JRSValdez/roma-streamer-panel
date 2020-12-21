@@ -1,11 +1,11 @@
 @extends('layouts.streamer')
 
-@section('title', 'Streamer')
+@section('title', Auth::user()->site_name . ' - Códigos')
 
 @section('panel_actual')
 	<i class="fas fa-barcode mr-2 ml-2"></i>Panel de códigos
 @endsection
-		
+
 @section('page_actual', 'Códigos')
 
 @section('content')
@@ -17,7 +17,7 @@
             <p>
                Hey Streamer!<br>
                Texto personalizado.
-            </p>       
+            </p>
          </div>
       </div>
       <div class="mt-3 text-right">
@@ -41,7 +41,7 @@
                     				<th>Acciones</th>
                     			</tr>
                     		</thead>
-                    		
+
                     	</table>
                     </div>
             </div>

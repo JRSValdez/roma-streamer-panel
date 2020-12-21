@@ -331,7 +331,7 @@ var espanol = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\roma-streamer-panel\resources\js\votaciones.js */"./resources/js/votaciones.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\roma\roma-streamer-panel\resources\js\votaciones.js */"./resources/js/votaciones.js");
 
 
 /***/ })

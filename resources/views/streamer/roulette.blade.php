@@ -1,6 +1,6 @@
 @extends('layouts.streamer')
 
-@section('title', 'Streamer')
+@section('title', Auth::user()->site_name . ' - Ruleta')
 
 @section('panel_actual')
     <i class="fab fa-superpowers mr-2 ml-2"></i>Panel de ruleta

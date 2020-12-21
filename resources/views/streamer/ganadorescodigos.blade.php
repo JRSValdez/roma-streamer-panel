@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-	<title>Streamer | Ganadores Codigo</title>
+	<title> {{  Auth::user()->site_name }} | Ganadores Codigo</title>
 	@include('layouts.styles')
 	<script src="{{ asset('js/confetti.min.js') }}"></script>
 	<style type="text/css">
@@ -66,8 +66,8 @@
       	<div class="text-center">
       		<label style="color: #fff; font-size: 20px;">Tipo de sorteo: <i>{!! $elegir_ganador !!}</i></label>
       	</div>
-        <div class="content mt-3">        	
-	      <div class="container-fluid">	      	
+        <div class="content mt-3">
+	      <div class="container-fluid">
 	        <div class="row">
 	          <!-- left column -->
 	          <div class="col-md-7 text-center ml-5 mt-5">
@@ -102,7 +102,7 @@
 	          	<div class="section-content mt-4">
 			     	<ul class="anyClass p-2 pt-3 text-left pl-4" style="color: #fff; font-size: 16px; border: 2px solid #fff; border-radius: 7px; list-style-type: none; width: 100%">
 			     		@php($cantidad = 0)
-			     		@foreach($participantes as $participante)			     			
+			     		@foreach($participantes as $participante)
 			       			<li id="item-{!! $cantidad = $cantidad+1 !!}"><label>{!! $participante->nombre_free_fire !!} | {!! $participante->id_free_fire !!} | {!! $participante->servidor !!} <span class="fecha_c">({!! $participante->fecha_canjeado !!})</span></label></li>
 			       		@endforeach
 			     	</ul>
@@ -115,7 +115,7 @@
 	    </div>
 	    <footer class="text-left m-3" style="color: #fff">
 	    	<strong>
-				Copyright &copy; {!! date('Y') !!} 
+				Copyright &copy; {!! date('Y') !!}
 				<a target="_blank" href="http://roma-solutions.com">Roma Solutions</a>.
 			</strong>
 			All rights reserved.
@@ -123,7 +123,7 @@
 			    <b>Version</b> 1.0.0
 			</div>
 	    </footer>
-	    
+
 	</div>
 	@include('layouts.js')
 	<script type="text/javascript">
@@ -153,7 +153,7 @@
 				$('#show_winner').text(ganador);
 				confetti.start(10000, 100, 2000);
 				giro +=1;
-			});		 	
+			});
 		});
 	</script>
 </body>

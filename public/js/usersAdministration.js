@@ -14,12 +14,13 @@ $(document).ready(function () {
             "method": "POST",
         },
         columns: [
-            {data: 'name', name: 'Nombre'},
-            {data: 'email', name: 'Email'},
+            {data: 'name', name: 'name'},
+            {data: 'email', name: 'email'},
             {
                 data: 'type',
-                name: 'Tipo',
+                name: 'type',
                 render: function render(data, type, row) {
+                    /*0 = user 1 = streamer 2 = admin*/
                     switch (row["type"]) {
                         case '1':
                             $estado = 'Streamer';
@@ -27,7 +28,7 @@ $(document).ready(function () {
                         case '0':
                             $estado = 'Usuario';
                             break;
-                        case '3':
+                        case '2':
                             $estado = 'Admin';
                             break;
                         default:
@@ -36,7 +37,7 @@ $(document).ready(function () {
                     return $estado;
                 }
             },
-            {data: 'created_at', name: 'Fecha Creacion'},
+            {data: 'created_at', name: 'created_at'},
             {
                 data: 'action',
                 name: 'action',

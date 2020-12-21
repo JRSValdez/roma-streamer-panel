@@ -35,7 +35,7 @@ Route::middleware('auth')->group(function () {
             case 1:
                 $view = '/streamer';
                 break;
-            case 3:
+            case 2:
                 $view = '/admin/dashboard';
                 break;
             default:
@@ -83,21 +83,24 @@ Route::middleware('auth')->group(function () {
 
     /* ---- STREAMER ---- */
     Route::prefix('streamer')->group(function () {
-        Route::get('/', [StreamerController::class,'index']);
+        Route::get('/', [StreamerController::class,'index'])->name('streamer.dashboard');
 
         // modulo de configuracion para streamer
-        Route::get('/config', [ConfiguracionController::class, 'index']);
+        Route::get('/config', [ConfiguracionController::class, 'index'])->name('showStreamerConfig');
+        Route::post('/config/urls', [ConfiguracionController::class, 'editStreamerNetworks'])->name('editStreamerUrls');
+        Route::post('/config/attributes', [ConfiguracionController::class, 'editStreamerAttributes'])->name('editStreamer');
 
         // modulo de codigos para streamer
         Route::get('/codigos', [CodigoController::class, 'index'])->name('streamer.codigos');
         Route::post('/getcodigos', [CodigoController::class, 'get_datos'])->name('streamer.getcodigos');
+        Route::post('/getmensajes', [MessageController::class, 'get_datosM'])->name('streamer.getmensajes');
         Route::post('/nuevocodigo', [CodigoController::class, 'crear'])->name('streamer.nuevocodigo');
         Route::post('/activarcodigo', [CodigoController::class, 'activar'])->name('streamer.activarcodigo');
         Route::post('/desactivarcodigo', [CodigoController::class, 'desactivar'])->name('streamer.desactivarcodigo');
         Route::post('/borrarcodigo', [CodigoController::class, 'borrar'])->name('streamer.borrarcodigo');
         Route::get('/codigos/ganadores/{id}', [CodigoController::class, 'ganadores'])->name('streamer.ganadores');
 
-        Route::get('/message', [MessageController::class, 'index']);
+        Route::get('/message', [MessageController::class, 'index'])->name('streamer.messages');
         Route::get('/roulette', [RouletteController::class, 'index'])->name('streamer.roulette');
         Route::post('/roulette/getroulette', [RouletteController::class, 'get_roulettes'])->name('streamer.getroulette');
         Route::post('/roulette/create_roulette', [RouletteController::class, 'createRoulette'])->name('streamer.roulette.createroulette');
