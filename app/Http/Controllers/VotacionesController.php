@@ -4,10 +4,12 @@ namespace App\Http\Controllers;
 
 use App\Models\AdminConfiguration;
 use App\Models\Poll;
+use App\Models\PollAnswerDetail;
 use App\Models\PollAnswers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
+use function MongoDB\Driver\Monitoring\removeSubscriber;
 
 class VotacionesController extends Controller
 {
@@ -54,11 +56,11 @@ class VotacionesController extends Controller
     }
 
     public function activate(Request $request){
-        $roulette = Poll::findOrFail($request->id);
+        $poll = Poll::findOrFail($request->id);
 
-        $roulette->status = 1;
+        $poll->status = 1;
 
-        if ($roulette->update()) {
+        if ($poll->update()) {
             $response = 'activado';
         }else{
             $response = 'noactivado';
@@ -67,11 +69,11 @@ class VotacionesController extends Controller
     }
 
     public function deactivate(Request $request){
-        $roulette = Poll::findOrFail($request->id);
+        $poll = Poll::findOrFail($request->id);
 
-        $roulette->status = 2;
+        $poll->status = 2;
 
-        if ($roulette->update()) {
+        if ($poll->update()) {
             $response = 'desactivado';
         }else{
             $response = 'nodesactivado';
@@ -80,11 +82,11 @@ class VotacionesController extends Controller
     }
 
     public function delete(Request $request){
-        $roulette = Poll::findOrFail($request->id);
+        $poll = Poll::findOrFail($request->id);
 
-        $roulette->status = 0;
+        $poll->status = 0;
 
-        if ($roulette->update()) {
+        if ($poll->update()) {
             $response = 'deleted';
         }else{
             $response = 'nodeleted';
@@ -93,16 +95,13 @@ class VotacionesController extends Controller
     }
 
     public function pollDetail(Request $request){
-//        $roulette = Poll::findOrFail($request->id);
-//
-//        $roulette->status = 0;
-//
-//        if ($roulette->update()) {
-//            $response = 'deleted';
-//        }else{
-//            $response = 'nodeleted';
-//        }
-//        return $response;
+        $answer = PollAnswers::query()->selectRaw("poll_answers.answer, count(poll_answers_detail.answer_id) as total_answer_detail")
+            ->leftJoin("poll_answers_detail","poll_answers.id","=","poll_answers_detail.answer_id")
+            ->where('poll_id','=',[$request->id])
+            ->groupBy("poll_answers.answer", "poll_answers.id")
+            ->orderBy("poll_answers.id","asc")
+            ->get();
+        return $answer;
 
     }
 }

@@ -13,19 +13,15 @@
                         <div class="card-body text-center">
                             <div class="row">
                                 <div class="col-6">
-                                    <div >
-                                        <label id="answer1">Opcion1</label>
+                                    <div id="answer1">
                                     </div>
-                                    <div>
-                                        <label id="answer_detail1">0%</label>
+                                    <div id="answer_detail1">
                                     </div>
                                 </div>
                                 <div class="col-6">
-                                    <div>
-                                        <label id="answer2">Opcion2</label>
+                                    <div id="answer2">
                                     </div>
-                                    <div>
-                                        <label id="answer_detail2">0%</label>
+                                    <div id="answer_detail2">
                                     </div>
                                 </div>
                             </div>

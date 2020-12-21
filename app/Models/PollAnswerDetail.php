@@ -7,5 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class PollAnswerDetail extends Model
 {
-    use HasFactory;
+    protected $table = 'poll_answers_detail';
+    public $timestamps = false;
 }
