@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Codigo;
+use App\Models\Mensaje;
 use App\Models\Poll;
 use App\Models\Roulette;
 use Illuminate\Http\Request;
@@ -23,7 +24,7 @@ class StreamerController extends Controller
 
         $codesCount = Codigo::query()->where("user_id","=",$user->id)->count();
 
-        $messageCount = 0;
+        $messageCount = Mensaje::query()->where("user_id_recibe","=",$user->id)->count();
 
         $info = [
             'messages_count' => $messageCount,
