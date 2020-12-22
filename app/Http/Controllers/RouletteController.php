@@ -6,6 +6,7 @@ use App\Models\Roulette;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\DataTables;
+use App\Models\SorteoRuleta;
 
 class RouletteController extends Controller
 {
@@ -66,5 +67,13 @@ class RouletteController extends Controller
             $response = 'nodesactivado';
         }
         return $response;
+    }
+
+    public function ganadores($id){
+        $participantes = SorteoRuleta::query('id_sorteo_ruleta', 'user_id', 'users.name', 'ruleta_id', 'fecha_canjeado')->join('users', 'sorteo_ruleta.user_id', '=', 'users.id')->where('ruleta_id', $id)->orderBy('fecha_canjeado','ASC')->get();
+        $total_participantes = count($participantes);
+        return view('streamer.spin_roulette', ['id' => $id, 'participantes' => $participantes,
+                                                    'total_participantes' => $total_participantes
+                                                ]);
     }
 }
