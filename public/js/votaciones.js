@@ -94,7 +94,15 @@
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
+  var divAnswer1 = $("#answer1");
+  var divAnswer2 = $("#answer2");
+  var answerDetail1 = $("#answer_detail1");
+  var answerDetail2 = $("#answer_detail2");
   tabla_votacion();
+
+  var printLabel = function printLabel(option) {
+    return "<label>".concat(option, "</label>");
+  };
 
   function tabla_votacion() {
     var estado;
@@ -199,7 +207,7 @@ $(document).ready(function () {
             }
           });
           Toast.fire({
-            icon: 'warning',
+            icon: 'alert',
             title: 'Encuesta desactivada'
           });
         } else {
@@ -243,7 +251,7 @@ $(document).ready(function () {
             }
           });
           Toast.fire({
-            icon: 'info',
+            icon: 'warning',
             title: 'Encuesta borrada'
           });
         } else {
@@ -266,75 +274,24 @@ $(document).ready(function () {
         }
       });
     });
-  }
-
-  $('#tabla_votacion tbody').on('click', '.desactivar', function () {
-    var datos = datatable.row($(this).parents()).data();
-    var id = datos.id;
-    $.post('/streamer/votaciones/deactivatevotacion', {
-      id: id
-    }, function (response) {
-      if (response == 'desactivado') {
-        var ref = $('#tabla_votacion').DataTable();
-        ref.ajax.reload();
-        var Toast = Swal.mixin({
-          toast: true,
-          position: 'bottom-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: function didOpen(toast) {
-            toast.addEventListener('mouseenter', Swal.stopTimer);
-            toast.addEventListener('mouseleave', Swal.resumeTimer);
-          }
-        });
-        Toast.fire({
-          icon: 'warning',
-          title: 'Encuesta desactivada'
-        });
-      } else {
-        var _Toast4 = Swal.mixin({
-          toast: true,
-          position: 'bottom-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: function didOpen(toast) {
-            toast.addEventListener('mouseenter', Swal.stopTimer);
-            toast.addEventListener('mouseleave', Swal.resumeTimer);
-          }
-        });
-
-        _Toast4.fire({
-          icon: 'error',
-          title: 'No se pudo desactivar la encuesta seleccionada'
-        });
-      }
+    $('#tabla_votacion tbody').on('click', '.resultados', function () {
+      var datos = datatable.row($(this).parents()).data();
+      var id = datos.id;
+      $.post('/streamer/votaciones/getanswerdetail', {
+        id: id
+      }, function (response) {
+        var option1 = response[0].answer;
+        var option2 = response[1].answer;
+        var totalAnswers = parseInt(response[0].total_answer_detail) + parseInt(response[1].total_answer_detail);
+        var option1Percent = parseInt(response[0].total_answer_detail) !== 0 ? Math.round(parseInt(response[0].total_answer_detail) / totalAnswers * 100) + '%' : "0%";
+        var option2Percent = parseInt(response[1].total_answer_detail) !== 0 ? Math.round(parseInt(response[1].total_answer_detail) / totalAnswers * 100) + '%' : "0%";
+        divAnswer1.html(printLabel(option1));
+        answerDetail1.html(printLabel(option1Percent));
+        divAnswer2.html(printLabel(option2));
+        answerDetail2.html(printLabel(option2Percent));
+      });
     });
-  });
-  /*$('#form-generar').submit(e => {
-      let reward = $('#reward').val();
-      if (reward.length > 0) {
-          $.post('/streamer/roulette/create_roulette', {reward}, function(response){
-              if (response == 'add') {
-                  $('#add').hide('slow');
-                  $('#add').show(2000);
-                  $('#add').hide(2000);
-                  $('#form-generar').trigger('reset');
-                  tabla_votacion();
-              }else{
-                  $('#noadd').hide('slow');
-                  $('#noadd').show(2000);
-                  $('#noadd').hide(2000);
-              }
-          });
-      }else{
-          $('#noadd-emp').hide('slow');
-          $('#noadd-emp').show(2000);
-          $('#noadd-emp').hide(2000);
-      }
-      e.preventDefault();
-  });*/
+  }
 });
 var espanol = {
   "sProcessing": "Procesando...",

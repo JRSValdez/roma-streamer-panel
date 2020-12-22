@@ -1,6 +1,6 @@
 @extends('layouts.streamer')
 
-@section('title', 'Streamer')
+@section('title', Auth::user()->site_name . ' - Configuración')
 
 @section('panel_actual')
     <i class="fas fa-cog mr-1 ml-2"></i>Panel de configuraciones
@@ -71,36 +71,106 @@
                             </div>
                             <!-- /.card-header -->
                             <!-- form start -->
-                            <form role="form">
+                            <form role="form" method="POST" action="{{route('editStreamer')}}" enctype="multipart/form-data">
+                                @csrf
                                 <div class="card-body">
                                     <div class="form-group">
-                                        <label for="correo"><i class="fas fa-at mr-1"></i> E-mail</label>
-                                        <input type="email" class="form-control" id="email"
-                                               placeholder="Ingresar correo" value="{{Auth::user()->email}}">
+                                        <label for="email"><i class="fas fa-at mr-1"></i> E-mail</label>
+                                        <input
+                                            type="email"
+                                            class="form-control @error('email') is-invalid @enderror"
+                                            id="email"
+                                            placeholder="Ingresar correo"
+                                            value="{{Auth::user()->email}}"
+                                            name="email"
+                                            id="email"
+                                        >
+                                        @error('email')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
-                                        <label for="user_name"><i class="fas fa-user mr-1"></i> Nombre de
+                                        <label for="name"><i class="fas fa-user mr-1"></i> Nombre de
                                             usuario</label>
-                                        <input type="text" class="form-control" id="name" name="name"
-                                               placeholder="Ingresar nombre de usuario" value="{{Auth::user()->name}}">
+                                        <input
+                                            type="text"
+                                            class="form-control @error('name') is-invalid @enderror"
+                                            id="name"
+                                            name="name"
+                                            placeholder="Ingresar nombre de usuario"
+                                            value="{{Auth::user()->name}}"
+                                        >
+                                        @error('name')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
                                         <label for="impretion_name"><i class="fas fa-tag mr-1"></i> Nombre de impresión</label>
-                                        <input type="text" class="form-control" id="impretion_name"
-                                               placeholder="Ingresar nombre de impresión"
-                                               value="{{Auth::user()->streamer_attributes->user}}">
+                                        <input
+                                            type="text"
+                                            class="form-control @error('streamer_user') is-invalid @enderror"
+                                            id="impretion_name"
+                                            name="streamer_user"
+                                            placeholder="Ingresar nombre de impresión"
+                                            @if( isset( Auth::user()->streamer_attributes->user ) && old('streamer_user') == null )
+                                                value="{{Auth::user()->streamer_attributes->user}}"
+                                            @else
+                                                value="{{old('streamer_user')}}"
+                                            @endif
+                                        >
+                                        @error('streamer_user')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
+                                        @if(Auth::user()->img_src != null)
+                                            <img
+                                                style="max-height: 100px"
+                                                src="{{ asset('/storage/user_images/'.Auth::user()->img_src) }}"
+                                                class="img-fluid"
+                                                alt="streamer image"/>
+                                        @endif
                                         <label for="profile_image"><i class="fas fa-tag mr-1"></i> Imagen de perfil</label>
-                                        <input type="file" class="form-control" id="profile_image"
-                                               name="img_src"
+                                        <input
+                                            type="file"
+                                            class="form-control @error('img_src') is-invalid @enderror"
+                                            id="profile_image"
+                                            name="img_src"
+                                            accept="image/*"
                                         >
+                                        @error('img_src')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                     <div class="form-group">
+                                        @if( isset(Auth::user()->streamer_attributes->logo_image) )
+                                            <img
+                                                style="max-height: 100px"
+                                                src="{{ asset('/storage/user_images/'.Auth::user()->streamer_attributes->logo_image) }}"
+                                                class="img-fluid"
+                                                alt="streamer logo"/>
+                                        @endif
                                         <label for="logo_image"><i class="fas fa-tag mr-1"></i> Logo del canal</label>
-                                        <input type="file" class="form-control" id="logo_image"
-                                               name="streamer_img"
+                                        <input
+                                            type="file"
+                                            class="form-control @error('logo_image') is-invalid @enderror"
+                                            id="logo_image"
+                                            name="logo_image"
+                                            accept="image/*"
                                         >
+                                        @error('logo_image')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
                                 </div>
                                 <!-- /.card-body -->

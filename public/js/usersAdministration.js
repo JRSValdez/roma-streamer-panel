@@ -20,6 +20,7 @@ $(document).ready(function () {
                 data: 'type',
                 name: 'type',
                 render: function render(data, type, row) {
+                    /*0 = user 1 = streamer 2 = admin*/
                     switch (row["type"]) {
                         case '1':
                             $estado = 'Streamer';
@@ -27,7 +28,7 @@ $(document).ready(function () {
                         case '0':
                             $estado = 'Usuario';
                             break;
-                        case '3':
+                        case '2':
                             $estado = 'Admin';
                             break;
                         default:

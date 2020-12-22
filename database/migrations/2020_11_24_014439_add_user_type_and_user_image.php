@@ -15,7 +15,7 @@ class AddUserTypeAndUserImage extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             $table->smallInteger('type')->default(0)->nullable(false);
-            $table->string('img_src')->default('default.png');
+            $table->string('img_src')->default('default.jpg');
             $table->json('streamer_attributes');
         });
     }

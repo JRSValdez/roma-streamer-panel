@@ -49,6 +49,8 @@ class CreateNewUser implements CreatesNewUsers
 
         if(!isset($input['type']) && !isset($input['isAdmin'])){
             $streamerAttributes->user = $input['streamer_user'];
+            $streamerAttributes->logo_image = 'logo_default.png';
+
             $socialNetworks = $social_networks = SocialNetwork::where('show_in_register','1')->get();
             foreach ($socialNetworks as $sn){
                 $newSN = new \stdClass();
@@ -60,10 +62,10 @@ class CreateNewUser implements CreatesNewUsers
             }
         }
 
-        $userType = isset($input['type']) ? ( $input['type'] === 'on' ? 2 : 1 ) : 1; /*2 = user, 1 = streamer*/
+        $userType = isset($input['type']) ? ( $input['type'] === 'on' ? 0 : 1 ) : 1; /*0 = user, 1 = streamer*/
 
         if(isset($input['isAdmin']) && $input['isAdmin'] == 'yes' ){
-            $userType = 3; /*admin*/
+            $userType = 2; /*admin*/
             User::create([
                 'name' => $input['name'],
                 'email' => $input['email'],
