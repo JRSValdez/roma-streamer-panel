@@ -76,6 +76,18 @@ $(document).ready(function(){
             let id = datos.id;
             alert('borrando codigo con id: '+id);
         });
+
+        $('#tabla_ruleta tbody').on('click', '.ganadores', function() {
+          let datos = datatable.row($(this).parents()).data();
+          let id = datos.id;
+          let estado = datos.status;
+          if (estado === 1) {
+            window.open('/streamer/ruleta/ganadores/'+id, '_blank');
+          }else{
+            alert('debe de activar la ruleta');
+          }
+          
+        });
     }
 
     /*$('#form-generar').submit(e => {

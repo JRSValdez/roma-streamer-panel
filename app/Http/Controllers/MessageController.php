@@ -20,8 +20,6 @@ class MessageController extends Controller
     public function get_datosM(Request $request){
     	if ($request->ajax()) {
     		$mensajes = Mensaje::query('id_mensaje', 'user_id_envia', 'fecha', 'estado', 'mensaje', 'user_id_recibe', 'users.name')->join('users', 'mensaje.user_id_envia', '=', 'users.id')->where('user_id_recibe', auth()->id())->orderBy('id_mensaje', 'desc');
-   //  		$grouped = $mensajes->groupBy('user_id_envia');
-			// $grouped->all();
         	return DataTables::of($mensajes)->toJson();
     	}
     }

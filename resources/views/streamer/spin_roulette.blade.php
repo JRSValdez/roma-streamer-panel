@@ -1,39 +1,121 @@
-@extends('layouts.streamer')
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Streamer | Ganadores Codigo</title>
+    @include('layouts.styles')
+    <script src="{{ asset('js/confetti.min.js') }}"></script>
+    <style type="text/css">
+        body{
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            box-sizing: border-box;
+            animation: BGcolorChanging-6colors 10s linear infinite alternate both;
+        }
+        @keyframes BGcolorChanging-6colors{
+            0%{
+                background: #000000;
+            }
+            20%{
+                background: #cc85f5;
+            }
+            40%{
+                background: #db0267;
+            }
+            60%{
+                background: #E010F5;
+            }
+            80%{
+                background: #2F45A0;
+            }
+            100%{
+                background: #582FA0;
+            }
+        }
 
-@section('title', 'Streamer')
+        .anyClass {
+            height: auto;
+            max-height:225px;
+            overflow-y: scroll;
+        }
+        .bg-color{
+            background-color: blue;
+            border-radius: 5px;
+            padding-left: 10px;
+            padding-right: 10px;
+        }
+        .showwinner{
+            animation: aumento 2s linear 5 alternate both;
+            /*animation: aumento 2s linear infinite alternate both;*/
+        }
+        @keyframes aumento {
+            0% {font-size: 20px}
+            50% {left: 30px;}
+            100% {left: 30px}
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="content mt-3">          
+          <div class="container-fluid">         
+            <div class="row">
+              <!-- left column -->
+              <div class="col-md-7 text-center ml-3 mt-5">
+                    <div class="text-center ml-4">
+                        <button style="float:left; background-color: #e30052; width: 100%; font-size: 35px; border: none;" id='spin' class="btn btn-primary btn-lg">Girar Ruleta!</button>
+                    </div>
+                    <div>
+                        <label class="btn btn-primary btn-lg" id="ganador" style="font-size: 30px; color: #fff; background-color: #e30052; position: absolute; width: 600px; border-radius: 5px; margin-top: 220px; margin-left: -60px; border: none; cursor: default; visibility: hidden;">Gira la Ruleta!</label>
+                        <canvas id="canvas" width="500" height="500"></canvas>
+                    </div>
+              </div>
 
-@section('content')
-    <div class="row">
-        <div class="col">
-            <h1 >
-                El ganador es:
-            </h1>
-            <h2 id="ganador"></h2>
+              <div class="col-md-4 text-center mt-5" style="border-radius: 15px; padding: 15px;">
+                <div class="mt-0">
+                    <label style="color: #fff; font-size: 35px;">Lista de participantes</label>
+                </div>
+                <div class="mt-2">
+                    <label style="color: #fff; font-size: 25px;">Total de participantes: {!! $total_participantes !!}</label>
+                </div>
+                <div class="mt-2">
+                    <button onclick="copiarganador()" id="copiar" style="color: #fff; font-size: 25px; border: 3px solid #fff; border-radius: 35px; width: 100%" class="btn btn-outline-secondary btn-lg">Copiar ganador</button>
+                </div>
+                <div class="mt-2">
+                    <label style="color: #fff; font-size: 25px;" id="total_giro">Total de giros: 0</label>
+                </div>
+                <div class="section-content mt-4" style="visibility: hidden;">
+                    <ul class="anyClass p-2 pt-3 text-left pl-4" style="color: #fff; font-size: 16px; border: 2px solid #fff; border-radius: 7px; list-style-type: none; width: 100%">
+                        @php($cantidad = 0)
+                        @foreach($participantes as $participante)                           
+                            <li id="item-{!! $cantidad = $cantidad+1 !!}"><label>{!! $participante->name !!} <span class="fecha_c">({!! $participante->fecha_canjeado !!})</span></label></li>
+                        @endforeach
+                    </ul>
+                </div>
+              </div>
+              <!--/.col (right) -->
+            </div>
+            <!-- /.row -->
+          </div><!-- /.container-fluid -->
         </div>
-        <div class="col">
-            <input type="button" value="spin" style="float:left;" id='spin'/>
-            <canvas id="canvas" width="500" height="500"></canvas>
-        </div>
+        <footer class="text-left m-3" style="color: #fff">
+            <strong>
+                Copyright &copy; {!! date('Y') !!} 
+                <a target="_blank" href="http://roma-solutions.com">Roma Solutions</a>.
+            </strong>
+            All rights reserved.
+            <div class="float-right d-none d-sm-inline-block">
+                <b>Version</b> 1.0.0
+            </div>
+        </footer>
+        
     </div>
-@endsection
-
-@section('js')
+    @include('layouts.js')
     <script>
-        var options = ['Thomas Silvestre', 'Pamela Navarrete', 'Pedro Pablo Requena',
-                        'Thomas Silvestre', 'Pamela Navarrete', 'Pedro Pablo Requena',
-                        'Thomas Silvestre', 'Pamela Navarrete', 'Pedro Pablo Requena',
-                        'Thomas Silvestre', 'Pamela Navarrete', 'Pedro Pablo Requena',
-                        'Thomas Silvestre', 'Pamela Navarrete', 'Pedro Pablo Requena',
-                        'Thomas Silvestre', 'Pamela Navarrete', 'Pedro Pablo Requena',
-                        'Thomas Silvestre', 'Pamela Navarrete', 'Pedro Pablo Requena',
-                        'Thomas Silvestre', 'Pamela Navarrete', 'Pedro Pablo Requena',
-                        'Thomas Silvestre', 'Pamela Navarrete', 'Pedro Pablo Requena',
-                        'Thomas Silvestre', 'Pamela Navarrete', 'Pedro Pablo Requena',
-                        'Thomas Silvestre', 'Pamela Navarrete', 'Pedro Pablo Requena',
-                        'Thomas Silvestre', 'Pamela Navarrete', 'Pedro Pablo Requena',
-                        'Thomas Silvestre', 'Pamela Navarrete', 'Pedro Pablo Requena',
-                        'Thomas Silvestre', 'Pamela Navarrete', 'Pedro Pablo Requena',
-                        'Thomas Silvestre', 'Pamela Navarrete', 'Pedro Pablo Requena'];
+        var options = JSON.parse('{!! $participantes !!}');
 
         var startAngle = 0;
         var arc = Math.PI / (options.length / 2);
@@ -105,7 +187,7 @@
                     ctx.translate(250 + Math.cos(angle + arc / 2) * textRadius,
                         250 + Math.sin(angle + arc / 2) * textRadius);
                     ctx.rotate(angle + arc / 2 + Math.PI );
-                    var text = options[i];
+                    var text = options[i].name;
                     ctx.fillText(text, -ctx.measureText(text).width / 2, 0);
                     ctx.restore();
                 }
@@ -124,8 +206,11 @@
                 ctx.fill();
             }
         }
-
+        var catidad_giros = 0;
         function spin() {
+            document.getElementById('ganador').style.visibility = 'hidden';
+            catidad_giros = catidad_giros + 1;
+            document.getElementById('total_giro').innerText = 'Total de giros: '+catidad_giros;
             spinAngleStart = Math.random() * 10 + 10;
             spinTime = 0;
             spinTimeTotal = Math.random() * 3 + 4 * 1000;
@@ -133,7 +218,7 @@
         }
 
         function rotateWheel() {
-            spinTime += 30;
+            spinTime += 10;
             if (spinTime >= spinTimeTotal) {
                 stopRotateWheel();
                 return;
@@ -141,7 +226,7 @@
             var spinAngle = spinAngleStart - easeOut(spinTime, 0, spinAngleStart, spinTimeTotal);
             startAngle += (spinAngle * Math.PI / 180);
             drawRouletteWheel();
-            spinTimeout = setTimeout('rotateWheel()', 30);
+            spinTimeout = setTimeout('rotateWheel()', 25);
         }
 
         function stopRotateWheel() {
@@ -151,9 +236,11 @@
             var index = Math.floor((360 - degrees % 360) / arcd);
             ctx.save();
             ctx.font = 'bold 30px Helvetica, Arial';
-            var text = options[index]
+            var text = options[index].name
             let label = document.getElementById('ganador');
             label.innerText = text;
+            confetti.start(10000, 100, 2000);
+            document.getElementById('ganador').style.visibility = 'visible';
         }
 
         function easeOut(t, b, c, d) {
@@ -163,6 +250,18 @@
         }
 
         drawRouletteWheel();
-    </script>
-@endsection
 
+        function copiarganador() {
+            var aux = document.createElement("input");
+            aux.setAttribute("value", document.getElementById('ganador').textContent);
+            document.body.appendChild(aux);
+            aux.select();
+            document.execCommand("copy");
+            document.body.removeChild(aux);
+
+            alert("Ganador copiado exitosamente");
+        }
+    </script>
+</body>
+<!-- @include('layouts.footer_streamer') -->
+</html>
