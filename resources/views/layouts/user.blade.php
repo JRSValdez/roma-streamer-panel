@@ -12,11 +12,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand navbar-white navbar-light">
         <!-- Left navbar links -->
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-            </li>
-        </ul>
+
 
         <!-- right navbar links -->
         <ul class="navbar-nav ml-auto">
@@ -36,13 +32,10 @@
     <!-- /.navbar -->
 
     <!-- Content Wrapper. Contains page content -->
-    <div class="container">
-        <!-- Content Header (Page header) -->
-        <div class="content-header">
-            <div class="container-fluid">
+
+            <div >
+                @yield('content')
             </div><!-- /.container-fluid -->
-        </div>
-        <!-- /.content-header -->
-    </div>
+    
 
     @include('layouts.footer')

@@ -3,70 +3,183 @@
 @section('title', 'User name')
 
 @section('content')
-    <!-- Small boxes (Stat box) -->
-    <div class="row">
-        <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-                <div class="inner">
-                    <h3>150</h3>
-
-                    <p>New Orders</p>
-                </div>
-                <div class="icon">
-                    <i class="ion ion-bag"></i>
-                </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
+<div style="height: auto !important;">
+    <div style="height: auto !important;">
+        <div style="main-header-background">
+                <img alt="imagen html de ejemplo" 
+                    src="https://i.pinimg.com/originals/ba/4d/80/ba4d801db37ad7ba4d455d742d46e680.jpg"
+                    width="1500" 
+                    height="705"/>
         </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-                <div class="inner">
-                    <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-                    <p>Bounce Rate</p>
+    </div>   
+    <br>
+    <div class="card-group">
+        <h3>&nbsp;&nbsp;&nbsp;Ellos son los streamers destacados</h3>
+    </div>     
+    <div class="card-group">
+        <div class="card" style="margin: 1rem;">
+            <a  class="color-black">
+                <div class="card-header">
+                    <small class="text-muted text-center">
+                        <div class="text-center card-title card-title h5" style="letter-spacing: 1px;">
+                            <span class="badge badge-success">Online</span>
+                        </div>
+                    </small>
                 </div>
-                <div class="icon">
-                    <i class="ion ion-stats-bars"></i>
+                <div class="card-img-top" style="background-image: url(&quot;https://crazystream-assets.s3.us-east-2.amazonaws.com/profile/vane.png&quot;); height: 251px; background-position: center center; background-size: cover;">
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
+                <div class="card-body">
+                    <div class="text-center card-title card-title h5" style="letter-spacing: 1px;">Blacksy</div>
+                </div>
+            </a>
         </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-                <div class="inner">
-                    <h3>44</h3>
-
-                    <p>User Registrations</p>
+        <div class="card" style="margin: 1rem;">
+            <a  class="color-black">
+                <div class="card-header">
+                    <small class="text-muted text-center">
+                        <div class="text-center card-title card-title h5" style="letter-spacing: 1px;">
+                            <span class="badge badge-success">Online</span>
+                        </div>
+                    </small>
                 </div>
-                <div class="icon">
-                    <i class="ion ion-person-add"></i>
+                <div class="card-img-top" style="background-image: url(&quot;https://crazystream-assets.s3.us-east-2.amazonaws.com/profile/vane.png&quot;); height: 251px; background-position: center center; background-size: cover;">
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
+                <div class="card-body">
+                    <div class="text-center card-title card-title h5" style="letter-spacing: 1px;">Hectorin</div>
+                </div>
+            </a>
         </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-                <div class="inner">
-                    <h3>65</h3>
-
-                    <p>Unique Visitors</p>
+        <div class="card" style="margin: 1rem;">
+            <a class="color-black">
+                <div class="card-header">
+                    <small class="text-muted text-center">
+                        <div class="text-center card-title card-title h5" style="letter-spacing: 1px;">
+                            <span class="badge badge-success">Online</span>
+                        </div>
+                    </small>
                 </div>
-                <div class="icon">
-                    <i class="ion ion-pie-graph"></i>
+                <div class="card-img-top" style="background-image: url(&quot;https://crazystream-assets.s3.us-east-2.amazonaws.com/profile/vane.png&quot;); height: 251px; background-position: center center; background-size: cover;">
                 </div>
-                <a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
+                <div class="card-body">
+                    <div class="text-center card-title card-title h5" style="letter-spacing: 1px;">Gantu</div>
+                </div>
+            </a>
         </div>
-        <!-- ./col -->
+        <div class="card" style="margin: 1rem;">
+            <a  class="color-black">
+                <div class="card-header">
+                    <small class="text-muted text-center">
+                        <div class="text-center card-title card-title h5" style="letter-spacing: 1px;">
+                            <span class="badge badge-success">Online</span>
+                        </div>
+                    </small>
+                </div>
+                <div class="card-img-top" style="background-image: url(&quot;https://crazystream-assets.s3.us-east-2.amazonaws.com/profile/vane.png&quot;); height: 251px; background-position: center center; background-size: cover;">
+                </div>
+                <div class="card-body">
+                    <div class="text-center card-title card-title h5" style="letter-spacing: 1px;">Peppa Pig</div>
+                </div>
+            </a>
+        </div>
+        
     </div>
-    <!-- /.row -->
+        <html>
+            <head>
+            </head>
+            <body>
+                <h1>Google Adsense</h1>
+            </body>
+        </html>
+    
+        <br>
+        <div class="card-group">
+            <h3>&nbsp;&nbsp;&nbsp;Y hay muchos mas</h3>
+        </div> 
+        <div class="card-group">
+            <div class="card" style="margin: 1rem;">
+                <a class="color-black">
+                    <div class="card-header">
+                        <small class="text-muted text-center">
+                            <div class="text-center card-title card-title h5" style="letter-spacing: 1px;">
+                               Online
+                            </div>
+                        </small>
+                    </div>
+                    <div class="card-img-top" style="background-image: url(&quot;https://crazystream-assets.s3.us-east-2.amazonaws.com/profile/pepeelcrack.png&quot;); height: 251px; background-position: center center; background-size: cover;">
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center card-title card-title h5" style="letter-spacing: 1px;">
+                            juanito
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="card" style="margin: 1rem;">
+                <a class="color-black">
+                    <div class="card-header">
+                        <small class="text-muted text-center">
+                            <div class="text-center card-title card-title h5" style="letter-spacing: 1px;">
+                               Online
+                            </div>
+                        </small>
+                    </div>
+                    <div class="card-img-top" style="background-image: url(&quot;https://crazystream-assets.s3.us-east-2.amazonaws.com/profile/pepeelcrack.png&quot;); height: 251px; background-position: center center; background-size: cover;">
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center card-title card-title h5" style="letter-spacing: 1px;">
+                            juanita
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="card" style="margin: 1rem;">
+                <a class="color-black">
+                    <div class="card-header">
+                        <small class="text-muted text-center">
+                            <div class="text-center card-title card-title h5" style="letter-spacing: 1px;">
+                               Online
+                            </div>
+                        </small>
+                    </div>
+                    <div class="card-img-top" style="background-image: url(&quot;https://crazystream-assets.s3.us-east-2.amazonaws.com/profile/pepeelcrack.png&quot;); height: 251px; background-position: center center; background-size: cover;">
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center card-title card-title h5" style="letter-spacing: 1px;">
+                            don vergas
+                        </div>
+                    </div>
+                </a>
+            </div>
+            <div class="card" style="margin: 1rem;">
+                <a class="color-black">
+                    <div class="card-header">
+                        <small class="text-muted text-center">
+                            <div class="text-center card-title card-title h5" style="letter-spacing: 1px;">
+                               Online
+                            </div>
+                        </small>
+                    </div>
+                    <div class="card-img-top" style="background-image: url(&quot;https://crazystream-assets.s3.us-east-2.amazonaws.com/profile/pepeelcrack.png&quot;); height: 251px; background-position: center center; background-size: cover;">
+                    </div>
+                    <div class="card-body">
+                        <div class="text-center card-title card-title h5" style="letter-spacing: 1px;">
+                            wichito
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div style="main-header-background">
+            <img alt="imagen html de ejemplo" 
+                src="https://wallpaperaccess.com/full/1885445.jpg"
+                width="1355" 
+                height="255"/>
+        </div>
+</div>
+<!-- /.row -->
+<!-- Main row -->
+
+<!-- /.row (main row) -->
 
 @endsection
 
