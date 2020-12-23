@@ -19,6 +19,18 @@ class RouletteController extends Controller
         return view("/streamer.roulette");
     }
 
+    public function registrarRuleta(Request $request){
+        $validated = $request->validate([
+            'user_id'=>['required','numeric'],
+            'ruleta_id' => ['required','numeric']
+        ]);
+
+        return PollAnswerDetail::create([
+            'user_id' => $validated['user_id'],
+            'ruleta_id' => $validated['ruleta_id']
+        ]);
+    }
+
     public function get_roulettes(Request $request){
         if ($request->ajax()) {
             $polls = Roulette::query('id','reward','participants_number','status','user_id')->orderBy('id', 'desc');

@@ -72,9 +72,7 @@
 
         </div>
 
-        <div style="width: 100%; height: 100px; text-align: center">
-            <h1>Google Adsense</h1>
-        </div>
+        {!! Adsense::show('responsive') !!}
 
         <br>
         <div class="card-group">

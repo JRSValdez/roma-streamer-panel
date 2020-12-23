@@ -99,14 +99,18 @@ Route::middleware('auth')->group(function () {
         Route::post('/desactivarcodigo', [CodigoController::class, 'desactivar'])->name('streamer.desactivarcodigo');
         Route::post('/borrarcodigo', [CodigoController::class, 'borrar'])->name('streamer.borrarcodigo');
         Route::get('/codigos/ganadores/{id}', [CodigoController::class, 'ganadores'])->name('streamer.ganadores');
-        Route::get('/ruleta/ganadores/{id}', [RouletteController::class, 'ganadores'])->name('streamer.ganadores.ruleta');
+        Route::post('/codigos/registrarse', [CodigoController::class, 'registrarCodigo'])->name('streamer.registrarse');
 
         Route::get('/message', [MessageController::class, 'index'])->name('streamer.messages');
+        Route::get('/message/nuevo', [MessageController::class, 'nuevoMensaje'])->name('streamer.nuevoMensaje');
+
         Route::get('/roulette', [RouletteController::class, 'index'])->name('streamer.roulette');
         Route::post('/roulette/getroulette', [RouletteController::class, 'get_roulettes'])->name('streamer.getroulette');
         Route::post('/roulette/create_roulette', [RouletteController::class, 'createRoulette'])->name('streamer.roulette.createroulette');
         Route::post('/roulette/activateroulette', [RouletteController::class, 'activate'])->name('streamer.roulette.activateroulette');
         Route::post('/roulette/deactivateroulette', [RouletteController::class, 'deactivate'])->name('streamer.roulette.deactivateroulette');
+        Route::get('/ruleta/ganadores/{id}', [RouletteController::class, 'ganadores'])->name('streamer.ganadores.ruleta');
+        Route::get('/ruleta/registrarse', [RouletteController::class, 'registrarRuleta'])->name('streamer.ganadores.registrarse');
 
         Route::get('/votaciones', [VotacionesController::class, 'index'])->name('streamer.votaciones');
         Route::post('/getvotaciones', [VotacionesController::class, 'get_votaciones'])->name('streamer.getvotaciones');
@@ -115,6 +119,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/votaciones/deletevotacion', [VotacionesController::class, 'delete'])->name('streamer.deletevotacion');
         Route::post('/votaciones/create_poll', [VotacionesController::class, 'createPoll'])->name('streamer.votaciones.createpoll');
         Route::post('/votaciones/getanswerdetail', [VotacionesController::class, 'pollDetail'])->name('streamer.votaciones.getanswerdetail');
+        Route::post('/votaciones/votar', [VotacionesController::class, 'votar'])->name('streamer.votaciones.votar');
 
         Route::get('/spin_roulette', function (){
             return view('streamer.spin_roulette');
