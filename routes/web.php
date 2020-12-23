@@ -84,6 +84,7 @@ Route::middleware('auth')->group(function () {
     /* ---- STREAMER ---- */
     Route::prefix('streamer')->group(function () {
         Route::get('/', [StreamerController::class,'index'])->name('streamer.dashboard');
+        Route::post('/switchStatus', [StreamerController::class,'switchStatus'])->name('switchStatus');
 
         // modulo de configuracion para streamer
         Route::get('/config', [ConfiguracionController::class, 'index'])->name('showStreamerConfig');
