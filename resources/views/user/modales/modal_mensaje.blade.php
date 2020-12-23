@@ -3,7 +3,7 @@
                 <div class="modal-content">
                     <div class="card-info">
                         <div class="card-header">
-                            <h3 class="card-title"><i class="fas fa-barcode mr-1"></i> Registrarse</h3>
+                            <h3 class="card-title"><i class="fas fa-envelope mr-1"></i> Mensaje</h3>
                             <button class="close" data-dismiss="modal" aria-label="close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -21,7 +21,7 @@
                             <form id="form-mensaje">                                
                                 <div class="form-group">
                                     <textarea rows="5" id="mensaje" name="mensaje" class="form-control" placeholder="Enviar mensaje"></textarea>
-                                    <span>Quedan 200 de 200 caracteres</span>
+                                    <span>Quedan <span id="cant_char">200</span> de 200 caracteres</span>
                                 </div>
                                 <div class="card-footer">
                                     <button type="submit" class="btn bg-gradient-primary float-right m-1"><i class="fas fa-save mr-1"></i> Enviar</button>

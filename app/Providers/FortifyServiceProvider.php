@@ -50,12 +50,25 @@ class FortifyServiceProvider extends ServiceProvider
                                                 ]);
         });
 
+
         Fortify::requestPasswordResetLinkView(function () {
-            return view('auth.passwords.email');
+            $config = AdminConfiguration::all()->first()->getSiteInfo();
+            $social_networks = SocialNetwork::where('show_in_register','1')->get();
+            return view('auth.passwords.email',[
+                'site_name' => $config->site_name,
+                'social_networks' => $social_networks
+            ]);
         });
 
         Fortify::resetPasswordView(function ($request) {
-            return view('auth.passwords.reset', ['request' => $request]);
+//            dd($request);
+            $config = AdminConfiguration::all()->first()->getSiteInfo();
+            $social_networks = SocialNetwork::where('show_in_register','1')->get();
+            return view('auth.passwords.reset', [
+                'request' => $request,
+                'site_name' => $config->site_name,
+                'social_networks' => $social_networks
+            ]);
         });
 
     }

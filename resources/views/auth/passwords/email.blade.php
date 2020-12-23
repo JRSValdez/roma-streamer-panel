@@ -4,7 +4,13 @@
 
     <div class="login-box">
         <div class="login-logo">
-            <a href="../../index2.html"><b>Admin</b>LTE</a>
+            <div>
+                <img
+                    style="max-width: 100px"
+                    src="{{ asset('/storage/site_logo.png')}}"
+                    alt="site logo"/>
+            </div>
+            <a style="color:white" href="/home"><b>{{$site_name}}</b></a>
         </div>
         <!-- /.login-logo -->
         <div class="card">

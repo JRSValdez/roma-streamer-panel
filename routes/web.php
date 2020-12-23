@@ -103,8 +103,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/codigos/registrarse', [CodigoController::class, 'registrarCodigo'])->name('streamer.registrarse');
 
         Route::get('/message', [MessageController::class, 'index'])->name('streamer.messages');
-        Route::get('/message/nuevo', [MessageController::class, 'nuevoMensaje'])->name('streamer.nuevoMensaje');
-
         Route::get('/roulette', [RouletteController::class, 'index'])->name('streamer.roulette');
         Route::post('/roulette/getroulette', [RouletteController::class, 'get_roulettes'])->name('streamer.getroulette');
         Route::post('/roulette/create_roulette', [RouletteController::class, 'createRoulette'])->name('streamer.roulette.createroulette');
@@ -121,7 +119,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/votaciones/deletevotacion', [VotacionesController::class, 'delete'])->name('streamer.deletevotacion');
         Route::post('/votaciones/create_poll', [VotacionesController::class, 'createPoll'])->name('streamer.votaciones.createpoll');
         Route::post('/votaciones/getanswerdetail', [VotacionesController::class, 'pollDetail'])->name('streamer.votaciones.getanswerdetail');
-        Route::post('/votaciones/votar', [VotacionesController::class, 'votar'])->name('streamer.votaciones.votar');
 
         Route::get('/spin_roulette', function (){
             return view('streamer.spin_roulette');
@@ -133,13 +130,11 @@ Route::middleware('auth')->group(function () {
     /* ---- USER ---- */
 
     Route::prefix('user')->group(function () {
-        Route::get('/', [ViewerController::class,'index']);
+        Route::get('/streamers', [ViewerController::class, 'index'])->name('showStreamers');
         Route::get('/chanel/{streamer}', [ViewerController::class, 'get_streamer']);
         Route::post('/canjearcodigo', [ViewerController::class, 'canjear_codigo'])->name('user.canjearcodigo');
         Route::post('/mensaje', [ViewerController::class, 'enviar_mensaje'])->name('user.mensaje');
-        Route::prefix('viewer')->group(function () {
-            Route::get('/streamers', [ViewerController::class,'index']);
-        });
+        Route::post('/ruleta', [ViewerController::class, 'registrar_en_ruleta'])->name('user.ruleta');
     });
 
 
