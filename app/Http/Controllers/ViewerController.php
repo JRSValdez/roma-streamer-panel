@@ -45,7 +45,7 @@ class ViewerController extends Controller
     	if (count($chanel) == 1) {
     		return view('user.chanel_stream');
     	}else{
-    		return redirect('/user/');
+    		return redirect("user/");
     	}
 
     }
