@@ -4,14 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-<<<<<<< HEAD
 use App\Models\SorteoCodigo;
 use App\Models\Codigo;
-use App\Models\User;
 use App\Models\Mensaje;
-=======
 use Illuminate\Support\Facades\DB;
->>>>>>> 543e1f06ad9a195a046a49072c0482c9578a7e9a
 
 class ViewerController extends Controller
 {
@@ -49,7 +45,7 @@ class ViewerController extends Controller
     	if (count($chanel) == 1) {
     		return view('user.chanel_stream');
     	}else{
-    		return redirect('/user/');
+    		return redirect("user/");
     	}
     	
     }

@@ -130,16 +130,14 @@ Route::middleware('auth')->group(function () {
 
     /* ---- USER ---- */
 
-<<<<<<< HEAD
     Route::prefix('user')->group(function () {
         Route::get('/', [ViewerController::class,'index']);
         Route::get('/chanel/{streamer}', [ViewerController::class, 'get_streamer']);
         Route::post('/canjearcodigo', [ViewerController::class, 'canjear_codigo'])->name('user.canjearcodigo');
         Route::post('/mensaje', [ViewerController::class, 'enviar_mensaje'])->name('user.mensaje');
-=======
-    Route::prefix('viewer')->group(function () {
-        Route::get('/streamers', [ViewerController::class,'index']);
->>>>>>> 543e1f06ad9a195a046a49072c0482c9578a7e9a
+        Route::prefix('viewer')->group(function () {
+            Route::get('/streamers', [ViewerController::class,'index']);
+        });
     });
 
 

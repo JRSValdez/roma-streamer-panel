@@ -48,7 +48,7 @@
 
             @foreach($destacados as $streamer)
                 <div class="card streamer-card" style="margin: 1rem;">
-                    <a class="color-black">
+                    <a class="color-black" href="{!! url('user/chanel/'.$streamer['name']) !!}">
                         <div class="card-header">
                             <small class="text-muted text-center">
                                 <div class="text-center card-title card-title h5" style="letter-spacing: 1px;">
@@ -72,7 +72,7 @@
 
         </div>
 
-        {!! Adsense::show('responsive') !!}
+        <!-- !! Adsense::show('responsive') !! -->
 
         <br>
         <div class="card-group">
