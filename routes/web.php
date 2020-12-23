@@ -83,8 +83,8 @@ Route::middleware('auth')->group(function () {
 
     /* ---- STREAMER ---- */
     Route::prefix('streamer')->group(function () {
-        Route::get('/', [StreamerController::class, 'index'])->name('streamer.dashboard');
-        Route::post('/switchStatus', [StreamerController::class, 'switchStatus'])->name('switchStatus');
+        Route::get('/', [StreamerController::class,'index'])->name('streamer.dashboard');
+        Route::post('/switchStatus', [StreamerController::class,'switchStatus'])->name('switchStatus');
 
         // modulo de configuracion para streamer
         Route::get('/config', [ConfiguracionController::class, 'index'])->name('showStreamerConfig');
@@ -133,6 +133,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/chanel/{streamer}', [ViewerController::class, 'get_streamer']);
         Route::post('/canjearcodigo', [ViewerController::class, 'canjear_codigo'])->name('user.canjearcodigo');
         Route::post('/mensaje', [ViewerController::class, 'enviar_mensaje'])->name('user.mensaje');
+        Route::post('/ruleta', [ViewerController::class, 'registrar_en_ruleta'])->name('user.ruleta');
     });
 
 
