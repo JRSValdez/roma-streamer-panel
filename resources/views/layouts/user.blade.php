@@ -5,37 +5,35 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>@yield('title')</title>
     @include('layouts.styles')
+    <style>
+        .sign-out-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            z-index: 2;
+        }
+        .sign-out-button a {
+            color: white !important;
+            text-decoration: none;
+        }
+    </style>
 </head>
 
-<body class="hold-transition sidebar-mini layout-fixed">
+<body class="hold-transition sidebar-mini layout-fixed" style="overflow-x: hidden">
 
-    <!-- Navbar -->
-    <nav class="navbar navbar-expand navbar-white navbar-light">
-        <!-- Left navbar links -->
+<div>
+    <div class="sign-out-button">
+        <a class="" href="{{ route('logout') }}" role="button"
+           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            Cerrar sesión
+            <i class="fas fa-sign-out-alt"></i>
+        </a>
 
+        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+            @csrf
+        </form>
+    </div>
+    @yield('content')
+</div>
 
-        <!-- right navbar links -->
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a class="nav-link" href="{{ route('logout') }}" role="button"
-                   onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                    {{ __('Logout') }}
-                    <i class="fas fa-sign-out-alt"></i>
-                </a>
-
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                </form>
-            </li>
-        </ul>
-    </nav>
-    <!-- /.navbar -->
-
-    <!-- Content Wrapper. Contains page content -->
-
-            <div >
-                @yield('content')
-            </div><!-- /.container-fluid -->
-    
-
-    @include('layouts.footer')
+{{--@include('layouts.footer')--}}
