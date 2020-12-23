@@ -99,6 +99,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/desactivarcodigo', [CodigoController::class, 'desactivar'])->name('streamer.desactivarcodigo');
         Route::post('/borrarcodigo', [CodigoController::class, 'borrar'])->name('streamer.borrarcodigo');
         Route::get('/codigos/ganadores/{id}', [CodigoController::class, 'ganadores'])->name('streamer.ganadores');
+        Route::get('/ruleta/ganadores/{id}', [RouletteController::class, 'ganadores'])->name('streamer.ganadores.ruleta');
 
         Route::get('/message', [MessageController::class, 'index'])->name('streamer.messages');
         Route::get('/roulette', [RouletteController::class, 'index'])->name('streamer.roulette');
@@ -106,6 +107,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/roulette/create_roulette', [RouletteController::class, 'createRoulette'])->name('streamer.roulette.createroulette');
         Route::post('/roulette/activateroulette', [RouletteController::class, 'activate'])->name('streamer.roulette.activateroulette');
         Route::post('/roulette/deactivateroulette', [RouletteController::class, 'deactivate'])->name('streamer.roulette.deactivateroulette');
+        Route::post('/roulette/deleteroulette', [RouletteController::class, 'delete'])->name('streamer.roulette.deleteroulette');
 
         Route::get('/votaciones', [VotacionesController::class, 'index'])->name('streamer.votaciones');
         Route::post('/getvotaciones', [VotacionesController::class, 'get_votaciones'])->name('streamer.getvotaciones');

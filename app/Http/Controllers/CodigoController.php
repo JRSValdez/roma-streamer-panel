@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AdminConfiguration;
+use Carbon\Carbon;
+use http\Encoding\Stream\Debrotli;
 use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Codigo;
@@ -29,6 +32,11 @@ class CodigoController extends Controller
     }
 
     public function crear(Request $request){
+        $codigoNumber = Codigo::query()->whereDate('fecha_creacion', "=", Carbon::now()->format('Y-m-d'))->whereIn("user_id",[auth()->id()])->count();
+        $maxPerDay = AdminConfiguration::query()->select(['codes'])->get()->first();
+        $maxPerDay = json_decode($maxPerDay['codes'],true);
+        if ($maxPerDay['max_per_day'] <= $codigoNumber) return 'noadd';
+
     	$codigo = new Codigo();
     	$codigo_generado = $this->generar(12);
     	$fecha_actual = date('Y-m-d H:i:s');
