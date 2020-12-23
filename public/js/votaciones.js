@@ -265,7 +265,7 @@ $(document).ready(function () {
               ref.ajax.reload();
               var Toast = Swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: 'top-end',
                 showConfirmButton: false,
                 timer: 3000,
                 timerProgressBar: true,
@@ -281,7 +281,7 @@ $(document).ready(function () {
             } else {
               var _Toast3 = Swal.mixin({
                 toast: true,
-                position: 'bottom-end',
+                position: 'top-end',
                 showConfirmButton: false,
                 timer: 2000,
                 timerProgressBar: true,

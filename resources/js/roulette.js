@@ -165,7 +165,7 @@ $(document).ready(function(){
                             ref.ajax.reload();
                             const Toast = Swal.mixin({
                                 toast: true,
-                                position: 'bottom-end',
+                                position: 'top-end',
                                 showConfirmButton: false,
                                 timer: 3000,
                                 timerProgressBar: true,
@@ -182,7 +182,7 @@ $(document).ready(function(){
                         }else{
                             const Toast = Swal.mixin({
                                 toast: true,
-                                position: 'bottom-end',
+                                position: 'top-end',
                                 showConfirmButton: false,
                                 timer: 2000,
                                 timerProgressBar: true,
@@ -227,7 +227,7 @@ $(document).ready(function(){
           }else{
             alert('debe de activar la ruleta');
           }
-          
+
         });
     }
 
