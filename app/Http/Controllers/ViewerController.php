@@ -45,7 +45,7 @@ class ViewerController extends Controller
     public function get_streamer($streamer){
     	$chanel = User::query()->where('name', $streamer)->first();
     	if ($chanel) {
-    		return view('user.chanel_stream', ['nombre_streamer' => $streamer]);
+    		return view('user.chanel_stream', ['nombre_streamer' => $streamer, 'streamer' => $chanel]);
     	}else{
     		return redirect("user/");
     	}
@@ -105,14 +105,14 @@ class ViewerController extends Controller
     	}else{
     		$response = 'noenviado';
     	}
-    	
+
 		return $response;
     }
 
     public function registrar_en_ruleta(){
     	$sr = new SorteoRuleta();
     	$fecha_actual = date('Y-m-d H:i:s');
-    	$ruleta = Roulette::query()->where('status', 1)->first();    	
+    	$ruleta = Roulette::query()->where('status', 1)->first();
 
     	if ($ruleta) {
     		$rul = SorteoRuleta::where('user_id', auth()->id())->where('ruleta_id', $ruleta->id)->get();
@@ -129,10 +129,10 @@ class ViewerController extends Controller
     		}else{
     			$response = 'noadd';
     		}
-    		
+
     	}else{
     		$response = 'noadd-rul';
-    	}    	
+    	}
 
 		return $response;
     }

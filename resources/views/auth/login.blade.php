@@ -91,7 +91,7 @@
                                     {{ old('remember') ? 'checked' : '' }}
                                 >
                                 <label for="remember">
-                                    Remember Me
+                                    Recordarme
                                 </label>
                             </div>
                         </div>
