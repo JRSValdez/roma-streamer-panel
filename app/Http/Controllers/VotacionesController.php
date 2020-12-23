@@ -21,6 +21,19 @@ class VotacionesController extends Controller
     public function index(){
         return view("/streamer.votaciones");
     }
+
+    public function votar(Request $request){
+        $validated = $request->validate([
+            'user_id'=>['required','numeric'],
+            'answer_id' => ['required','numeric']
+        ]);
+
+        return PollAnswerDetail::create([
+            'user_id' => $validated['mensaje'],
+            'answer_id' => $validated['from_id']
+        ]);
+    }
+
     public function get_votaciones(Request $request){
         if ($request->ajax()) {
             $polls = Poll::query()->orderBy('id','desc')->whereNotIn('status',[0]);
