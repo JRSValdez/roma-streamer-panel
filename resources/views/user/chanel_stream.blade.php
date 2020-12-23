@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-	<title> {{  Auth::user()->site_name }} | Ganadores Codigo</title>
+	<title> {{  Auth::user()->site_name }}</title>
 	@include('layouts.styles')
 	<script src="{{ asset('js/confetti.min.js') }}"></script>
 	<style type="text/css">
@@ -64,21 +64,32 @@
 	@include('user.modales.modal_ruleta')
 	@include('user.modales.modal_mensaje')
 	<div class="wrapper">
+		<div class="sign-out-button text-right m-3">
+	        <a class="" href="{{ route('logout') }}" role="button"
+	           onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style="color: #fff">
+	            Cerrar sesión
+	            <i class="fas fa-sign-out-alt"></i>
+	        </a>
+
+	        <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+	            @csrf
+	        </form>
+	    </div>
         <div class="content mt-3">
 	      <div class="container-fluid">
 	        <div class="row text-center">
-	          <div class="col-lg-4">
+	          <div class="col-lg-5">
 	          	<div>
 	          		<div>
 	          			@php($img = Auth::user()->img_src)
 	          			<img src="{{ asset('/storage/user_images/'.$img )}}" width="125px">
 	          		</div>
-	          		<div>
+	          		<div class="mt-3">
 	          			<label style="color: #fff; font-size: 30px;">{{ Auth::user()->name }}</label>
 	          		</div>
 	          	</div>
 	          </div>
-	          <div class="col-lg-4">
+	          <div class="col-lg-5">
 	          	<div>
 	          		<img src="{{ asset('/storage/user_images/'.$img )}}" width="125px">
 	          	</div>	
@@ -98,8 +109,8 @@
 	          		<button id="canjear_codigo" style="color: #fff; font-size: 25px; border: 3px solid #fff; border-radius: 35px; width: 80%" class="btn btn-outline-secondary btn-lg" disabled="true">Apuestas</button>
 	          	</div>         	
 	          </div>
-	          <div class="col-lg-4">
-	          	<div>Top Mensajes</div>
+	          <div class="col-lg-2">
+	          	<div></div>
 	          </div>
 	        </div>
 	        <!-- /.row -->
@@ -155,7 +166,8 @@
 
 			$('#form-mensaje').submit(e => {
 		      	let mensaje = $('textarea#mensaje').val();
-		        $.post('/user/mensaje', {mensaje}, function(response){
+		      	let streamer = '{!! $nombre_streamer !!}';
+		        $.post('/user/mensaje', {mensaje, streamer}, function(response){
 		        	console.log(response)
 		          if (response == 'enviado') {
 		            $('#enviado').hide('slow');
@@ -174,6 +186,37 @@
 		        });    
 		      e.preventDefault();
 		  	});
+
+		  	$('#form-ruleta').submit(e => {
+		        $.post('/user/ruleta', function(response){
+		          if (response == 'add') {
+		            $('#add-rul').hide('slow');
+		            $('#add-rul').show(5000);
+		            $('#add-rul').hide(3000);
+		            $('#form-ruleta').trigger('reset');
+		          }else if(response == 'noadd'){
+		            $('#noadd-ruls').hide('slow');
+		            $('#noadd-ruls').show(5000);
+		            $('#noadd-ruls').hide(3000);
+		          }else{
+		          	$('#noadd-rul').hide('slow');
+		            $('#noadd-rul').show(5000);
+		            $('#noadd-rul').hide(3000);
+		          }
+		        });    
+		      e.preventDefault();
+		  	});
+
+			let cant = 1;
+			let resta = 0;
+			let total = 200;
+		  	$(document).on('keyup', '#mensaje', function(){//*
+		        let valor = $(this).val();
+		        if (valor != '') {
+		            cant = (total-valor.length);
+		            $('#cant_char').html(cant);
+		        }
+		    });
 		});
 	</script>
 </body>

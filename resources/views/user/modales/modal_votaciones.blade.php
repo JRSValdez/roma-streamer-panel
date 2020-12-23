@@ -3,7 +3,7 @@
                 <div class="modal-content">
                     <div class="card-info">
                         <div class="card-header">
-                            <h3 class="card-title"><i class="fas fa-barcode mr-1"></i> Votaciones</h3>
+                            <h3 class="card-title"><i class="fas fa-rocket mr-1"></i> Votaciones</h3>
                             <button class="close" data-dismiss="modal" aria-label="close">
                                 <span aria-hidden="true">&times;</span>
                             </button>

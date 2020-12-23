@@ -136,6 +136,7 @@ Route::middleware('auth')->group(function () {
         Route::get('/chanel/{streamer}', [ViewerController::class, 'get_streamer']);
         Route::post('/canjearcodigo', [ViewerController::class, 'canjear_codigo'])->name('user.canjearcodigo');
         Route::post('/mensaje', [ViewerController::class, 'enviar_mensaje'])->name('user.mensaje');
+        Route::post('/ruleta', [ViewerController::class, 'registrar_en_ruleta'])->name('user.ruleta');
         Route::prefix('viewer')->group(function () {
             Route::get('/streamers', [ViewerController::class,'index']);
         });
