@@ -21,6 +21,18 @@ class RouletteController extends Controller
         return view("/streamer.roulette");
     }
 
+    public function registrarRuleta(Request $request){
+        $validated = $request->validate([
+            'user_id'=>['required','numeric'],
+            'ruleta_id' => ['required','numeric']
+        ]);
+
+        return PollAnswerDetail::create([
+            'user_id' => $validated['user_id'],
+            'ruleta_id' => $validated['ruleta_id']
+        ]);
+    }
+
     public function get_roulettes(Request $request){
         if ($request->ajax()) {
             $polls = Roulette::query('id','reward','participants_number','status','user_id')->where('user_id','=',Auth::id())->orderBy('id', 'desc')->whereNotIn('status',[0]);
@@ -83,6 +95,14 @@ class RouletteController extends Controller
         }
         return $response;
     }
+
+    public function ganadores($id){
+        $participantes = SorteoRuleta::query('id_sorteo_ruleta', 'user_id', 'users.name', 'ruleta_id', 'fecha_canjeado')->join('users', 'sorteo_ruleta.user_id', '=', 'users.id')->where('ruleta_id', $id)->orderBy('fecha_canjeado','ASC')->get();
+        $total_participantes = count($participantes);
+        return view('streamer.spin_roulette', ['id' => $id, 'participantes' => $participantes,
+                                                    'total_participantes' => $total_participantes
+                                                ]);
+    }
     public function delete(Request $request){
         $roulette = Roulette::findOrFail($request->id);
 
@@ -96,11 +116,4 @@ class RouletteController extends Controller
         return $response;
     }
 
-    public function ganadores($id){
-        $participantes = SorteoRuleta::query('id_sorteo_ruleta', 'user_id', 'users.name', 'ruleta_id', 'fecha_canjeado')->join('users', 'sorteo_ruleta.user_id', '=', 'users.id')->where('ruleta_id', $id)->orderBy('fecha_canjeado','ASC')->get();
-        $total_participantes = count($participantes);
-        return view('streamer.spin_roulette', ['id' => $id, 'participantes' => $participantes,
-                                                    'total_participantes' => $total_participantes
-                                                ]);
-    }
 }

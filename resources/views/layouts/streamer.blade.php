@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>@yield('title')</title>
-    <!-- <link rel="stylesheet" href="{{ asset('css/datatables.css') }}"> -->
+<!-- <link rel="stylesheet" href="{{ asset('css/datatables.css') }}"> -->
     @include('layouts.styles')
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
@@ -41,7 +41,8 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="#" class="brand-link">
-            <img  src="{{ asset('/storage/site_logo.png' )}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
+            <img src="{{ asset('/storage/site_logo.png' )}}" alt="AdminLTE Logo"
+                 class="brand-image img-circle elevation-3"
                  style="opacity: .8">
             <span class="brand-text font-weight-light"> Streamer </span>
         </a>
@@ -51,16 +52,40 @@
             <!-- Sidebar user panel (optional) -->
             <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                 <div class="image">
-                    <img  src="{{ asset('/storage/user_images/'.Auth::user()->img_src )}}" class="img-circle elevation-2" alt="User Image">
+                    <img src="{{ asset('/storage/user_images/'.Auth::user()->img_src )}}" class="img-circle elevation-2"
+                         alt="User Image">
                 </div>
                 <div class="info">
                     <a href="#" class="d-block">{{ Auth::user()->name }}</a>
                 </div>
             </div>
 
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="mx-auto">
+                    @if(Auth::user()->streamer_attributes->live == 'on')
+                        <a id="btnOn" style="display: block" class="btn btn-success switchStatus">
+                            <i class="fas fa-play"></i> Online
+                        </a>
+                        <a id="btnOff" style="display: none" class="btn btn-danger switchStatus">
+                            <i class="fas fa-stop"></i> Offline
+                        </a>
+                    @else
+                        <a id="btnOn" style="display: none" class="btn btn-success switchStatus">
+                            <i class="fas fa-play"></i> Online
+                        </a>
+                        <a id="btnOff" style="display: block" class="btn btn-danger switchStatus">
+                            <i class="fas fa-stop"></i> Offline
+                        </a>
+                    @endif
+
+                </div>
+            </div>
+
+
             <!-- Sidebar Menu -->
             <nav class="mt-2">
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                    data-accordion="false">
                     <!-- Add icons to the links using the .nav-icon class
                          with font-awesome or any other icon font library -->
                     <li class="nav-header">Accesos</li>
@@ -133,13 +158,13 @@
                     </li>
 
 
-                   <!--  <li class="nav-header">MISCELLANEOUS</li>
-                    <li class="nav-item">
-                        <a href="https://adminlte.io/docs/3.0" class="nav-link">
-                            <i class="nav-icon fas fa-file"></i>
-                            <p>Documentation</p>
-                        </a>
-                    </li> -->
+                    <!--  <li class="nav-header">MISCELLANEOUS</li>
+                     <li class="nav-item">
+                         <a href="https://adminlte.io/docs/3.0" class="nav-link">
+                             <i class="nav-icon fas fa-file"></i>
+                             <p>Documentation</p>
+                         </a>
+                     </li> -->
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
@@ -186,8 +211,62 @@
     @include('layouts.footer_streamer')
 </div>
 <!-- ./wrapper -->
-<!-- <script src="{{ asset('js/datatables.js') }}"></script> -->
-    @include('layouts.js')
-    @yield('scripts')
+@include('layouts.js')
+<script>
+    $(document).ready(function () {
+
+        $('.switchStatus').on('click',function () {
+            $('.wrapper').css('cursor','pointer');
+
+            $.ajax({
+                method: 'POST',
+                url: '{{route('switchStatus')}}',
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content'),
+                    'Accept': 'application/json'
+                },
+                data: {
+                    switch: true
+                },
+                success: function (response) {
+                    if (response.success) {
+                        if (response.status == 'on') {
+                            console.log('on');
+                            $('#btnOff').css('display', 'none');
+                            $('#btnOn').css('display', 'block');
+
+                        } else {
+                            console.log('off');
+                            $('#btnOff').css('display', 'block');
+                            $('#btnOn').css('display', 'none');
+                        }
+                    }
+                    $('.wrapper').css('cursor','default');
+                },
+                error: function () {
+                    const Toast = Swal.mixin({
+                        toast: true,
+                        position: 'top-center',
+                        showConfirmButton: false,
+                        timer: time,
+                        timerProgressBar: true,
+                        didOpen: (toast) => {
+                            toast.addEventListener('mouseenter', Swal.stopTimer)
+                            toast.addEventListener('mouseleave', Swal.resumeTimer)
+                        }
+                    })
+
+                    Toast.fire({
+                        icon: 'error',
+                        title: 'Error al cambiar status'
+                    });
+                    $('.wrapper').css('cursor','default');
+                }
+            })
+        });
+    });
+
+</script>
+@yield('scripts')
 </body>
 </html>

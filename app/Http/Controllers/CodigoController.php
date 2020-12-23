@@ -56,6 +56,31 @@ class CodigoController extends Controller
     	return $response;
     }
 
+    public function registrarCodigo(Request $request){
+        $validated = $request->validate([
+            'user_id' => ['required','numeric'],
+            'codigo' => ['required','string'],
+            'id_free_fire' => ['required','numeric'],
+            'nombre_free' => ['required','string'],
+            'servidor' => ['required','string'],
+        ]);
+
+        $codigo = Codigo::where('codigo',$validated['codigo'])->first();
+
+        return SorteoCodigo::create([
+            'user_id' => $validated['user_id'],
+            'id_codigo' => $codigo->id_codigo,
+            'codigo' => $validated['codigo'],
+            'id_free_fire' => $validated['id_free_fire'],
+            'nombre_free_fire' => $validated['nombre_free'],
+            'servidor' => $validated['servidor'],
+            'fecha_canjeado' => now()
+        ]);
+
+
+
+    }
+
     public function activar(Request $request){
     	$codigo = Codigo::findOrFail($request->id_code);
 
