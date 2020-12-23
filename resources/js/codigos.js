@@ -1,15 +1,21 @@
 $(document).ready(function(){
-  
+    const swalDelete = Swal.mixin({
+        customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+        },
+        buttonsStyling: false
+    });
     let estado;
     $.ajaxSetup({
       headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
     });
-    
+
     let datatable = $('#codigo_lista').DataTable({
       processing: true,
-      serverSide:true,  
+      serverSide:true,
       "ajax": {
                 "url": "/streamer/getcodigos",
                 "method": "POST",
@@ -23,7 +29,7 @@ $(document).ready(function(){
                if (row["estado"] == 'a') {
                   estado = '<span class="badge badge-info">Activado</span>';
                }else if(row["estado"] == 'i'){
-                  estado = '<span class="badge badge-warning">Desactivado</span>';                       
+                  estado = '<span class="badge badge-warning">Desactivado</span>';
                }else{
                   estado = '<span class="badge badge-danger">Sin estado</span>';
                }
@@ -46,7 +52,7 @@ $(document).ready(function(){
       id_code = datos.id_codigo
 
       $.post('/streamer/activarcodigo', {id_code}, (response) => {
-        if (response == 'activado') {            
+        if (response == 'activado') {
             var ref = $('#codigo_lista').DataTable();
             ref.ajax.reload();
             const Toast = Swal.mixin({
@@ -84,7 +90,7 @@ $(document).ready(function(){
             })
         }
       });
-      
+
     });
 
     $('#codigo_lista tbody').on('click', '.desactivar', function() {
@@ -92,7 +98,7 @@ $(document).ready(function(){
       id_code = datos.id_codigo
 
       $.post('/streamer/desactivarcodigo', {id_code}, (response) => {
-        if (response == 'desactivado') {            
+        if (response == 'desactivado') {
             var ref = $('#codigo_lista').DataTable();
             ref.ajax.reload();
             const Toast = Swal.mixin({
@@ -134,10 +140,20 @@ $(document).ready(function(){
 
     $('#codigo_lista tbody').on('click', '.borrar', function() {
       let datos = datatable.row($(this).parents()).data();
-      id_code = datos.id_codigo
-      
-      $.post('/streamer/borrarcodigo', {id_code}, (response) => {
-        if (response == 'borrado') {            
+      id_code = datos.id_codigo;
+
+        swalDelete.fire({
+            title: '¿Desea eliminar el Código?',
+            text: "",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Si, eliminar!',
+            cancelButtonText: 'No, cancelar!',
+            reverseButtons: true
+        }).then((result) => {
+            if (result.isConfirmed) {
+                $.post('/streamer/borrarcodigo', {id_code}, (response) => {
+        if (response == 'borrado') {
             var ref = $('#codigo_lista').DataTable();
             ref.ajax.reload();
             const Toast = Swal.mixin({
@@ -175,6 +191,8 @@ $(document).ready(function(){
             })
         }
       });
+            }
+        });
     });
 
     $('#codigo_lista tbody').on('click', '.ganadores', function() {
@@ -197,16 +215,19 @@ $(document).ready(function(){
             var ref = $('#codigo_lista').DataTable();
             ref.ajax.reload();
           }else{
-            $('#noadd').hide('slow');
-            $('#noadd').show(2000);
-            $('#noadd').hide(2000);
+              $('#form-generar-codigo').trigger('reset');
+              Swal.fire({
+                  icon: 'error',
+                  title: 'Oops...',
+                  text: 'Ya pasaste el limite de códigos por dia!'
+              })
           }
         });
       }else{
         $('#noadd-cod').hide('slow');
         $('#noadd-cod').show(2000);
         $('#noadd-cod').hide(2000);
-      }      
+      }
       e.preventDefault();
   });
 });

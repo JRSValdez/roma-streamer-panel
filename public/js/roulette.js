@@ -95,6 +95,13 @@
 
 $(document).ready(function () {
   tabla_ruleta();
+  var swalDelete = Swal.mixin({
+    customClass: {
+      confirmButton: 'btn btn-success',
+      cancelButton: 'btn btn-danger'
+    },
+    buttonsStyling: false
+  });
 
   function tabla_ruleta() {
     var estado;
@@ -121,7 +128,7 @@ $(document).ready(function () {
         "render": function render(data, type, row) {
           if (row["status"] == 1) {
             estado = '<span class="badge badge-info">Activado</span>';
-          } else if (row["status"] == 0) {
+          } else if (row["status"] == 2) {
             estado = '<span class="badge badge-warning">Desactivado</span>';
           } else {
             estado = '<span class="badge badge-danger">Sin estado</span>';
@@ -140,12 +147,48 @@ $(document).ready(function () {
       $.post('/streamer/roulette/activateroulette', {
         id: id
       }, function (response) {
-        alert('activado codigo con id: ' + id);
-
         if (response == 'activado') {
           var ref = $('#tabla_ruleta').DataTable();
           ref.ajax.reload();
-        } else {}
+          var Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: function didOpen(toast) {
+              toast.addEventListener('mouseenter', Swal.stopTimer);
+              toast.addEventListener('mouseleave', Swal.resumeTimer);
+            }
+          });
+          Toast.fire({
+            icon: 'success',
+            title: 'Ruleta activada'
+          });
+        } else if (response == 'noaddactive') {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Hay una ruleta activa, desactivala o borrala primero!'
+          });
+        } else {
+          var _Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: function didOpen(toast) {
+              toast.addEventListener('mouseenter', Swal.stopTimer);
+              toast.addEventListener('mouseleave', Swal.resumeTimer);
+            }
+          });
+
+          _Toast.fire({
+            icon: 'error',
+            title: 'No se pudo activar la ruleta seleccionada'
+          });
+        }
       });
     });
     $('#tabla_ruleta tbody').on('click', '.desactivar', function () {
@@ -154,18 +197,114 @@ $(document).ready(function () {
       $.post('/streamer/roulette/deactivateroulette', {
         id: id
       }, function (response) {
-        alert('desactivando codigo con id: ' + id);
-
         if (response == 'desactivado') {
           var ref = $('#tabla_ruleta').DataTable();
           ref.ajax.reload();
-        } else {}
+          var Toast = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: function didOpen(toast) {
+              toast.addEventListener('mouseenter', Swal.stopTimer);
+              toast.addEventListener('mouseleave', Swal.resumeTimer);
+            }
+          });
+          Toast.fire({
+            icon: 'info',
+            title: 'Ruleta desactivada'
+          });
+        } else {
+          var _Toast2 = Swal.mixin({
+            toast: true,
+            position: 'top-end',
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: function didOpen(toast) {
+              toast.addEventListener('mouseenter', Swal.stopTimer);
+              toast.addEventListener('mouseleave', Swal.resumeTimer);
+            }
+          });
+
+          _Toast2.fire({
+            icon: 'error',
+            title: 'No se pudo desactivar la ruleta seleccionada'
+          });
+        }
       });
     });
     $('#tabla_ruleta tbody').on('click', '.borrar', function () {
       var datos = datatable.row($(this).parents()).data();
       var id = datos.id;
-      alert('borrando codigo con id: ' + id);
+      swalDelete.fire({
+        title: '¿Desea eliminar la ruleta?',
+        text: "",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Si, eliminar!',
+        cancelButtonText: 'No, cancelar!',
+        reverseButtons: true
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          $.post('/streamer/roulette/deleteroulette', {
+            id: id
+          }, function (response) {
+            if (response == 'deleted') {
+              var ref = $('#tabla_ruleta').DataTable();
+              ref.ajax.reload();
+              var Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: function didOpen(toast) {
+                  toast.addEventListener('mouseenter', Swal.stopTimer);
+                  toast.addEventListener('mouseleave', Swal.resumeTimer);
+                }
+              });
+              Toast.fire({
+                icon: 'warning',
+                title: 'Ruleta borrada'
+              });
+            } else {
+              var _Toast3 = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: function didOpen(toast) {
+                  toast.addEventListener('mouseenter', Swal.stopTimer);
+                  toast.addEventListener('mouseleave', Swal.resumeTimer);
+                }
+              });
+
+              _Toast3.fire({
+                icon: 'error',
+                title: 'No se pudo borrar la ruleta seleccionada'
+              });
+            }
+          });
+        }
+      });
+    });
+    $('#tabla_ruleta tbody').on('click', '.ganadores', function () {
+      var datos = datatable.row($(this).parents()).data();
+      var id = datos.id;
+      var estado = datos.status;
+
+      if (estado === 1) {
+        window.open('/streamer/ruleta/ganadores/' + id, '_blank');
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Debe de activar la ruleta!'
+        });
+      }
     });
     $('#tabla_ruleta tbody').on('click', '.ganadores', function () {
       var datos = datatable.row($(this).parents()).data();
@@ -179,30 +318,44 @@ $(document).ready(function () {
       }
     });
   }
-  /*$('#form-generar').submit(e => {
-      let reward = $('#reward').val();
-      if (reward.length > 0) {
-          $.post('/streamer/roulette/create_roulette', {reward}, function(response){
-              if (response == 'add') {
-                  $('#add').hide('slow');
-                  $('#add').show(2000);
-                  $('#add').hide(2000);
-                  $('#form-generar').trigger('reset');
-                  tabla_ruleta();
-              }else{
-                  $('#noadd').hide('slow');
-                  $('#noadd').show(2000);
-                  $('#noadd').hide(2000);
-              }
-          });
-      }else{
-          $('#noadd-emp').hide('slow');
-          $('#noadd-emp').show(2000);
-          $('#noadd-emp').hide(2000);
-      }
-      e.preventDefault();
-  });*/
 
+  $('#form-generar').submit(function (e) {
+    var reward = $('#reward').val();
+
+    if (reward.length > 0) {
+      $.post('/streamer/roulette/create_roulette', {
+        reward: reward
+      }, function (response) {
+        if (response == 'add') {
+          $('#add').hide('slow');
+          $('#add').show(2000);
+          $('#add').hide(2000);
+          $('#form-generar').trigger('reset');
+          var ref = $('#tabla_ruleta').DataTable();
+          ref.ajax.reload();
+        } else if (response == 'noaddactive') {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Posees una ruleta activa, desactivala para agregar una nueva!'
+          });
+        } else {
+          $('#form-generar').trigger('reset');
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Ya pasaste el limite de ruletas por dia!'
+          });
+        }
+      });
+    } else {
+      $('#noadd-emp').hide('slow');
+      $('#noadd-emp').show(2000);
+      $('#noadd-emp').hide(5000);
+    }
+
+    e.preventDefault();
+  });
 });
 var espanol = {
   "sProcessing": "Procesando...",
@@ -242,7 +395,7 @@ var espanol = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\roma\roma-streamer-panel\resources\js\roulette.js */"./resources/js/roulette.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\roma-streamer-panel\resources\js\roulette.js */"./resources/js/roulette.js");
 
 
 /***/ })

@@ -14,13 +14,13 @@
     <div class="container-fluid">
         <section class="content">
                     <div class="input-group input-group-sm">
-                        <div class="row"  style="width: 100%">
-                            <div class="col-md-8" style="width: 100%">
-                                <p id="link-message" class="links-copy">Links OBS</p>
-                            </div>
-                            <div class="col-md-4 text-right">
+                        <div class="row text-right"  style="width: 100%">
+{{--                            <div class="col-md-8" style="width: 100%">--}}
+{{--                                <p id="link-message" class="links-copy">Links OBS</p>--}}
+{{--                            </div>--}}
+                            <div class="col-md-12 text-right">
                                 <span class="input-group-btn">
-                                    <button type="button" class="btn bg-gradient-info" onclick="">Copiar link</button>
+{{--                                    <button type="button" class="btn bg-gradient-info" onclick="">Copiar link</button>--}}
                                     <button class="btn bg-gradient-primary ml-2" data-toggle="modal" data-target="#createVotationModal"><i class="fas fa-hand-sparkles mr-2 ml-2"></i> Crear Votación</button>
                                 </span>
                             </div>

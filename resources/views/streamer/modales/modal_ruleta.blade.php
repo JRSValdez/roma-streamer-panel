@@ -1,5 +1,5 @@
-{!! Form::open(['route' => 'streamer.roulette.createroulette']) !!}
-{{ Form::token() }}
+<!--{!! Form::open(['route' => 'streamer.roulette.createroulette']) !!}
+{{ Form::token() }}-->
     <div class="modal fade" id="createSpinWheelModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -23,7 +23,7 @@
                             <form id="form-generar">
                                 <div class="form-group">
                                     <label for="reward">¿Cúal es la recompensa?</label>
-                                    <input id="reward" name="reward" required type="text" class="form-control" placeholder="¿Qué quieres regalar?">
+                                    <input id="reward" name="reward" type="text" class="form-control" placeholder="¿Qué quieres regalar?">
                                 </div>
                                 <div class="card-footer">
                                     <button type="submit" class="btn bg-gradient-primary float-right m-1"><i class="fas fa-save mr-1"></i> Guardar</button>
@@ -35,4 +35,4 @@
                 </div>
             </div>
         </div>
-{!! Form::close() !!}
+<!--{!! Form::close() !!}-->

@@ -94,6 +94,13 @@
 /***/ (function(module, exports) {
 
 $(document).ready(function () {
+  var swalDelete = Swal.mixin({
+    customClass: {
+      confirmButton: 'btn btn-success',
+      cancelButton: 'btn btn-danger'
+    },
+    buttonsStyling: false
+  });
   var estado;
   $.ajaxSetup({
     headers: {
@@ -231,43 +238,55 @@ $(document).ready(function () {
   $('#codigo_lista tbody').on('click', '.borrar', function () {
     var datos = datatable.row($(this).parents()).data();
     id_code = datos.id_codigo;
-    $.post('/streamer/borrarcodigo', {
-      id_code: id_code
-    }, function (response) {
-      if (response == 'borrado') {
-        var ref = $('#codigo_lista').DataTable();
-        ref.ajax.reload();
-        var Toast = Swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-          didOpen: function didOpen(toast) {
-            toast.addEventListener('mouseenter', Swal.stopTimer);
-            toast.addEventListener('mouseleave', Swal.resumeTimer);
-          }
-        });
-        Toast.fire({
-          icon: 'info',
-          title: 'Código borrado'
-        });
-      } else {
-        var _Toast3 = Swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 2000,
-          timerProgressBar: true,
-          didOpen: function didOpen(toast) {
-            toast.addEventListener('mouseenter', Swal.stopTimer);
-            toast.addEventListener('mouseleave', Swal.resumeTimer);
-          }
-        });
+    swalDelete.fire({
+      title: '¿Desea eliminar el Código?',
+      text: "",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Si, eliminar!',
+      cancelButtonText: 'No, cancelar!',
+      reverseButtons: true
+    }).then(function (result) {
+      if (result.isConfirmed) {
+        $.post('/streamer/borrarcodigo', {
+          id_code: id_code
+        }, function (response) {
+          if (response == 'borrado') {
+            var ref = $('#codigo_lista').DataTable();
+            ref.ajax.reload();
+            var Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000,
+              timerProgressBar: true,
+              didOpen: function didOpen(toast) {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
+              }
+            });
+            Toast.fire({
+              icon: 'info',
+              title: 'Código borrado'
+            });
+          } else {
+            var _Toast3 = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 2000,
+              timerProgressBar: true,
+              didOpen: function didOpen(toast) {
+                toast.addEventListener('mouseenter', Swal.stopTimer);
+                toast.addEventListener('mouseleave', Swal.resumeTimer);
+              }
+            });
 
-        _Toast3.fire({
-          icon: 'error',
-          title: 'No se pudo borrar el código seleccionado'
+            _Toast3.fire({
+              icon: 'error',
+              title: 'No se pudo borrar el código seleccionado'
+            });
+          }
         });
       }
     });
@@ -296,9 +315,12 @@ $(document).ready(function () {
           var ref = $('#codigo_lista').DataTable();
           ref.ajax.reload();
         } else {
-          $('#noadd').hide('slow');
-          $('#noadd').show(2000);
-          $('#noadd').hide(2000);
+          $('#form-generar-codigo').trigger('reset');
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Ya pasaste el limite de códigos por dia!'
+          });
         }
       });
     } else {
@@ -348,7 +370,7 @@ var espanol = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\roma\roma-streamer-panel\resources\js\codigos.js */"./resources/js/codigos.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\roma-streamer-panel\resources\js\codigos.js */"./resources/js/codigos.js");
 
 
 /***/ })

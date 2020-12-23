@@ -18,7 +18,7 @@ class StreamerController extends Controller
 
     public function index(){
         $user = Auth::user();
-        $rouletteCount = Roulette::query()->where("user_id","=",$user->id)->count();
+        $rouletteCount = Roulette::query()->where("user_id","=",$user->id)->whereNotIn("status",[0])->count();
 
         $pollsCount = Poll::query()->where("user_id","=",$user->id)->whereNotIn("status",[0])->count();
 

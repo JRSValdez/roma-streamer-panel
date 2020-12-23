@@ -108,6 +108,7 @@ Route::middleware('auth')->group(function () {
         Route::post('/roulette/create_roulette', [RouletteController::class, 'createRoulette'])->name('streamer.roulette.createroulette');
         Route::post('/roulette/activateroulette', [RouletteController::class, 'activate'])->name('streamer.roulette.activateroulette');
         Route::post('/roulette/deactivateroulette', [RouletteController::class, 'deactivate'])->name('streamer.roulette.deactivateroulette');
+        Route::post('/roulette/deleteroulette', [RouletteController::class, 'delete'])->name('streamer.roulette.deleteroulette');
         Route::get('/ruleta/ganadores/{id}', [RouletteController::class, 'ganadores'])->name('streamer.ganadores.ruleta');
         Route::get('/ruleta/registrarse', [RouletteController::class, 'registrarRuleta'])->name('streamer.ganadores.registrarse');
 

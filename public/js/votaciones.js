@@ -104,6 +104,14 @@ $(document).ready(function () {
     return "<label>".concat(option, "</label>");
   };
 
+  var swalDelete = Swal.mixin({
+    customClass: {
+      confirmButton: 'btn btn-success',
+      cancelButton: 'btn btn-danger'
+    },
+    buttonsStyling: false
+  });
+
   function tabla_votacion() {
     var estado;
     $.ajaxSetup({
@@ -153,7 +161,7 @@ $(document).ready(function () {
           ref.ajax.reload();
           var Toast = Swal.mixin({
             toast: true,
-            position: 'bottom-end',
+            position: 'top-end',
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
@@ -166,10 +174,16 @@ $(document).ready(function () {
             icon: 'success',
             title: 'Encuesta activada'
           });
+        } else if (response == 'noaddactive') {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Hay una encuesta activa, desactivala o borrala primero!'
+          });
         } else {
           var _Toast = Swal.mixin({
             toast: true,
-            position: 'bottom-end',
+            position: 'top-end',
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
@@ -197,7 +211,7 @@ $(document).ready(function () {
           ref.ajax.reload();
           var Toast = Swal.mixin({
             toast: true,
-            position: 'bottom-end',
+            position: 'top-end',
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
@@ -207,13 +221,13 @@ $(document).ready(function () {
             }
           });
           Toast.fire({
-            icon: 'alert',
+            icon: 'info',
             title: 'Encuesta desactivada'
           });
         } else {
           var _Toast2 = Swal.mixin({
             toast: true,
-            position: 'bottom-end',
+            position: 'top-end',
             showConfirmButton: false,
             timer: 3000,
             timerProgressBar: true,
@@ -233,43 +247,55 @@ $(document).ready(function () {
     $('#tabla_votacion tbody').on('click', '.borrar', function () {
       var datos = datatable.row($(this).parents()).data();
       var id = datos.id;
-      $.post('/streamer/votaciones/deletevotacion', {
-        id: id
-      }, function (response) {
-        if (response == 'deleted') {
-          var ref = $('#tabla_votacion').DataTable();
-          ref.ajax.reload();
-          var Toast = Swal.mixin({
-            toast: true,
-            position: 'bottom-end',
-            showConfirmButton: false,
-            timer: 3000,
-            timerProgressBar: true,
-            didOpen: function didOpen(toast) {
-              toast.addEventListener('mouseenter', Swal.stopTimer);
-              toast.addEventListener('mouseleave', Swal.resumeTimer);
-            }
-          });
-          Toast.fire({
-            icon: 'warning',
-            title: 'Encuesta borrada'
-          });
-        } else {
-          var _Toast3 = Swal.mixin({
-            toast: true,
-            position: 'bottom-end',
-            showConfirmButton: false,
-            timer: 2000,
-            timerProgressBar: true,
-            didOpen: function didOpen(toast) {
-              toast.addEventListener('mouseenter', Swal.stopTimer);
-              toast.addEventListener('mouseleave', Swal.resumeTimer);
-            }
-          });
+      swalDelete.fire({
+        title: '¿Desea eliminar el registro?',
+        text: "",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Si, eliminar!',
+        cancelButtonText: 'No, cancelar!',
+        reverseButtons: true
+      }).then(function (result) {
+        if (result.isConfirmed) {
+          $.post('/streamer/votaciones/deletevotacion', {
+            id: id
+          }, function (response) {
+            if (response == 'deleted') {
+              var ref = $('#tabla_votacion').DataTable();
+              ref.ajax.reload();
+              var Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: function didOpen(toast) {
+                  toast.addEventListener('mouseenter', Swal.stopTimer);
+                  toast.addEventListener('mouseleave', Swal.resumeTimer);
+                }
+              });
+              Toast.fire({
+                icon: 'warning',
+                title: 'Encuesta borrada'
+              });
+            } else {
+              var _Toast3 = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 2000,
+                timerProgressBar: true,
+                didOpen: function didOpen(toast) {
+                  toast.addEventListener('mouseenter', Swal.stopTimer);
+                  toast.addEventListener('mouseleave', Swal.resumeTimer);
+                }
+              });
 
-          _Toast3.fire({
-            icon: 'error',
-            title: 'No se pudo borrar la encuesta seleccionada'
+              _Toast3.fire({
+                icon: 'error',
+                title: 'No se pudo borrar la encuesta seleccionada'
+              });
+            }
           });
         }
       });
@@ -292,6 +318,48 @@ $(document).ready(function () {
       });
     });
   }
+
+  $('#create-votation-form').submit(function (e) {
+    var question = $('#question').val();
+    var option1 = $('#option1').val();
+    var option2 = $('#option2').val();
+
+    if (question.length > 0 && option1.length > 0 && option2.length > 0) {
+      $.post('/streamer/votaciones/create_poll', {
+        question: question,
+        option1: option1,
+        option2: option2
+      }, function (response) {
+        if (response == 'add') {
+          $('#add').hide('slow');
+          $('#add').show(2000);
+          $('#add').hide(4000);
+          $('#create-votation-form').trigger('reset');
+          var ref = $('#tabla_votacion').DataTable();
+          ref.ajax.reload();
+        } else if (response == 'noaddactive') {
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Posees una encuesta activa, desactivala para agregar una nueva!'
+          });
+        } else {
+          $('#create-votation-form').trigger('reset');
+          Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Ya pasaste el limite de encuestas por dia!'
+          });
+        }
+      });
+    } else {
+      $('#noadd-emp').hide('slow');
+      $('#noadd-emp').show(2000);
+      $('#noadd-emp').hide(5000);
+    }
+
+    e.preventDefault();
+  });
 });
 var espanol = {
   "sProcessing": "Procesando...",
@@ -331,7 +399,7 @@ var espanol = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\roma\roma-streamer-panel\resources\js\votaciones.js */"./resources/js/votaciones.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\roma-streamer-panel\resources\js\votaciones.js */"./resources/js/votaciones.js");
 
 
 /***/ })
