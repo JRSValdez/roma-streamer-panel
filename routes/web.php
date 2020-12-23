@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Auth;
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/', function () {
+    Route::get('/home', function () {
         $user = Auth::user();
         $view = '';
         switch ($user->type){
@@ -39,7 +39,7 @@ Route::middleware('auth')->group(function () {
                 $view = '/admin/dashboard';
                 break;
             default:
-                $view = '/user';
+                $view = '/viewer/streamers';
                 break;
         }
 
@@ -125,8 +125,8 @@ Route::middleware('auth')->group(function () {
 
     /* ---- USER ---- */
 
-    Route::prefix('user')->group(function () {
-        Route::get('/', [ViewerController::class,'index']);
+    Route::prefix('viewer')->group(function () {
+        Route::get('/streamers', [ViewerController::class,'index']);
     });
 
 

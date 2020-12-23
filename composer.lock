@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fd3a1b869db305a58ecfb4ae4f0f07a6",
+    "content-hash": "194271f803546aa49e56ca92364ac6b5",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -2549,6 +2549,59 @@
                 "source": "https://github.com/bobthecow/psysh/tree/master"
             },
             "time": "2020-05-03T19:32:03+00:00"
+        },
+        {
+            "name": "rabol/laravel-adsense",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/rabol/laravel-adsense.git",
+                "reference": "aaf5331ce8d693ee663032f304f3cc1ac49996cc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/rabol/laravel-adsense/zipball/aaf5331ce8d693ee663032f304f3cc1ac49996cc",
+                "reference": "aaf5331ce8d693ee663032f304f3cc1ac49996cc",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.2"
+            },
+            "default-branch": true,
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Rabol\\Adsense\\AdsenseServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Rabol\\Adsense\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Steen Rabol",
+                    "email": "steen@rabol.com"
+                }
+            ],
+            "description": "Display Adsense ads in your Laravel.",
+            "keywords": [
+                "framework",
+                "google adsense",
+                "laravel"
+            ],
+            "support": {
+                "issues": "https://github.com/rabol/laravel-adsense/issues",
+                "source": "https://github.com/rabol/laravel-adsense/tree/master"
+            },
+            "time": "2019-05-10T14:10:23+00:00"
         },
         {
             "name": "ralouphie/getallheaders",
@@ -7751,11 +7804,14 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "rabol/laravel-adsense": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.3|^8.0"
+        "php": "^7.3|^8.0",
+        "ext-json": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.0.0"
