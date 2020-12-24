@@ -28,16 +28,22 @@ class ViewerController extends Controller
             ->join('mensaje', 'users.id', '=', 'mensaje.user_id_recibe')
             ->where('type',1)
             ->groupBy('users.id', 'users.name', 'users.img_src')
-            ->limit(4)
+            ->limit(1)
             ->orderByDesc('messages_count')
             ->get();
+
+        $idsDestacados = [];
+
+        foreach ($streamersDestacados1 as $destacado){
+            $idsDestacados[] = $destacado->id;
+        }
 
         $streamersDestacados2 = User::query()
             ->select(DB::raw('count(mensaje.id_mensaje) as messages_count, users.id, users.name, users.img_src'))
             ->leftJoin('mensaje', 'users.id', '=', 'mensaje.user_id_recibe')
             ->where('type',1)
+            ->whereNotIn('id',$idsDestacados)
             ->groupBy('users.id', 'users.name', 'users.img_src')
-            ->offset(4)
             ->limit(6)
             ->orderByDesc('messages_count')
             ->get();
@@ -46,9 +52,12 @@ class ViewerController extends Controller
     }
 
     public function get_streamer($streamer){
-    	$chanel = User::query()->where('name', $streamer)->first();    	
+    	$chanel = User::query()->where('name', $streamer)->first();
     	if ($chanel) {
     		$votacion = Poll::query()->where('status', 1)->first();    		
+            $logoChanel = $chanel->streamer_attributes->logo_image;
+    		$votacion = Poll::query()->where('status', 1)->first();
+    		$votacion_answer = PollAnswers::query()->where('poll_id', $votacion->id)->get();
     		if ($votacion) {
     			$votacion_answer = PollAnswers::query()->where('poll_id', $votacion->id)->get();
     			$pull = $votacion->question;
@@ -56,7 +65,7 @@ class ViewerController extends Controller
     			$pull = '';
     			$votacion_answer = '';
     		}
-    		return view('user.chanel_stream', ['nombre_streamer' => $streamer, 'streamer' => $chanel, 'question' => $pull, 'vot_ans' => $votacion_answer]);
+    		return view('user.chanel_stream', ['nombre_streamer' => $streamer, 'streamer' => $chanel, 'question' => $pull, 'vot_ans' => $votacion_answer, 'logo' => $logoChanel]);
     	}else{
     		return redirect("user/");
     	}
@@ -122,13 +131,13 @@ class ViewerController extends Controller
 
     public function registrar_en_ruleta(){
     	$sr = new SorteoRuleta();
-    	
+
     	$fecha_actual = date('Y-m-d H:i:s');
     	$ruleta = Roulette::query()->where('status', 1)->first();
-    	
+
     	if ($ruleta) {
     		$rul = SorteoRuleta::where('user_id', auth()->id())->where('ruleta_id', $ruleta->id)->get();
-    		if (count($rul) == 0) {    			
+    		if (count($rul) == 0) {
     			$sr->user_id = auth()->id();
 		    	$sr->ruleta_id = $ruleta->id;
 		    	$sr->fecha_canjeado = $fecha_actual;
