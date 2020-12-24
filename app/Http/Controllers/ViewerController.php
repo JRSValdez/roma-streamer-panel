@@ -49,10 +49,13 @@ class ViewerController extends Controller
     	$chanel = User::query()->where('name', $streamer)->first();    	
     	if ($chanel) {
     		$votacion = Poll::query()->where('status', 1)->first();
+    		$votacion_answer = PollAnswers::query()->where('poll_id', $votacion->id)->get();
     		if ($votacion) {
-    			# code...
+    			$pull = $votacion->question;
+    		}else{
+    			$pull = 'No hay votaciones';
     		}
-    		return view('user.chanel_stream', ['nombre_streamer' => $streamer, 'streamer' => $chanel, 'question' => $votacion->question]);
+    		return view('user.chanel_stream', ['nombre_streamer' => $streamer, 'streamer' => $chanel, 'question' => $pull, 'vot_ans' => $votacion_answer]);
     	}else{
     		return redirect("user/");
     	}
