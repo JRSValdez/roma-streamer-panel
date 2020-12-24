@@ -9,6 +9,9 @@ use App\Models\Codigo;
 use App\Models\Mensaje;
 use App\Models\SorteoRuleta;
 use App\Models\Roulette;
+use App\Models\Poll;
+use App\Models\PollAnswerDetail;
+use App\Models\PollAnswers;
 use Illuminate\Support\Facades\DB;
 
 class ViewerController extends Controller
@@ -49,9 +52,16 @@ class ViewerController extends Controller
     }
 
     public function get_streamer($streamer){
-    	$chanel = User::query()->where('name', $streamer)->first();
+    	$chanel = User::query()->where('name', $streamer)->first();    	
     	if ($chanel) {
-    		return view('user.chanel_stream', ['nombre_streamer' => $streamer, 'streamer' => $chanel]);
+    		$votacion = Poll::query()->where('status', 1)->first();
+    		$votacion_answer = PollAnswers::query()->where('poll_id', $votacion->id)->get();
+    		if ($votacion) {
+    			$pull = $votacion->question;
+    		}else{
+    			$pull = 'No hay votaciones';
+    		}
+    		return view('user.chanel_stream', ['nombre_streamer' => $streamer, 'streamer' => $chanel, 'question' => $pull, 'vot_ans' => $votacion_answer]);
     	}else{
     		return redirect("user/");
     	}

@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Auth;
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/home', function () {
+    Route::get('/', function () {
         $user = Auth::user();
         $view = '';
         switch ($user->type){
