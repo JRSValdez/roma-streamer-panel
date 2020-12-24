@@ -28,7 +28,7 @@ use Illuminate\Support\Facades\Auth;
 
 Route::middleware('auth')->group(function () {
 
-    Route::get('/', function () {
+    Route::get('/home', function () {
         $user = Auth::user();
         $view = '';
         switch ($user->type){
@@ -42,7 +42,6 @@ Route::middleware('auth')->group(function () {
                 $view = '/user/streamers';
                 break;
         }
-
         return redirect($view);
     });
 
@@ -77,7 +76,6 @@ Route::middleware('auth')->group(function () {
         Route::post('/social_networks/edit', [SocialNetworkController::class,'edit'])->name('editSN');
 
     });
-
 
     /* ---- / SUPER USER ---- */
 
