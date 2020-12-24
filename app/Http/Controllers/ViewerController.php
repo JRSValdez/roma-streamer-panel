@@ -55,7 +55,7 @@ class ViewerController extends Controller
     	$chanel = User::query()->where('name', $streamer)->first();
     	if ($chanel) {
             $logoChanel = $chanel->streamer_attributes->logo_image;
-    		$votacion = Poll::query()->where('status', 1)->first();
+    		$votacion = Poll::query()->where('status', 1)->where('user_id', $chanel->id)->first();
     		if ($votacion) {
     			$votacion_answer = PollAnswers::query()->where('poll_id', $votacion->id)->get();
     			$pull = $votacion->question;
@@ -127,50 +127,64 @@ class ViewerController extends Controller
 		return $response;
     }
 
-    public function registrar_en_ruleta(){
+    public function registrar_en_ruleta(Request $request){
     	$sr = new SorteoRuleta();
+    	$chanel = User::query()->where('name', $request->streamer)->first();
 
     	$fecha_actual = date('Y-m-d H:i:s');
-    	$ruleta = Roulette::query()->where('status', 1)->first();
+    	if ($chanel) {
+    		$ruleta = Roulette::query()->where('status', 1)->where('user_id', $chanel->id)->first();
 
-    	if ($ruleta) {
-    		$rul = SorteoRuleta::where('user_id', auth()->id())->where('ruleta_id', $ruleta->id)->get();
-    		if (count($rul) == 0) {
-    			$sr->user_id = auth()->id();
-		    	$sr->ruleta_id = $ruleta->id;
-		    	$sr->fecha_canjeado = $fecha_actual;
+	    	if ($ruleta) {
+	    		$rul = SorteoRuleta::where('user_id', auth()->id())->where('ruleta_id', $ruleta->id)->get();
+	    		if (count($rul) == 0) {
+	    			$sr->user_id = auth()->id();
+			    	$sr->ruleta_id = $ruleta->id;
+			    	$sr->fecha_canjeado = $fecha_actual;
 
-		    	if ($sr->save()) {
-		    		$participantes_number = ($ruleta->participants_number);
-		    		$npt = $this->update_participant_roulette($ruleta->id, $participantes_number);
-					$response = 'add';
-				}else{
-					$response = 'noadd';
-				}
-    		}else{
-    			$response = 'noadd';
-    		}
+			    	if ($sr->save()) {
+			    		$participantes_number = ($ruleta->participants_number);
+			    		$npt = $this->update_participant_roulette($ruleta->id, $participantes_number);
+						$response = 'add';
+					}else{
+						$response = 'noadd';
+					}
+	    		}else{
+	    			$response = 'noadd';
+	    		}
 
+	    	}else{
+	    		$response = 'noadd-rul';
+	    	}
     	}else{
     		$response = 'noadd-rul';
     	}
+    	
 
 		return $response;
     }
     public function reg_votacion(Request $request){
     	$pull = new PollAnswerDetail();
     	$sorteopoll = PollAnswerDetail::where('user_id', auth()->id())->where('answer_id', $request->id)->get();
-    	if (count($sorteopoll)==0) {
-    		$pull->user_id = auth()->id();
-	    	$pull->answer_id = $request->id;
-	    	if ($pull->save()) {
-	    		$response = 'add';
+    	$poll_active = Poll::query()->where('status', 1)->first();
+    	if ($poll_active) {
+    		if (count($sorteopoll)==0) {
+	    		$pull->user_id = auth()->id();
+		    	$pull->answer_id = $request->id;
+		    	if ($pull->save()) {
+		    		$participantes_number = ($poll_active->participants_number);
+		    		$npt = $this->update_participant_pull($poll_active->id, $participantes_number);
+		    		$response = 'add';
+		    	}else{
+		    		$response = 'noadd';
+		    	}
 	    	}else{
 	    		$response = 'noadd';
 	    	}
     	}else{
-    		$response = 'noadd';
+    		$response = 'noadd-vot';
     	}
+    	
 
     	return $response;
     }
@@ -181,5 +195,13 @@ class ViewerController extends Controller
     	$ruleta_p->participants_number = $nps;
 
     	return $ruleta_p->update();
+    }
+
+    public function update_participant_pull($id, $np){
+    	$pull_p = Poll::findOrFail($id);
+    	$nps = ($np + 1);
+    	$pull_p->participants_number = $nps;
+
+    	return $pull_p->update();
     }
 }

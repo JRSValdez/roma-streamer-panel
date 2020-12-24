@@ -243,19 +243,20 @@
         });
 
         $('#form-ruleta').submit(e => {
-            $.post('/user/ruleta', function (response) {
+        	let streamer = '{!! $nombre_streamer !!}';
+            $.post('/user/ruleta',{streamer}, function (response) {
                 if (response == 'add') {
                     $('#add-rul').hide('slow');
-                    $('#add-rul').show(5000);
+                    $('#add-rul').show(2000);
                     $('#add-rul').hide(3000);
                     $('#form-ruleta').trigger('reset');
                 } else if (response == 'noadd') {
                     $('#noadd-ruls').hide('slow');
-                    $('#noadd-ruls').show(5000);
+                    $('#noadd-ruls').show(2000);
                     $('#noadd-ruls').hide(3000);
                 } else {
                     $('#noadd-rul').hide('slow');
-                    $('#noadd-rul').show(5000);
+                    $('#noadd-rul').show(2000);
                     $('#noadd-rul').hide(3000);
                 }
             });
