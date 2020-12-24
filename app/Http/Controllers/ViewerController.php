@@ -54,10 +54,8 @@ class ViewerController extends Controller
     public function get_streamer($streamer){
     	$chanel = User::query()->where('name', $streamer)->first();
     	if ($chanel) {
-    		$votacion = Poll::query()->where('status', 1)->first();    		
             $logoChanel = $chanel->streamer_attributes->logo_image;
     		$votacion = Poll::query()->where('status', 1)->first();
-    		$votacion_answer = PollAnswers::query()->where('poll_id', $votacion->id)->get();
     		if ($votacion) {
     			$votacion_answer = PollAnswers::query()->where('poll_id', $votacion->id)->get();
     			$pull = $votacion->question;
@@ -173,7 +171,7 @@ class ViewerController extends Controller
     	}else{
     		$response = 'noadd';
     	}
-    	
+
     	return $response;
     }
 
