@@ -114,7 +114,7 @@
                 </div>
                 <div class="col-lg-5">
                     <div>
-                        <img src="{{ asset('/storage/user_images/'.$img )}}" width="125px">
+                        <img src="{{ asset('/storage/user_images/'.$logo )}}" width="125px">
                     </div>
                     <div class="mt-3">
                         <button id="canjear_codigo"
