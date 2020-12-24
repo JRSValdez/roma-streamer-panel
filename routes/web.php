@@ -39,7 +39,7 @@ Route::middleware('auth')->group(function () {
                 $view = '/admin/dashboard';
                 break;
             default:
-                $view = '/viewer/streamers';
+                $view = '/user/streamers';
                 break;
         }
 

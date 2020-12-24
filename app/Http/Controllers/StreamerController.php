@@ -35,16 +35,21 @@ class StreamerController extends Controller
         return view('streamer.index',$info);
     }
 
-    public function switchStatus(Request $request){
+    public function switchStatus(){
         $user = Auth::user();
         $streamerAtt = $user->streamer_attributes;
-        if($streamerAtt->live == 'on'){
-            $streamerAtt->live = 'off';
-        } else{
+        if(isset($streamerAtt->live)){
+            if($streamerAtt->live == 'on'){
+                $streamerAtt->live = 'off';
+            } else{
+                $streamerAtt->live = 'on';
+            }
+        } else {
             $streamerAtt->live = 'on';
         }
         $user->streamer_attributes = $streamerAtt;
-        return ['success' => $user->save(), 'status' => $streamerAtt->live];
+        $result = $user->save();
+        return ['success' => $result, 'status' => $streamerAtt->live];
     }
 
 }
