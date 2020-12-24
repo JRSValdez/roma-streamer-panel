@@ -26,8 +26,9 @@
             font-weight: bold;
         }
 
-        .streamer-card{
+        .streamer-card {
             cursor: pointer;
+            border-radius: 20px;
         }
     </style>
 
@@ -47,26 +48,29 @@
         <div class="card-group">
 
             @foreach($destacados as $streamer)
-                <div class="card streamer-card" style="margin: 1rem;">
-                    <a class="color-black" href="{!! url('user/chanel/'.$streamer['name']) !!}">
-                        <div class="card-header">
-                            <small class="text-muted text-center">
-                                <div class="text-center card-title card-title h5" style="letter-spacing: 1px;">
-                                    <span class="badge badge-success">Online</span>
-                                </div>
-                            </small>
-                        </div>
-                        <div class="card-img-top"
-                             style="background-image: url({{asset('/storage/user_images/'.$streamer['img_src'])}});
+                <div class="col-3">
+                    <div class="card streamer-card" style="margin: 1rem;">
+                        <a class="color-black" href="{!! url('user/chanel/'.$streamer['name']) !!}">
+                            <div class="card-header">
+                                <small class="text-muted text-center">
+                                    <div class="text-center card-title card-title h5" style="letter-spacing: 1px;">
+                                        <span class="badge badge-success">Online</span>
+                                    </div>
+                                </small>
+                            </div>
+                            <div class="card-img-top"
+                                 style="background-image: url({{asset('/storage/user_images/'.$streamer['img_src'])}});
                                      height: 251px;
                                      background-position: center center;
                                      background-size: cover;"
-                        >
-                        </div>
-                        <div class="card-body">
-                            <div class="text-center card-title card-title h5" style="letter-spacing: 1px;">{{$streamer['name']}}</div>
-                        </div>
-                    </a>
+                            >
+                            </div>
+                            <div class="card-body">
+                                <div class="text-center card-title card-title h5"
+                                     style="letter-spacing: 1px;">{{$streamer['name']}}</div>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             @endforeach
 
@@ -78,32 +82,35 @@
         <div class="card-group">
             <h3>&nbsp;&nbsp;&nbsp;Y hay muchos mas</h3>
         </div>
-        <div class="card-group">
+        <div class="row">
             @foreach($streamers as $streamer)
-                <div class="card streamer-card" style="margin: 1rem;">
-                    <a class="color-black" href="{!! url('user/chanel/'.$streamer['name']) !!}">
-                        <div class="card-header">
-                            <small class="text-muted text-center">
-                                <div class="text-center card-title card-title h5" style="letter-spacing: 1px;">
-                                    <span class="badge badge-success">Online</span>
-                                </div>
-                            </small>
-                        </div>
-                        <div class="card-img-top"
-                             style="background-image: url({{asset('/storage/user_images/'.$streamer['img_src'])}});
-                                 height: 251px;
-                                 background-position: center center;
-                                 background-size: cover;"
-                        >
-                        </div>
-                        <div class="card-body">
-                            <div class="text-center card-title card-title h5" style="letter-spacing: 1px;">{{$streamer['name']}}</div>
-                        </div>
-                    </a>
+                <div class="col-2">
+                    <div class="card streamer-card" style="margin: 1rem;">
+                        <a class="color-black" href="{!! url('user/chanel/'.$streamer['name']) !!}">
+                            <div class="card-header">
+                                <small class="text-muted text-center">
+                                    <div class="text-center card-title card-title h5" style="letter-spacing: 1px;">
+                                        <span class="badge badge-success">Online</span>
+                                    </div>
+                                </small>
+                            </div>
+                            <div class="card-img-top"
+                                 style="background-image: url({{asset('/storage/user_images/'.$streamer['img_src'])}});
+                                     height: 251px;
+                                     background-position: center center;
+                                     background-size: cover;"
+                            >
+                            </div>
+                            <div class="card-body">
+                                <div class="text-center card-title card-title h5"
+                                     style="letter-spacing: 1px;">{{$streamer['name']}}</div>
+                            </div>
+                        </a>
+                    </div>
                 </div>
             @endforeach
         </div>
-        <div >
+        <div>
             <img alt="imagen html de ejemplo"
                  src="{{asset('/storage/banner-user.jpg')}}"
                  class="img-fluid"/>
