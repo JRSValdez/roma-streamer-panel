@@ -22,13 +22,16 @@ class ViewerController extends Controller
     }
 
     public function index(){
-
         $streamersDestacados1 = User::query()
-            ->select(DB::raw('count(mensaje.id_mensaje) as messages_count, users.id, users.name, users.img_src'))
+            ->select(DB::raw("count(mensaje.id_mensaje) as messages_count,
+                                    users.id,
+                                    users.name,
+                                    users.img_src,
+                                    users.streamer_attributes"))
             ->join('mensaje', 'users.id', '=', 'mensaje.user_id_recibe')
             ->where('type',1)
-            ->groupBy('users.id', 'users.name', 'users.img_src')
-            ->limit(1)
+            ->groupBy('users.id', 'users.name', 'users.img_src', "users.streamer_attributes")
+            ->limit(4)
             ->orderByDesc('messages_count')
             ->get();
 
@@ -39,11 +42,15 @@ class ViewerController extends Controller
         }
 
         $streamersDestacados2 = User::query()
-            ->select(DB::raw('count(mensaje.id_mensaje) as messages_count, users.id, users.name, users.img_src'))
+            ->select(DB::raw("count(mensaje.id_mensaje) as messages_count,
+                                    users.id,
+                                    users.name,
+                                    users.img_src,
+                                    users.streamer_attributes"))
             ->leftJoin('mensaje', 'users.id', '=', 'mensaje.user_id_recibe')
             ->where('type',1)
             ->whereNotIn('id',$idsDestacados)
-            ->groupBy('users.id', 'users.name', 'users.img_src')
+            ->groupBy('users.id', 'users.name', 'users.img_src',"users.streamer_attributes")
             ->limit(6)
             ->orderByDesc('messages_count')
             ->get();

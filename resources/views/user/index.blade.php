@@ -54,7 +54,15 @@
                             <div class="card-header">
                                 <small class="text-muted text-center">
                                     <div class="text-center card-title card-title h5" style="letter-spacing: 1px;">
-                                        <span class="badge badge-success">Online</span>
+                                        @isset($streamer->streamer_attributes->live)
+                                            @if($streamer->streamer_attributes->live == 'on')
+                                                <span class="badge badge-success">Online</span>
+                                            @else
+                                                <span class="badge badge-danger">Offline</span>
+                                            @endif
+                                        @else
+                                            <span class="badge badge-danger">Offline</span>
+                                        @endisset
                                     </div>
                                 </small>
                             </div>
@@ -90,7 +98,15 @@
                             <div class="card-header">
                                 <small class="text-muted text-center">
                                     <div class="text-center card-title card-title h5" style="letter-spacing: 1px;">
-                                        <span class="badge badge-success">Online</span>
+                                        @isset($streamer->streamer_attributes->live)
+                                            @if($streamer->streamer_attributes->live == 'on')
+                                                <span class="badge badge-success">Online</span>
+                                            @else
+                                                <span class="badge badge-danger">Offline</span>
+                                            @endif
+                                        @else
+                                            <span class="badge badge-danger">Offline</span>
+                                        @endisset
                                     </div>
                                 </small>
                             </div>

@@ -91,8 +91,7 @@
                 <div class="col-lg-5">
                     <div>
                         <div>
-                            @php($img = Auth::user()->img_src)
-                            <img src="{{ asset('/storage/user_images/'.$img )}}" width="125px">
+                            <img src="{{ asset('/storage/user_images/'.$streamer->img_src)}}" width="125px">
                         </div>
                         <div class="mt-3">
                             <label style="color: #fff; font-size: 30px;">{{ $nombre_streamer }}</label>
@@ -185,7 +184,7 @@
         		alert('Se registro correctamente')
         	}else{
         		alert('Ya esta registrado en esta votacion');
-        	}      
+        	}
         });
     }
     $(document).ready(function () {
@@ -263,7 +262,7 @@
             e.preventDefault();
         });
 
-        
+
 
         let cant = 1;
         let resta = 0;
