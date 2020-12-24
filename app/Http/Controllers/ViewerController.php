@@ -114,7 +114,7 @@ class ViewerController extends Controller
     	
     	$fecha_actual = date('Y-m-d H:i:s');
     	$ruleta = Roulette::query()->where('status', 1)->first();
-    	$participantes_number = ($ruleta->participants_number);
+    	
     	if ($ruleta) {
     		$rul = SorteoRuleta::where('user_id', auth()->id())->where('ruleta_id', $ruleta->id)->get();
     		if (count($rul) == 0) {    			
@@ -123,6 +123,7 @@ class ViewerController extends Controller
 		    	$sr->fecha_canjeado = $fecha_actual;
 
 		    	if ($sr->save()) {
+		    		$participantes_number = ($ruleta->participants_number);
 		    		$npt = $this->update_participant_roulette($ruleta->id, $participantes_number);
 					$response = 'add';
 				}else{
