@@ -137,7 +137,7 @@
                         </button>
                     </div>
                     <div class="mt-3">
-                        <button id="canjear_codigo"
+                        <button id="mensajeval"
                                 style="color: #fff; font-size: 25px; border: 3px solid #fff; border-radius: 35px; width: 80%"
                                 class="btn btn-outline-secondary btn-lg" data-toggle="modal" data-target="#mensaje">
                             Enviar mensaje
@@ -175,10 +175,11 @@
         document.getElementById(elemento).style.display = "none";
     }
     function ans(id) {
+    	let streamer = '{!! $nombre_streamer !!}';
         $.ajax({
             url: '/user/registrarvotacion',
             type: 'POST',
-            data: {id},
+            data: {id, streamer},
         }).done(function(response){
         	if (response == 'add') {
         		alert('Se registro correctamente')
@@ -198,7 +199,8 @@
             let id_free_fire = $('#id_free_fire').val();
             let nombre_free_fire = $('#nombre_free_fire').val();
             let servidor = $('#servidor').val();
-            $.post('/user/canjearcodigo', {codigo, id_free_fire, nombre_free_fire, servidor}, function (response) {
+            let streamer = '{!! $nombre_streamer !!}';
+            $.post('/user/canjearcodigo', {codigo, id_free_fire, nombre_free_fire, servidor, streamer}, function (response) {
                 console.log(response)
                 if (response == 'add') {
                     $('#add').hide('slow');
@@ -228,14 +230,15 @@
                     $('#enviado').show(3000);
                     $('#enviado').hide(2000);
                     $('#form-mensaje').trigger('reset');
+                    $('#cant_char').html('200');
                 } else if (response == 'noenviado') {
                     $('#noenviado').hide('slow');
                     $('#noenviado').show(3000);
-                    // $('#noadd').hide(2000);
+                    $('#noadd').hide(2000);
                 } else {
-                    $('#canjeado').hide('slow');
-                    $('#canjeado').show(3000);
-                    // $('#canjeado').hide(2000);
+                    $('#nosmj').hide('slow');
+                    $('#nosmj').show(3000);
+                    $('#nosmj').hide(2000);
                 }
             });
             e.preventDefault();
@@ -262,6 +265,13 @@
             e.preventDefault();
         });
 
+        $('#mensajeval').on('click', function(){
+        	let mensaje = $('textarea#mensaje').val();
+        	if (mensaje.length === 0) {
+        		$('#cant_char').html('200');
+        	}        	
+        });
+
 
 
         let cant = 1;
@@ -269,9 +279,11 @@
         let total = 200;
         $(document).on('keyup', '#mensaje', function () {//*
             let valor = $(this).val();
-            if (valor != '') {
-                cant = (total - valor.length);
-                $('#cant_char').html(cant);
+            if (valor.length > 0) {
+                cant = (total - valor.length);                
+                if (valor.length <= 200 && valor.length >= 0) {
+                	$('#cant_char').html(cant);
+                }
             }
         });
     });

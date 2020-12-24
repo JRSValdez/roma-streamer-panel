@@ -15,12 +15,12 @@
                             <div class="alert alert-danger text-center" id="noenviado" style="display:none">
                                 <span><i class="fas fa-times m-1"></i>El mensaje no fue enviado</span>
                             </div>
-                            <div class="alert alert-danger text-center" id="noadd-cod" style="display:none">
-                                <span><i class="fas fa-times m-1"></i>Debe completar todos los campos</span>
+                            <div class="alert alert-danger text-center" id="nosmj" style="display:none">
+                                <span><i class="fas fa-times m-1"></i>Cantidad maxima de caracteres alcanzada</span>
                             </div>
                             <form id="form-mensaje">                                
                                 <div class="form-group">
-                                    <textarea rows="5" id="mensaje" name="mensaje" class="form-control" placeholder="Enviar mensaje"></textarea>
+                                    <textarea rows="5" id="mensaje" name="mensaje" class="form-control" placeholder="Enviar mensaje" maxlength="200" minlength="0"></textarea>
                                     <span>Quedan <span id="cant_char">200</span> de 200 caracteres</span>
                                 </div>
                                 <div class="card-footer">

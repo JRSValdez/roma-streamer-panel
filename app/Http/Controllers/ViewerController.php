@@ -74,62 +74,70 @@ class ViewerController extends Controller
     	}else{
     		return redirect("user/");
     	}
-
     }
 
     public function canjear_codigo(Request $request){
     	$codigo = new SorteoCodigo();
-    	$cod = Codigo::select('id_codigo', 'codigo')->where('codigo', $request->codigo)->get();
-    	$fecha_actual = date('Y-m-d H:i:s');
-    	if (count($cod) > 0) {
-    		$sorteo = SorteoCodigo::where('user_id', auth()->id())->where('codigo_id', $cod[0]->id_codigo)->get();
-    		if (count($sorteo) == 0) {
-	    		if (count($cod) == 1) {
-		    		$codigo->user_id = auth()->id();
-			    	$codigo->codigo_id = $cod[0]->id_codigo;
-			    	$codigo->codigo = $request->codigo;
-			    	$codigo->id_free_fire = $request->id_free_fire;
-			    	$codigo->nombre_free_fire = $request->nombre_free_fire;
-			    	$codigo->servidor = $request->servidor;
-			    	$codigo->fecha_canjeado = $fecha_actual;
-			    	if ($codigo->save()) {
-			    		$response = 'add';
+    	$chanel = User::query()->where('name', $request->streamer)->first();
+    	if ($chanel) {
+    		$cod = Codigo::select('id_codigo', 'codigo')->where('codigo', $request->codigo)->where('user_id', $chanel->id)->get();
+	    	$fecha_actual = date('Y-m-d H:i:s');
+	    	if (count($cod) > 0) {
+	    		$sorteo = SorteoCodigo::where('user_id', auth()->id())->where('codigo_id', $cod[0]->id_codigo)->get();
+	    		if (count($sorteo) == 0) {
+		    		if (count($cod) == 1) {
+			    		$codigo->user_id = auth()->id();
+				    	$codigo->codigo_id = $cod[0]->id_codigo;
+				    	$codigo->codigo = $request->codigo;
+				    	$codigo->id_free_fire = $request->id_free_fire;
+				    	$codigo->nombre_free_fire = $request->nombre_free_fire;
+				    	$codigo->servidor = $request->servidor;
+				    	$codigo->fecha_canjeado = $fecha_actual;
+				    	if ($codigo->save()) {
+				    		$response = 'add';
+				    	}else{
+				    		$response = 'noadd';
+				    	}
 			    	}else{
 			    		$response = 'noadd';
 			    	}
 		    	}else{
-		    		$response = 'noadd';
+		    		$response = 'canjeado';
 		    	}
 	    	}else{
-	    		$response = 'canjeado';
+	    		$response = 'noadd';
 	    	}
     	}else{
     		$response = 'noadd';
-    	}
+    	}   	
 
     	return $response;
     }
 
     public function enviar_mensaje(Request $request){
-    	$mensaje = new Mensaje();
-    	$chanel = User::query()->where('name', $request->streamer)->first();
-    	$fecha_actual = date('Y-m-d H:i:s');
+    	if (strlen($request->mensaje) == 200) {
+    		$mensaje = new Mensaje();
+	    	$chanel = User::query()->where('name', $request->streamer)->first();
+	    	$fecha_actual = date('Y-m-d H:i:s');
 
-    	if ($chanel) {
-    		$mensaje->user_id_envia = auth()->id();
-	    	$mensaje->user_id_recibe = $chanel->id;
-	    	$mensaje->fecha = $fecha_actual;
-	    	$mensaje->estado = 'Nuevo';
-	    	$mensaje->mensaje = $request->mensaje;
+	    	if ($chanel) {
+	    		$mensaje->user_id_envia = auth()->id();
+		    	$mensaje->user_id_recibe = $chanel->id;
+		    	$mensaje->fecha = $fecha_actual;
+		    	$mensaje->estado = 'Nuevo';
+		    	$mensaje->mensaje = $request->mensaje;
 
-	    	if ($mensaje->save()) {
-				$response = 'enviado';
-			}else{
-				$response = 'noenviado';
-			}
+		    	if ($mensaje->save()) {
+					$response = 'enviado';
+				}else{
+					$response = 'noenviado';
+				}
+	    	}else{
+	    		$response = 'noenviado';
+	    	}
     	}else{
-    		$response = 'noenviado';
-    	}
+    		$response = 'maxlenght';
+    	}    	
 
 		return $response;
     }
@@ -170,11 +178,12 @@ class ViewerController extends Controller
 
 		return $response;
     }
-    public function reg_votacion(Request $request){
-    	$pull = new PollAnswerDetail();
-    	$sorteopoll = PollAnswerDetail::where('user_id', auth()->id())->where('answer_id', $request->id)->get();
+
+    public function reg_votacion(Request $request){    	
     	$poll_active = Poll::query()->where('status', 1)->first();
     	if ($poll_active) {
+    		$pull = new PollAnswerDetail();
+    		$sorteopoll = PollAnswerDetail::where('user_id', auth()->id())->where('answer_id', $request->id)->get();
     		if (count($sorteopoll)==0) {
 	    		$pull->user_id = auth()->id();
 		    	$pull->answer_id = $request->id;
