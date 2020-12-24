@@ -20,7 +20,7 @@
                             </div>
                             <form id="form-canjear-codigo">                                
                                 <div class="form-group">
-                                    <label for="codigo">texto votacion</label>
+                                    <label for="codigo">{!! $question !!}</label>
                                 </div>
                                 <div class="form-group">
                                     <button>Si</button>
