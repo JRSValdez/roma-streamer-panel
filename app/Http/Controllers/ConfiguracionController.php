@@ -89,8 +89,14 @@ class ConfiguracionController extends Controller
         $streamerAtt->user = $validated['streamer_user'];
 
         if(isset($validated['img_src'])){
-
-            $imageName = $user->img_src != null ? $user->img_src : time() . '.' . $request->img_src->extension();
+            $imageName = '';
+            if($user->img_src != null){
+                if($user->img_src != 'default.jpg'){
+                    $imageName = $user->img_src;
+                } else {
+                    $imageName = time() . '.' . $request->img_src->extension();
+                }
+            }
 
             $request->file('img_src')->storeAs(
                 '/public/user_images/', $imageName
@@ -101,8 +107,17 @@ class ConfiguracionController extends Controller
 
         if(isset($validated['logo_image'])){
 
-            $imageName = isset($streamerAtt->logo_image) ? $streamerAtt->logo_image : time() . '.' . $request->logo_image->extension();
-
+            $imageName = '';
+            if(isset($streamerAtt->logo_image)){
+                if($streamerAtt->logo_image != null){
+                    if($streamerAtt->logo_image != 'logo_default.png'){
+                        $imageName = $streamerAtt->logo_image;
+                    } else {
+                        $imageName = time() . '.' . $request->logo_image->extension();
+                    }
+                }
+            }
+            
             $request->file('logo_image')->storeAs(
                 '/public/user_images/', $imageName
             );
