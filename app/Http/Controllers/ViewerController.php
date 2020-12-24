@@ -117,17 +117,20 @@ class ViewerController extends Controller
 
     public function registrar_en_ruleta(){
     	$sr = new SorteoRuleta();
+    	
     	$fecha_actual = date('Y-m-d H:i:s');
     	$ruleta = Roulette::query()->where('status', 1)->first();
-
+    	
     	if ($ruleta) {
     		$rul = SorteoRuleta::where('user_id', auth()->id())->where('ruleta_id', $ruleta->id)->get();
-    		if (count($rul) == 0) {
+    		if (count($rul) == 0) {    			
     			$sr->user_id = auth()->id();
 		    	$sr->ruleta_id = $ruleta->id;
 		    	$sr->fecha_canjeado = $fecha_actual;
 
 		    	if ($sr->save()) {
+		    		$participantes_number = ($ruleta->participants_number);
+		    		$npt = $this->update_participant_roulette($ruleta->id, $participantes_number);
 					$response = 'add';
 				}else{
 					$response = 'noadd';
@@ -141,5 +144,13 @@ class ViewerController extends Controller
     	}
 
 		return $response;
+    }
+
+    public function update_participant_roulette($id, $np){
+    	$ruleta_p = Roulette::findOrFail($id);
+    	$nps = ($np + 1);
+    	$ruleta_p->participants_number = $nps;
+
+    	return $ruleta_p->update();
     }
 }

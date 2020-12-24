@@ -296,7 +296,7 @@ $(document).ready(function () {
       var id = datos.id;
       var estado = datos.status;
 
-      if (estado === 1) {
+      if (estado == 1) {
         window.open('/streamer/ruleta/ganadores/' + id, '_blank');
       } else {
         Swal.fire({
