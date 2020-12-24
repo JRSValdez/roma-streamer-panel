@@ -117,7 +117,7 @@ class ConfiguracionController extends Controller
                     }
                 }
             }
-            
+
             $request->file('logo_image')->storeAs(
                 '/public/user_images/', $imageName
             );
