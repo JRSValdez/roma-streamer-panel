@@ -206,7 +206,7 @@ $(document).ready(function(){
           let datos = datatable.row($(this).parents()).data();
           let id = datos.id;
           let estado = datos.status;
-          if (estado === 1) {
+          if (estado == 1) {
             window.open('/streamer/ruleta/ganadores/'+id, '_blank');
           }else{
               Swal.fire({
