@@ -29,12 +29,18 @@ class ViewerController extends Controller
             ->orderByDesc('messages_count')
             ->get();
 
+        $idsDestacados = [];
+
+        foreach ($streamersDestacados1 as $destacado){
+            $idsDestacados[] = $destacado->id;
+        }
+
         $streamersDestacados2 = User::query()
             ->select(DB::raw('count(mensaje.id_mensaje) as messages_count, users.id, users.name, users.img_src'))
             ->leftJoin('mensaje', 'users.id', '=', 'mensaje.user_id_recibe')
             ->where('type',1)
+            ->whereNotIn('id',$idsDestacados)
             ->groupBy('users.id', 'users.name', 'users.img_src')
-            ->offset(4)
             ->limit(6)
             ->orderByDesc('messages_count')
             ->get();
