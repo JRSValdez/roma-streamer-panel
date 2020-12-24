@@ -175,7 +175,19 @@
     function cerrar(elemento) {
         document.getElementById(elemento).style.display = "none";
     }
-
+    function ans(id) {
+        $.ajax({
+            url: '/user/registrarvotacion',
+            type: 'POST',
+            data: {id},
+        }).done(function(response){
+        	if (response == 'add') {
+        		alert('Se registro correctamente')
+        	}else{
+        		alert('Ya esta registrado en esta votacion');
+        	}      
+        });
+    }
     $(document).ready(function () {
         $.ajaxSetup({
             headers: {
@@ -249,6 +261,8 @@
             });
             e.preventDefault();
         });
+
+        
 
         let cant = 1;
         let resta = 0;

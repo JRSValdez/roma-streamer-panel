@@ -48,12 +48,13 @@ class ViewerController extends Controller
     public function get_streamer($streamer){
     	$chanel = User::query()->where('name', $streamer)->first();    	
     	if ($chanel) {
-    		$votacion = Poll::query()->where('status', 1)->first();
-    		$votacion_answer = PollAnswers::query()->where('poll_id', $votacion->id)->get();
+    		$votacion = Poll::query()->where('status', 1)->first();    		
     		if ($votacion) {
+    			$votacion_answer = PollAnswers::query()->where('poll_id', $votacion->id)->get();
     			$pull = $votacion->question;
     		}else{
-    			$pull = 'No hay votaciones';
+    			$pull = '';
+    			$votacion_answer = '';
     		}
     		return view('user.chanel_stream', ['nombre_streamer' => $streamer, 'streamer' => $chanel, 'question' => $pull, 'vot_ans' => $votacion_answer]);
     	}else{
@@ -148,6 +149,23 @@ class ViewerController extends Controller
     	}
 
 		return $response;
+    }
+    public function reg_votacion(Request $request){
+    	$pull = new PollAnswerDetail();
+    	$sorteopoll = PollAnswerDetail::where('user_id', auth()->id())->where('answer_id', $request->id)->get();
+    	if (count($sorteopoll)==0) {
+    		$pull->user_id = auth()->id();
+	    	$pull->answer_id = $request->id;
+	    	if ($pull->save()) {
+	    		$response = 'add';
+	    	}else{
+	    		$response = 'noadd';
+	    	}
+    	}else{
+    		$response = 'noadd';
+    	}
+    	
+    	return $response;
     }
 
     public function update_participant_roulette($id, $np){
