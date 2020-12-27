@@ -84,7 +84,7 @@
 
         </div>
 
-        <!-- !! Adsense::show('responsive') !! -->
+        {!! Adsense::show('responsive') !!}
 
         <br>
         <div class="card-group">

@@ -156,7 +156,7 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item">
+                    <li class="nav-item collapse" style="display: none">
                         <a href="{{url('/streamer/premios')}}" class="nav-link">
                             <i class="nav-icon fas fa-gift"></i>
                             <p>

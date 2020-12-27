@@ -74,6 +74,7 @@
 @include('user.modales.modal_ruleta')
 @include('user.modales.modal_mensaje')
 <div class="wrapper">
+	<!-- !! Adsense::show('rectangle') !! -->
     <div class="sign-out-button text-right m-3">
         <a class="" href="{{ route('logout') }}" role="button"
            onclick="event.preventDefault(); document.getElementById('logout-form').submit();" style="color: #fff">
@@ -110,6 +111,8 @@
                             </div>
                         </div>
                     </div>
+                    <!-- !! Adsense::show('responsive') !! -->
+                    <!-- !! Adsense::show('responsive') !! -->
                 </div>
                 <div class="col-lg-5">
                     <div>
@@ -152,6 +155,7 @@
                 </div>
                 <div class="col-lg-2">
                     <div></div>
+                    <!-- !! Adsense::show('responsive') !! -->
                 </div>
             </div>
             <!-- /.row -->
@@ -174,20 +178,7 @@
     function cerrar(elemento) {
         document.getElementById(elemento).style.display = "none";
     }
-    function ans(id) {
-    	let streamer = '{!! $nombre_streamer !!}';
-        $.ajax({
-            url: '/user/registrarvotacion',
-            type: 'POST',
-            data: {id, streamer},
-        }).done(function(response){
-        	if (response == 'add') {
-        		alert('Se registro correctamente')
-        	}else{
-        		alert('Ya esta registrado en esta votacion');
-        	}
-        });
-    }
+
     $(document).ready(function () {
         $.ajaxSetup({
             headers: {
@@ -272,6 +263,11 @@
         	}        	
         });
 
+        $('#votacion').on('click', function(){
+        	$('#registrado').hide();        	
+        	$('#add-votacion').hide();        	
+        });
+
 
 
         let cant = 1;
@@ -287,6 +283,26 @@
             }
         });
     });
+
+    function ans(id) {
+    	let streamer = '{!! $nombre_streamer !!}';
+    	let qid = '{!! $question_id !!}';
+        $.ajax({
+            url: '/user/registrarvotacion',
+            type: 'POST',
+            data: {id, streamer, qid},
+        }).done(function(response){
+        	if (response == 'add') {
+        		$('#registrado').hide();
+        		$('#add-votacion').hide('slow');
+                $('#add-votacion').show(2000);
+        	}else{
+        		$('#add-votacion').hide();
+        		$('#registrado').hide('slow');
+                $('#registrado').show(2000);
+        	}
+        });
+    }
 </script>
 </body>
 <!-- @include('layouts.footer_streamer') -->

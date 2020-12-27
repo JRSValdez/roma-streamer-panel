@@ -9,17 +9,20 @@
                             </button>
                         </div>
                         <div class="card-body">
-                            <div class="alert alert-success text-center" id="add" style="display:none">
-                                <span><i class="fas fa-check m-1"></i>Se genero correctamente</span>
+                            <div class="alert alert-success text-center" id="add-votacion" style="display:none">
+                                <span><i class="fas fa-check m-1"></i>Se registro correctamente</span>
                             </div>
-                            <div class="alert alert-danger text-center" id="noadd" style="display:none">
+                            <div class="alert alert-danger text-center" id="noadd-votacion" style="display:none">
                                 <span><i class="fas fa-times m-1"></i>Ya realizo la votacion</span>
                             </div>
                             <div class="alert alert-danger text-center" id="noadd-cod" style="display:none">
                                 <span><i class="fas fa-times m-1"></i>Debe completar todos los campos</span>
                             </div>
+                            <div id="registrado" class="alert alert-warning collapse text-center">
+                                <span><i class="fas fa-check m-1"></i>Ya esta registrado para esta votación</span>
+                            </div>
                             <!-- <form id="form-question">                                 -->
-                                <div class="form-group">
+                                <div class="form-group alert alert-info">
                                     <label for="codigo">{!! $question !!}</label>
                                 </div>
                                 @if($question != '')
