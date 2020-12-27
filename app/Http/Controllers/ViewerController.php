@@ -181,34 +181,38 @@ class ViewerController extends Controller
 		return $response;
     }
 
-    public function reg_votacion(Request $request){    	
-    	$poll_active = Poll::query()->where('status', 1)->first();
-    	if ($poll_active) {
-    		$pull = new PollAnswerDetail();
-    		$poll_resp = PollAnswers::join('poll_answers_detail', 'poll_answers.id', '=', 'poll_answers_detail.answer_id')->where('poll_answers.poll_id', $request->qid)->get();
-    		if (count($poll_resp) == 0) {
-    			$sorteopoll = PollAnswerDetail::where('user_id', auth()->id())->where('answer_id', $request->id)->get();
-	    		if (count($sorteopoll)==0) {
-		    		$pull->user_id = auth()->id();
-			    	$pull->answer_id = $request->id;
-			    	if ($pull->save()) {
-			    		$participantes_number = ($poll_active->participants_number);
-			    		$npt = $this->update_participant_pull($poll_active->id, $participantes_number);
-			    		$response = 'add';
+    public function reg_votacion(Request $request){    
+    	$chanel = User::query()->where('name', $request->streamer)->first();	
+    	if ($chanel) {
+    		$poll_active = Poll::query()->where('status', 1)->where('user_id', $chanel->id)->first();
+	    	if ($poll_active) {
+	    		$pull = new PollAnswerDetail();
+	    		$poll_resp = PollAnswers::join('poll_answers_detail', 'poll_answers.id', '=', 'poll_answers_detail.answer_id')->where('poll_answers.poll_id', $request->qid)->get();
+	    		if (count($poll_resp) == 0) {
+	    			$sorteopoll = PollAnswerDetail::where('user_id', auth()->id())->where('answer_id', $request->id)->get();
+		    		if (count($sorteopoll)==0) {
+			    		$pull->user_id = auth()->id();
+				    	$pull->answer_id = $request->id;
+				    	if ($pull->save()) {
+				    		$participantes_number = ($poll_active->participants_number);
+				    		$npt = $this->update_participant_pull($poll_active->id, $participantes_number);
+				    		$response = 'add';
+				    	}else{
+				    		$response = 'noadd';
+				    	}
 			    	}else{
 			    		$response = 'noadd';
 			    	}
-		    	}else{
-		    		$response = 'noadd';
-		    	}
-    		}else{
-    			$response = 'noadd';
-    		}
-    		
+	    		}else{
+	    			$response = 'noadd';
+	    		}
+	    		
+	    	}else{
+	    		$response = 'noadd-vot';
+	    	}
     	}else{
-    		$response = 'noadd-vot';
+    		$response = 'noadd';
     	}
-    	
 
     	return $response;
     }
