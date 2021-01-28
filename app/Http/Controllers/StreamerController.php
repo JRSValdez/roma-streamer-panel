@@ -16,7 +16,7 @@ class StreamerController extends Controller
         $this->middleware('isStreamer');
     }
 
-    public function index(){
+    public function index(Request $request){
         $user = Auth::user();
         $rouletteCount = Roulette::query()->where("user_id","=",$user->id)->whereNotIn("status",[0])->count();
 
@@ -26,11 +26,14 @@ class StreamerController extends Controller
 
         $messageCount = Mensaje::query()->where("user_id_recibe","=",$user->id)->count();
 
+        $url = $request->root().'/user/chanel/'.Auth::user()->name;
+
         $info = [
             'messages_count' => $messageCount,
             'roulette_count' => $rouletteCount,
             'polls_count' => $pollsCount,
             'codes_count' => $codesCount,
+            'url' => $url,
         ];
         return view('streamer.index',$info);
     }

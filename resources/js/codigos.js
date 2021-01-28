@@ -211,11 +211,11 @@ $(document).ready(function(){
             $('#add').hide('slow');
             $('#add').show(2000);
             $('#add').hide(2000);
-            $('#form-generar-codigo').trigger('reset');
+            // $('#form-generar-codigo').trigger('reset');
             var ref = $('#codigo_lista').DataTable();
             ref.ajax.reload();
           }else{
-              $('#form-generar-codigo').trigger('reset');
+              // $('#form-generar-codigo').trigger('reset');
               Swal.fire({
                   icon: 'error',
                   title: 'Oops...',

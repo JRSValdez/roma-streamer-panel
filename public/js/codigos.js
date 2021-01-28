@@ -310,12 +310,12 @@ $(document).ready(function () {
         if (response == 'add') {
           $('#add').hide('slow');
           $('#add').show(2000);
-          $('#add').hide(2000);
-          $('#form-generar-codigo').trigger('reset');
+          $('#add').hide(2000); // $('#form-generar-codigo').trigger('reset');
+
           var ref = $('#codigo_lista').DataTable();
           ref.ajax.reload();
         } else {
-          $('#form-generar-codigo').trigger('reset');
+          // $('#form-generar-codigo').trigger('reset');
           Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -370,7 +370,7 @@ var espanol = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\roma-streamer-panel\resources\js\codigos.js */"./resources/js/codigos.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\roma\roma-streamer-panel\resources\js\codigos.js */"./resources/js/codigos.js");
 
 
 /***/ })
