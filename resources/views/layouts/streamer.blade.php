@@ -22,7 +22,9 @@
 
         <!-- right navbar links -->
         <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
+{{--            <li class="nav-item">
+                <img src="{{ asset('/storage/user_images/'.Auth::user()->img_src )}}" class="img-circle elevation-2"
+                     alt="User Image">
                 <a class="nav-link" href="{{ route('logout') }}" role="button"
                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     {{ __('Logout') }}
@@ -32,6 +34,32 @@
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                     @csrf
                 </form>
+            </li>--}}
+            <li class="dropdown user-menu">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                    <img src="{{ asset('/storage/user_images/'.Auth::user()->img_src )}}" class="user-image"
+                         alt="User Image">
+                    <span class="d-hidden-mini">{{ Auth::user()->name }}</span>
+                </a>
+                <ul class="dropdown-menu sidebar-dark-primary">
+                    <li class="user-header">
+                        <img src="{{ asset('/storage/user_images/'.Auth::user()->img_src )}}" class="img-circle"
+                             alt="User Image">
+                        <p style="color: white;">{{ Auth::user()->name }}</p>
+                    </li>
+                    <li class="user-footer">
+                        <div class="fa-pull-left">
+                            <a href="{{route('showStreamerConfig')}}" class="btn btn-primary btn-flat">Perfil</a>
+                        </div>
+                        <div class="fa-pull-right">
+                            <a href="{{ route('logout') }}"  onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                               class="btn btn-danger btn-flat">Cerrar sesión</a>
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </div>
+                    </li>
+                </ul>
             </li>
         </ul>
     </nav>
