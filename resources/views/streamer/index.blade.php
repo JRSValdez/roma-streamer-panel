@@ -18,8 +18,8 @@
             <div class="col-lg-5">
                 <button class="btn btn-info btn-sm" onclick="copiar()">Copiar URL</button>
             </div>
-        </div>       
-        
+        </div>
+
         <hr>
     </div>
     <div class="row">
@@ -77,6 +77,23 @@
         </div>
         <!-- ./col -->
     </div>
+    <div class="card mt-12">
+        <div class="card-header">
+            <h3 class="card-title">Últimos mensajes</h3>
+        </div>
+        <div class="card-body table-responsive no-padding">
+            <table id="tabla_mensaje" class="table table-bordered table-striped table-hover" width="100%">
+                <thead>
+                <tr>
+                    <th>Usuario</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                    <th>Mensaje</th>
+                </tr>
+                </Thead>
+            </table>
+        </div>
+    </div>
     <script type="text/javascript">
         function copiar() {
             var aux = document.createElement("input");
@@ -108,4 +125,6 @@
     <!-- Main row -->
     <!-- /.row (main row) -->
 @endsection
-
+@section('scripts')
+    <script src="{!! asset('js/mensaje.js') !!}"></script>
+@endsection

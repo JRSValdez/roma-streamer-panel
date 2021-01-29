@@ -27,7 +27,7 @@
 {{--                    </div>--}}
                     <div class="card mt-12">
                         <div class="card-header">
-                            <h3 class="card-title">Últimos loots</h3>
+                            <h3 class="card-title">Últimos mensajes</h3>
                         </div>
                         <div class="card-body table-responsive no-padding">
                             <table id="tabla_mensaje" class="table table-bordered table-striped table-hover" width="100%">
