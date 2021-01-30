@@ -117,7 +117,7 @@ class ViewerController extends Controller
     }
 
     public function enviar_mensaje(Request $request){
-    	if (strlen($request->mensaje) == 200) {
+    	if (strlen($request->mensaje) <= 200) {
     		$mensaje = new Mensaje();
 	    	$chanel = User::query()->where('name', $request->streamer)->first();
 	    	$fecha_actual = date('Y-m-d H:i:s');
