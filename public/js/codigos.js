@@ -119,7 +119,7 @@ $(document).ready(function () {
       name: 'codigo'
     }, {
       data: 'premiop',
-      name: 'premiop'
+      name: 'premio.premio'
     }, {
       data: 'maximo_ganadores',
       name: 'maximo_ganadores'
@@ -370,7 +370,7 @@ var espanol = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\roma\roma-streamer-panel\resources\js\codigos.js */"./resources/js/codigos.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\roma-streamer-panel\resources\js\codigos.js */"./resources/js/codigos.js");
 
 
 /***/ })

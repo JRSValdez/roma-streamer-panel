@@ -1,24 +1,24 @@
 $(document).ready(function(){
-  
+
     let estado;
     $.ajaxSetup({
       headers: {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
       }
     });
-    
+
     let datatable = $('#tabla_mensaje').DataTable({
       processing: true,
-      serverSide:true,  
+      serverSide:true,
       "ajax": {
                 "url": "/streamer/getmensajes",
                 "method": "POST",
             },
       columns: [
-         { data: 'name', name: 'name' },
+         { data: 'name', name: 'users.name' },
          { data: 'fecha', name: 'fecha' },
          { data: 'estado', name: 'estado' },
-         { data: 'mensaje', name: 'mensaje' },
+         { data: 'mensaje', name: 'mensaje' }
       ],
       "language": espanol
     });

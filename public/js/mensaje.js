@@ -109,7 +109,7 @@ $(document).ready(function () {
     },
     columns: [{
       data: 'name',
-      name: 'name'
+      name: 'users.name'
     }, {
       data: 'fecha',
       name: 'fecha'
@@ -161,7 +161,7 @@ var espanol = {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(/*! C:\xampp\htdocs\roma\roma-streamer-panel\resources\js\mensaje.js */"./resources/js/mensaje.js");
+module.exports = __webpack_require__(/*! C:\xampp\htdocs\roma-streamer-panel\resources\js\mensaje.js */"./resources/js/mensaje.js");
 
 
 /***/ })
