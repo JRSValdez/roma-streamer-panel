@@ -42,7 +42,7 @@
             </div>
         </div>
         <br>
-        <div class="card-group text-center">
+        <div class="card-group text-center ml-2">
             <h4>Ellos son los streamers destacados</h4>
         </div>
         <div class="card-group">
@@ -87,7 +87,7 @@
         <!-- !! Adsense::show('responsive') !! -->
 
         <br>
-        <div class="card-group text-center">
+        <div class="card-group text-center ml-2">
             <h3>Y hay muchos mas</h3>
         </div>
         <div class="row">
