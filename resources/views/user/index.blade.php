@@ -33,22 +33,22 @@
     </style>
 
     <div style="height: auto !important;">
-        <div style="height: auto !important;">
+        <div class="m-1 mt-5" style="height: auto !important;">
             <div class="header-container">
                 <img alt="imagen html de ejemplo"
                      src="https://i.pinimg.com/originals/ba/4d/80/ba4d801db37ad7ba4d455d742d46e680.jpg"
                      class="img-fluid"/>
-                <h1 class="header-title">Bienvenidos a {{Auth::user()->site_name }}</h1>
+                <h3 class="header-title col-sm-10">Bienvenidos a {{Auth::user()->site_name }}</h3>
             </div>
         </div>
         <br>
-        <div class="card-group">
-            <h3>&nbsp;&nbsp;&nbsp;Ellos son los streamers destacados</h3>
+        <div class="card-group text-center">
+            <h4>Ellos son los streamers destacados</h4>
         </div>
         <div class="card-group">
 
             @foreach($destacados as $streamer)
-                <div class="col-3">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="card streamer-card" style="margin: 1rem;">
                         <a class="color-black" href="{!! url('user/chanel/'.$streamer['name']) !!}">
                             <div class="card-header">
@@ -73,8 +73,8 @@
                                      background-size: cover;"
                             >
                             </div>
-                            <div class="card-body">
-                                <div class="text-center card-title card-title h5"
+                            <div class="card-body text-center">
+                                <div class="text-center"
                                      style="letter-spacing: 1px;">{{$streamer['name']}}</div>
                             </div>
                         </a>
@@ -84,15 +84,15 @@
 
         </div>
 
-        {!! Adsense::show('responsive') !!}
+        <!-- !! Adsense::show('responsive') !! -->
 
         <br>
-        <div class="card-group">
-            <h3>&nbsp;&nbsp;&nbsp;Y hay muchos mas</h3>
+        <div class="card-group text-center">
+            <h3>Y hay muchos mas</h3>
         </div>
         <div class="row">
             @foreach($streamers as $streamer)
-                <div class="col-2">
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
                     <div class="card streamer-card" style="margin: 1rem;">
                         <a class="color-black" href="{!! url('user/chanel/'.$streamer['name']) !!}">
                             <div class="card-header">
@@ -117,9 +117,10 @@
                                      background-size: cover;"
                             >
                             </div>
-                            <div class="card-body">
-                                <div class="text-center card-title card-title h5"
-                                     style="letter-spacing: 1px;">{{$streamer['name']}}</div>
+                            <div class="card-body text-center">
+                                <div class="text-center">
+                                    <span class="text-center">{{$streamer['name']}}</span>
+                                </div>
                             </div>
                         </a>
                     </div>
