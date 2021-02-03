@@ -82,30 +82,35 @@ class ViewerController extends Controller
     	$codigo = new SorteoCodigo();
     	$chanel = User::query()->where('name', $request->streamer)->first();
     	if ($chanel) {
-    		$cod = Codigo::select('id_codigo', 'codigo')->where('codigo', $request->codigo)->where('user_id', $chanel->id)->get();
+    		$cod = Codigo::select('id_codigo', 'codigo', 'estado')->where('codigo', $request->codigo)->where('user_id', $chanel->id)->get();
 	    	$fecha_actual = date('Y-m-d H:i:s');
 	    	if (count($cod) > 0) {
-	    		$sorteo = SorteoCodigo::where('user_id', auth()->id())->where('codigo_id', $cod[0]->id_codigo)->get();
-	    		if (count($sorteo) == 0) {
-		    		if (count($cod) == 1) {
-			    		$codigo->user_id = auth()->id();
-				    	$codigo->codigo_id = $cod[0]->id_codigo;
-				    	$codigo->codigo = $request->codigo;
-				    	$codigo->id_free_fire = $request->id_free_fire;
-				    	$codigo->nombre_free_fire = $request->nombre_free_fire;
-				    	$codigo->servidor = $request->servidor;
-				    	$codigo->fecha_canjeado = $fecha_actual;
-				    	if ($codigo->save()) {
-				    		$response = 'add';
-				    	}else{
-				    		$response = 'noadd';
-				    	}
-			    	}else{
-			    		$response = 'noadd';
-			    	}
-		    	}else{
-		    		$response = 'canjeado';
-		    	}
+                if ($cod[0]->estado == 'a') {
+                    $sorteo = SorteoCodigo::where('user_id', auth()->id())->where('codigo_id', $cod[0]->id_codigo)->get();
+                    if (count($sorteo) == 0) {
+                        if (count($cod) == 1) {
+                            $codigo->user_id = auth()->id();
+                            $codigo->codigo_id = $cod[0]->id_codigo;
+                            $codigo->codigo = $request->codigo;
+                            $codigo->id_free_fire = $request->id_free_fire;
+                            $codigo->nombre_free_fire = $request->nombre_free_fire;
+                            $codigo->servidor = $request->servidor;
+                            $codigo->fecha_canjeado = $fecha_actual;
+                            if ($codigo->save()) {
+                                $response = 'add';
+                            }else{
+                                $response = 'noadd';
+                            }
+                        }else{
+                            $response = 'noadd';
+                        }
+                    }else{
+                        $response = 'canjeado';
+                    }
+                }else{
+                    $response = 'inactivo';
+                }
+	    		
 	    	}else{
 	    		$response = 'noadd';
 	    	}

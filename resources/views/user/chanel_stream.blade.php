@@ -192,21 +192,39 @@
             let servidor = $('#servidor').val();
             let streamer = '{!! $nombre_streamer !!}';
             $.post('/user/canjearcodigo', {codigo, id_free_fire, nombre_free_fire, servidor, streamer}, function (response) {
-                console.log(response)
+                let icono;
+                let titulo;
                 if (response == 'add') {
-                    $('#add').hide('slow');
-                    $('#add').show(3000);
-                    $('#add').hide(2000);
+                    icono = 'success';
+                    titulo = 'El código se canjeo correctamente.'
                     $('#form-canjear-codigo').trigger('reset');
                 } else if (response == 'noadd') {
-                    $('#noadd').hide('slow');
-                    $('#noadd').show(3000);
-                    // $('#noadd').hide(2000);
+                    icono = 'error';
+                    titulo = 'El código ingresado no es correcto.'
+                }else if (response == 'inactivo') {
+                    icono = 'warning';
+                    titulo = 'El código ingresado no esta activado.'
                 } else {
-                    $('#canjeado').hide('slow');
-                    $('#canjeado').show(3000);
-                    // $('#canjeado').hide(2000);
+                    icono = 'warning';
+                    titulo = 'El código ingresado ya fue registrado.'
                 }
+
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 7000,
+                  timerProgressBar: true,
+                  didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                  }
+                })
+
+                Toast.fire({
+                  icon: icono,
+                  title: titulo
+                })
             });
             e.preventDefault();
         });
@@ -215,22 +233,37 @@
             let mensaje = $('textarea#mensaje').val();
             let streamer = '{!! $nombre_streamer !!}';
             $.post('/user/mensaje', {mensaje, streamer}, function (response) {
-                console.log(response)
+                let icono;
+                let titulo;
                 if (response == 'enviado') {
-                    $('#enviado').hide('slow');
-                    $('#enviado').show(3000);
-                    $('#enviado').hide(2000);
+                    icono = 'success';
+                    titulo = 'Mensaje enviado.'
                     $('#form-mensaje').trigger('reset');
                     $('#cant_char').html('200');
                 } else if (response == 'noenviado') {
-                    $('#noenviado').hide('slow');
-                    $('#noenviado').show(3000);
-                    $('#noadd').hide(2000);
+                    icono = 'error';
+                    titulo = 'El mensaje no fue enviado.'
                 } else {
-                    $('#nosmj').hide('slow');
-                    $('#nosmj').show(3000);
-                    $('#nosmj').hide(2000);
+                    icono = 'warning';
+                    titulo = 'Cantidad maxima de caracteres alcanzada.'
                 }
+
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 7000,
+                  timerProgressBar: true,
+                  didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                  }
+                })
+
+                Toast.fire({
+                  icon: icono,
+                  title: titulo
+                })
             });
             e.preventDefault();
         });
@@ -238,20 +271,36 @@
         $('#form-ruleta').submit(e => {
         	let streamer = '{!! $nombre_streamer !!}';
             $.post('/user/ruleta',{streamer}, function (response) {
+                let icono;
+                let titulo;
                 if (response == 'add') {
-                    $('#add-rul').hide('slow');
-                    $('#add-rul').show(2000);
-                    $('#add-rul').hide(3000);
+                    icono = 'success';
+                    titulo = 'Se registro en la ruleta.'
                     $('#form-ruleta').trigger('reset');
                 } else if (response == 'noadd') {
-                    $('#noadd-ruls').hide('slow');
-                    $('#noadd-ruls').show(2000);
-                    $('#noadd-ruls').hide(3000);
+                    icono = 'warning';
+                    titulo = 'Ya esta registrado en la ruleta.'
                 } else {
-                    $('#noadd-rul').hide('slow');
-                    $('#noadd-rul').show(2000);
-                    $('#noadd-rul').hide(3000);
+                    icono = 'error';
+                    titulo = 'No hay ruletas activas.'
                 }
+
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 7000,
+                  timerProgressBar: true,
+                  didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer)
+                    toast.addEventListener('mouseleave', Swal.resumeTimer)
+                  }
+                })
+
+                Toast.fire({
+                  icon: icono,
+                  title: titulo
+                })
             });
             e.preventDefault();
         });
@@ -292,15 +341,32 @@
             type: 'POST',
             data: {id, streamer, qid},
         }).done(function(response){
+            let icono;
+            let titulo;
         	if (response == 'add') {
-        		$('#registrado').hide();
-        		$('#add-votacion').hide('slow');
-                $('#add-votacion').show(2000);
+                icono = 'success';
+                titulo = 'Se registro correctamente.'
         	}else{
-        		$('#add-votacion').hide();
-        		$('#registrado').hide('slow');
-                $('#registrado').show(2000);
+        		icono = 'warning';
+                titulo = 'Ya esta registrado para esta votación.'
         	}
+
+            const Toast = Swal.mixin({
+              toast: true,
+              position: 'top-end',
+              showConfirmButton: false,
+              timer: 7000,
+              timerProgressBar: true,
+              didOpen: (toast) => {
+                toast.addEventListener('mouseenter', Swal.stopTimer)
+                toast.addEventListener('mouseleave', Swal.resumeTimer)
+              }
+            })
+
+            Toast.fire({
+              icon: icono,
+              title: titulo
+            })
         });
     }
 </script>
